@@ -19,7 +19,7 @@ private:
 
 
 public:
-  Fish(double weight, double position[]);
+  Fish(double weight, std::vector<double> position);
   Fish();
   ~Fish();
 

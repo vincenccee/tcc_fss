@@ -1,29 +1,36 @@
-#ifndef _NODE_H_
-#define _NODE_H_
+#ifndef _POPULATION_H_
+#define _POPULATION_H_
 #include <iostream>
 #include <vector>
 #include <algorithm>
 
-class Node {
+class Population {
   private:
-  	int pos;
-  	int custo;
-  	int caminho;
-  	Node *pai;
+  	std::vector<Fish> pop;
+    double stepInd;
+    double stepVol;
+    double minWeight;
+    double maxWeight;
+    int generation;
+    int tamPopulation
 
   public:
-  	Node(int pos, int custo, int caminho, Node* pai, int num);
-  	Node();
+  	Population(int tamPopulation, int generetions);
+  	Population();
+    ~Population();
 
-  	int getPos();
-  	int getCusto();
-  	int getCaminho();
-  	Node* getPai();
-  	void setPos(int pos);
-  	void setCusto(int custo);
-  	void setCaminho(int caminho);
-  	void setPai(Node *pai);
+    void initializePipulation();
+    void evaluatePopulation();
+    std::vector<double> randonPosition();
 
+    double getStepInd();
+    double getStepVol();
+    double getMinWeight();
+    double getMaxWeight();
+    void setStepInd(double stepInd);
+    void setStepVol(double stepVol);
+    void setMinWeight(double minWeight);
+    void setMaxWeight(double maxWeight);
   };
 
 #endif

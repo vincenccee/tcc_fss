@@ -3,8 +3,8 @@
 using namespace std;
 
 Fish::Fish(double weight, std::vector<double> position){
-  this.setWeight(weight);
-  this.setCurrentPosition(position);
+  this->setWeight(weight);
+  this->setCurrentPosition(position);
 }
 
 Fish::Fish() {}
@@ -12,57 +12,57 @@ Fish::Fish() {}
 Fish::~Fish() {}
 
 double Fish::getWeight(){
-  return this.weight;
+  return this->weight;
 }
 
 double Fish::getWeightVariation(){
-  return this.weightVariation;
+  return this->weightVariation;
 }
 
 std::vector<double> Fish::getCurrentPosition(){
-  return this.currentPosition;
+  return this->currentPosition;
 }
 
 std::vector<double> Fish::getPreviuosPosition(){
-  return this.previuosPosition;
+  return this->previuosPosition;
 }
 
 std::vector<double> Fish::getIndividualDisplacement(){
-  return this.individualDisplacement;
+  return this->individualDisplacement;
 }
 
 double Fish::getFitnessVariation(){
-  return this.fitnessVariation;
+  return this->fitnessVariation;
 }
 
 bool Fish::getImproved(){
-  return this.improved;
+  return this->improved;
 }
 
 void Fish::setWeight(double weight){
-  this.weight = weight;
+  this->weight = weight;
 }
 
 void Fish::setWeightVariation(double weightVariation){
-  this.weightVariation = weightVariation;
+  this->weightVariation = weightVariation;
 }
 
 void Fish::setCurrentPosition(std::vector<double> currentPosition){
-  this.currentPosition = currentPosition;
+  this->currentPosition = currentPosition;
 }
 
 void Fish::setPreviuosPosition(std::vector<double> previuosPosition){
-  this.previuosPosition = previuosPosition;
+  this->previuosPosition = previuosPosition;
 }
 
 void Fish::setIndividualDisplacement(std::vector<double> individualDisplacement){
-  this.individualDisplacement = individualDisplacement;
+  this->individualDisplacement = individualDisplacement;
 }
 
 void Fish::setFitnessVariation(double fitnessVariation){
-  this.fitnessVariation = fitnessVariation;
+  this->fitnessVariation = fitnessVariation;
 }
 
 void Fish::setImproved(bool improved){
-  this.improved = improved;
+  this->improved = improved;
 }
