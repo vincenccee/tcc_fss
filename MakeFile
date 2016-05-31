@@ -1,0 +1,24 @@
+PARAMS=-g -c -Wall -std=c++11
+
+all: app
+
+app: fish.o population.o main.o
+	g++ main.o fish.o population.o -o app
+
+main.o: main.cpp
+	g++ $(PARAMS) main.cpp
+
+fish.o: fish.cpp
+	g++ $(PARAMS) fish.cpp
+
+population.o: population.cpp
+	g++ $(PARAMS) population.cpp
+
+clean:
+	rm *~ *.o app; clear;
+
+god:
+	make clean; make; ./app 
+
+plot:
+	gnuplot -e "file='saida.csv'" plot.plg
