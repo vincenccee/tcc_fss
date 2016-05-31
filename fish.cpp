@@ -38,7 +38,7 @@ bool Fish::getImproved(){
 }
 
 double Fish::getPosition(int pos){
-  return position[pos];
+  return currentPosition[pos];
 }
 
 void Fish::setWeight(double weight){

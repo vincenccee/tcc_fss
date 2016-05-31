@@ -16,9 +16,9 @@ Population::~Population(){}
 
 void Population::showPopulation(){
   for(unsigned int i=0; i<tamPopulation; i++){
-    cout << "ind: " << "\t";
+    cout << "ind " << i << "\t";
     for(unsigned int j=0; j<dimension; j++){
-      cout << population[i].getPosition[j] << "\t";
+      cout << population[i].getPosition(j) << " * ";
     }
     cout << endl;
   }
@@ -26,11 +26,12 @@ void Population::showPopulation(){
 
 void Population::initializePipulation(){
   this->population.clear();
-  double position[dimension];
+  std::vector<double> position;
   Fish *tmpFish;
   for(unsigned int i=0; i< tamPopulation; i++){
+    position.clear();
     for(unsigned int j=0; j<dimension; j++){
-      position[j] = fRand(lowerBound, upperBound);
+      position.push_back(fRand(lowerBound, upperBound));
     }
     tmpFish = new Fish(2500, position);
     this->population.push_back(*tmpFish);
@@ -71,4 +72,9 @@ void Population::setMinWeight(double minWeight){
 
 void Population::setMaxWeight(double maxWeight){
   this->maxWeight = maxWeight;
+}
+
+double Population::fRand(double fMin, double fMax){
+    double f = (double)rand() / RAND_MAX;
+    return fMin + f * (fMax - fMin);
 }

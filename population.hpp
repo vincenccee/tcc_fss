@@ -36,6 +36,8 @@ class Population {
     void setStepVol(double stepVol);
     void setMinWeight(double minWeight);
     void setMaxWeight(double maxWeight);
+
+    double fRand(double fMin, double fMax);
 };
 
 #endif
