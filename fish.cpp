@@ -7,8 +7,6 @@ Fish::Fish(double weight, std::vector<double> position){
   this->setCurrentPosition(position);
 }
 
-Fish::Fish() {}
-
 Fish::~Fish() {}
 
 double Fish::getWeight(){
@@ -37,6 +35,10 @@ double Fish::getFitnessVariation(){
 
 bool Fish::getImproved(){
   return this->improved;
+}
+
+double Fish::getPosition(int pos){
+  return position[pos];
 }
 
 void Fish::setWeight(double weight){

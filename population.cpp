@@ -1,18 +1,39 @@
 #include "population.hpp"
 
-Population::Population(int tamPopulation, int generetions){
+using namespace std;
+
+Population::Population(int tamPopulation, int dimension, double lowerBound, double upperBound){
   this->tamPopulation = tamPopulation;
-  this->generetions = generetions;
+  this->dimension = dimension;
+  this->lowerBound = lowerBound;
+  this->upperBound = upperBound;
+  srand(time(NULL));
 }
 
 Population::Population(){}
 
 Population::~Population(){}
 
+void Population::showPopulation(){
+  for(unsigned int i=0; i<tamPopulation; i++){
+    cout << "ind: " << "\t";
+    for(unsigned int j=0; j<dimension; j++){
+      cout << population[i].getPosition[j] << "\t";
+    }
+    cout << endl;
+  }
+}
+
 void Population::initializePipulation(){
+  this->population.clear();
+  double position[dimension];
+  Fish *tmpFish;
   for(unsigned int i=0; i< tamPopulation; i++){
-    tmpFish = Fish.new()
-    this->population.push_back()
+    for(unsigned int j=0; j<dimension; j++){
+      position[j] = fRand(lowerBound, upperBound);
+    }
+    tmpFish = new Fish(2500, position);
+    this->population.push_back(*tmpFish);
   }
 }
 
@@ -25,7 +46,7 @@ double Population::getStepInd(){
 }
 
 double Population::getStepVol(){
-  return thi->stepVol;
+  return this->stepVol;
 }
 
 double Population::getMinWeight(){
