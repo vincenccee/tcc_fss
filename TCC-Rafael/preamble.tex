@@ -1,0 +1,85 @@
+\usepackage[brazil,brazilian,portuges]{babel}
+%\usepackage[brazilian]{babel}
+\usepackage{times}
+\usepackage{amsmath,listings,indentfirst,url,hyperref}
+%\usepackage{amsmath,listings,indentfirst}
+\usepackage{paralist}
+\usepackage[all]{hypcap}
+\usepackage{paralist}
+\usepackage{subfigure,comment}
+\usepackage[alf]{abntcite}
+\usepackage[portuguese]{nomencl}
+\usepackage{longtable}
+\usepackage{fancyvrb}
+\usepackage{color}
+\usepackage{rotating}
+\usepackage{multirow}
+\usepackage{latexsym}
+\usepackage [ table ]{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage[section]{placeins}
+\usepackage{graphicx}
+
+
+% pacotes de fontes! doi ter que usar times para evitar problemas :(
+%\usepackage{fontspec}
+%\usepackage{xunicode} 
+%\defaultfontfeatures{Mapping=tex-text} 
+%\setromanfont{Garamond}
+%\setsansfont{Gill Sans}
+%\setmonofont{Courier New}
+
+% Listings
+\lstset{
+    inputencoding=utf8,
+    basicstyle=\scriptsize,
+    frame=single,
+	tabsize=4,
+	captionpos=b,
+	breaklines=true,
+	numbers=left,
+}
+
+% Não sei porque mas o LaTeX insiste em avançar a margem nas citações.
+% Felizmente há o comando \sloppy, que diz para aumentar o espaçamento
+% entre as palavras, visando /sempre/ respeitar as margens. Fica feio
+% em alguns parágrafos, mas é a vida...
+\sloppy
+\begin{comment}
+\tolerance 1414
+\hbadness 1414
+\emergencystretch 1.5em
+\hfuzz 0.3pt
+\widowpenalty=10000
+\vfuzz \hfuzz
+\raggedbottom
+\end{comment}
+
+% da um trato nos floats
+\renewcommand{\topfraction}{.85}
+\renewcommand{\bottomfraction}{.7}
+\renewcommand{\textfraction}{.15}
+\renewcommand{\floatpagefraction}{.66}
+\renewcommand{\dbltopfraction}{.66}
+\renewcommand{\dblfloatpagefraction}{.66}
+\setcounter{topnumber}{9}
+\setcounter{bottomnumber}{9}
+\setcounter{totalnumber}{20}
+\setcounter{dbltopnumber}{9}
+
+\addto\captionsportuges{
+  \renewcommand{\tablename}
+    {Quadro}}
+
+\addto\captionsportuges{
+  \renewcommand{\listtablename}
+    {Lista de Quadros}}
+
+\renewcommand{\lstlistingname}{C\'odigo}
+\def\listofsymbols{\input{symbols} \clearpage}
+
+% Verbatim não precisa de espaçamento duplo e nem de fontes tão grandes
+\RecustomVerbatimEnvironment
+	{Verbatim}%
+	{Verbatim}%
+	{baselinestretch=1,	fontsize=\relsize{-1}}

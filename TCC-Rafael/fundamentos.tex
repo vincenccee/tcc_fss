@@ -1,0 +1,70 @@
+\chapter{Fundamentação Teórica}
+\label{ch:fundamentos}
+
+Neste capítulo são abordados conceitos importantes para o entendimento das técnicas que são utilizadas neste trabalho. A Seção \ref{sec:evolutionary_algorithms} é introduzido os algoritmos evolutivos, apresentando seus pontos fortes e suas influências para a otimização de problemas complexos. A seguir, na Seção \ref{sec:swarm_intelligence_algorithms} é introduzido os algoritmos de inteligência de enxame e seus pontos positivos na otimização de problemas dinâmicos. Por fim, na Seção \ref{sec:intesification_diversification} é apresentado a relação de intensificação e diversificação na convergência de algoritmos durante o processo de otimização.
+
+\section{Algoritmos Evolutivos}
+\label{sec:evolutionary_algorithms}
+A natureza é uma fonte de inspiração para o desenvolvimento de vários algoritmo, como por exemplo os algoritmos evolutivos. A Computação Evolutiva se inspira no processo da seleção natural e evolução natural. 
+Em termos gerais,um algoritmo evolucionário possui alguns componentes básicos para resolução de problemas \cite{parpinelli2011new}
+
+\begin{enumerate}
+\item Várias representações para a possíveis soluções do problema;
+\item Um modo de criar uma população inicial (aleatório ou determinístico);
+\item Uma função que avalia a qualidade das soluções, ou seja, a aptidão do indivíduo (\textit{Fitness});
+\item Um mecanismo de seleção para cruzamento;
+\item Operadores evolutivos para criação de novas gerações (como mutação e \textit{crossover});
+\item Parâmetros para controle do comportamento do algoritmo, como número de dimensões, controle de operadores e etc.  
+\end{enumerate}
+
+Nas subsecções estão apresentados os algoritmos do estado da arte que serão utilizados neste trabalho.
+
+\subsection{Algoritmo Genético}
+\label{sec:genetic_algorithms}
+O Algoritmo Genético (\textit{Genetic Algorithm} - GA) foi um dos primeiro algoritmos bioinspirados a serem propostos durante a década de 60 e 70, ele foi desenvolvido por Holland e seus colaboradores que tem como base a teoria da evolução de Darwin \cite{ga} e é um dos algoritmos mais utilizados na Computação Evolutiva. A seleção natural de Darwin diz que o melhor indivíduo em uma determinada população, tem maiores chances de sobreviver e assim passar sua carga genética adiante, tornado assim a espécie mais apta às condições do ambiente. O GA utiliza essa seleção do indivíduo mais adaptado para direcionar a busca em direção das soluções ótimas.
+
+A otimização do GA começa com a inicialização da população inicial, sendo de forma aleatória ou determinística, em que cada indivíduo possuí um cromossomo, que por sua vez representa uma possível solução para o problema. A partir dessa população inicia-se o primeiro ciclo evolutivo, em que cada indivíduo é avaliado, gerando assim um valor de aptidão (\textit{fitness}) para ser usado na seleção da população. A seleção determina quais indivíduos irão cruzar gerando uma população intermediária, de modo que os mais adaptados tenham uma maior chance de serem selecionados. Os operadores evolutivos de cruzamento e mutação, são aplicados na população intermediária, em que o cruzamento tem o papel de intensificar a busca e a mutação o de diversificar a população. A partir deste ciclo o algoritmo se repete até que o critério de parada seja satisfeito, aplicando cada ciclo na população gerada pelo ciclo anterior.
+
+\subsection{Evolução Diferencial}
+\label{sec:diferencial_evolution}
+O algoritmo de evolução diferencial
+
+
+\section{Algoritmos de Inteligência de Enxame}
+\label{sec:swarm_intelligence_algorithms}
+Os algoritmos de inteligência de enxame
+%falar sobre as dificuldades dos problemas de swarm em problemas dinâmicos \cite{blackwell2005particle}:
+%- Memória do algoitmo: pois após uma mudança no ambiente, os dados colhetados podem não ser mais válidos falar do "Melhor erro Antes da Mudança"
+%- perda de divercidade: 
+
+\subsection{Otimização por Enxame de Partículas}
+\label{sec:particle_swarm_optimization}
+O algoritmo de Otimização por Enxame de Partículas
+
+\subsection{Otimização por Colônia de Formigas}
+\label{sec:ant_colony_optimization}
+O algoritmo de Otimização por Colônia de Formigas
+
+\subsection{Otimização por Colônia Artificial de Abelhas}
+\label{sec:artificial_bee_colony}
+O algoritmo de Otimização por Colônia Artificial de Abelhas
+
+\section{Intensificação e Diversificação}
+\label{sec:intesification_diversification}
+Importância da diversificação e diversificação na otimização de problemas dinâmicos e técnicas utilizadas para mante-las.
+
+entropy: \cite{mori2001adaptation}
+hamming distance: \cite{rand2005measurements}
+memory-of-inertia: \cite{morrison2001measurement}
+peak cover: \cite{branke2012evolutionary}
+maximun-spread: \cite{goh2009competitive}
+
+\section{Algoritmo de Busca por Cardume de Peixes}
+\label{sec:fish_school_search}
+O algoritmo de Busca por Cardume de Peixes
+
+\subsection{Operadores Evolutivos}
+\label{sec:evolutionary_operators}
+Existem 4 operadores evolutivos no FSS
+
+
