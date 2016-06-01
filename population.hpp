@@ -9,8 +9,6 @@
 class Population {
   private:
   	std::vector<Fish> population;
-    double stepInd;
-    double stepVol;
     double minWeight;
     double maxWeight;
     double upperBound;
@@ -27,13 +25,11 @@ class Population {
     void initializePipulation();
     void evaluatePopulation();
     std::vector<double> randonPosition();
+    std::vector<Fish> getPopulation();
 
-    double getStepInd();
-    double getStepVol();
+    int getTamPopulation();
     double getMinWeight();
     double getMaxWeight();
-    void setStepInd(double stepInd);
-    void setStepVol(double stepVol);
     void setMinWeight(double minWeight);
     void setMaxWeight(double maxWeight);
 

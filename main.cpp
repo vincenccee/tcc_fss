@@ -3,21 +3,26 @@
 #include <vector>
 #include <algorithm>
 #include "population.hpp"
+#include "problem.hpp"
 // #include "parameters.cpp" 
 
-#define LIM_IMF -600
-#define LIM_SUP 600
 #define TAM_POP 10
 #define DIMENSION 5
 
 using namespace std;
 
 int main(int argc, char **argv) {
-  Population *pop = new Population(TAM_POP, DIMENSION, LIM_IMF, LIM_SUP);
+  Problem *problem = new Problem(DIMENSION);
+  Population *pop = new Population(TAM_POP, problem->dimension, problem->getLowerBound(), problem->getUpperBound());
 
   pop->initializePipulation();
 
   pop->showPopulation();
+
+  for(unsigned int i=0; i<pop->getTamPopulation(); i++){
+    cout << "fitness " << i << " =\t"; 
+    cout << problem->evaluateFitness(pop->getPopulation()[i].getCurrentPosition()) << endl;
+  }
 
   // for(unsigned int i=0; i < 10; i++){
   //   cout << "Escolha: ";

@@ -38,16 +38,12 @@ void Population::initializePipulation(){
   }
 }
 
-void Population::evaluatePopulation(){
-
+std::vector<Fish> Population::getPopulation(){
+  return population;
 }
 
-double Population::getStepInd(){
-  return this->stepInd;
-}
-
-double Population::getStepVol(){
-  return this->stepVol;
+int Population::getTamPopulation(){
+  return tamPopulation;
 }
 
 double Population::getMinWeight(){
@@ -56,14 +52,6 @@ double Population::getMinWeight(){
 
 double Population::getMaxWeight(){
   return this->maxWeight;
-}
-
-void Population::setStepInd(double stepInd){
-  this->stepInd = stepInd;
-}
-
-void Population::setStepVol(double stepVol){
-  this->stepVol = stepVol;
 }
 
 void Population::setMinWeight(double minWeight){
