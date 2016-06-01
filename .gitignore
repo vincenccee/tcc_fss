@@ -26,3 +26,7 @@
 *.exe
 *.out
 *.app
+
+# default
+*.pdf
+*.exe
