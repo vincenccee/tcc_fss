@@ -75,10 +75,56 @@ A ideia do algoritmo de morcegos é uma população de morcegos (possíveis solu
 \label{sec:fish_school_search}
 O algoritmo de Busca por Cardume de Peixes (\textit{Fish School Search} - FSS) foi proposto por Carmelo \cite{carmelo2008novel}. O processo de pesquisa do FSS é feito por uma população de indivíduos, com memória limitada, representado o peixe. O ambiente de busca é representado pelo mar em que os peixes se encontram, onde eles podem se movimentar para tentar melhorar sua solução. A densidade de comida representa a qualidade da solução, de forma que em um problema de maximização a densidade de comida é diretamente proporcional a qualidade do resultado. A densidade de comida de um local influencia o peixe através do peso, de forma que uma melhora continua da solução apresenta um peixe mais pesado.
 
-
 \subsection{Operadores Evolutivos}
 \label{sec:evolutionary_operators}
-Existem 4 operadores evolutivos no FSS \cite{c2009influence}
+A versão do algoritmo estuda possui 4 operadores com suas funções bem definidas, que podem ser separados em duas classes \cite{c2009influence}: Alimentação (OA) e Movimentação. Para a movimentação temos as seguintes classificações: Operador de Movimento Individual (OMI); Operador de Movimentação Coletiva Instintiva (OMCI); e Operador de Movimentação Coletiva Volátil (OMCV).
+
+\noindent \textbf{Operador de Movimento Individual}
+
+Este OMI representa o movimento de cada um dos peixes individualmente, sem a influência do cardume. A próxima posição (candidata) é determinada pela geração de um número aleatório, de uma distribuição normal, e esse número é atribuído a uma das posições vizinhas do indivíduo. Após Isso o número é multiplicado por uma variável chama de $Step_ind$, que é a percentagem da amplitude do espaço de busca, essa variável decresce linearmente durante cada iteração, como mostrado na Equação \ref{eq:individual_moviment}.
+
+\begin{equation}
+\label{eq:individual_moviment}
+\begin{split}
+& n_i(t) = x_i(t) + N(-1,1).Step_ind \\
+& \Delta f = f(\vec{n}) - f(\vec{x}) \\
+& \Delta x = \vec{n} - \vec{x} \\
+& Step_ind(t+1) = Step_ind(t) - \frac{Step_indInicial - Step_indFinal}{iteracoes};
+\end{split}
+\end{equation}
+
+\noindent Em que $n_i$ é a nova posição candidata, $x_i$ é a posição atual, $\Delta f$ é a variação do \textit{fitness} e o $\Delta x$ a variação do movimento. A nova posição é efetivamente atualizada, somente se, ela for melhor que a posição anterior do indivíduo. Sendo assim, pode-se observar que esse operador tem influência na busca global feita por cada indivíduo.
+
+\noindent \textbf{Operador de Alimentação}
+
+Quando são gerados, peixes possuem o mesmo peso, e ao longo da busca esse peso é alterado de acordo com o melhoramento da solução, ou seja, caso a solução melhore o peso aumenta. O peso de cada peixe representa o quão bem o indivíduo está na busca da solução. O cálculo do peso tem influência da população, utilizando maior variação de fitness encontrada entre todos os indivíduos como $\max{\Delta f}$, sendo a diferença entre o melhor e o pior indivíduos, mostrado na Equação \ref{eq:food_operator}.
+
+\begin{equation}
+\label{eq:food_operator}
+W_i(t+1) = W_i(t) + \frac{\Delta t}{\max{\Delta t}}
+\end{equation}
+
+\noindent \textbf{Operador de Movimentação Coletiva Instintiva}
+
+Somente os indivíduos que realizaram o OMI, ou seja, $\Delta x$ tem que ser diferente de zero, terão influência no cálculo do movimento coletivo. Após o calculo todos os indivíduos são atualizados, mesmo os que não realizaram o movimento individual. Esse operador coletivo instintivo tem como contribuição a busca local fazendo com que a população inteira se direcione para um espaço de busca possivelmente melhor, simulando assim, o efeito de um cardume de peixes como pode ser visto da Figura \ref{fig:coletive_moviment}.
+
+\begin{figure}[!htb]
+	\caption{Representação gráfica da influência do Movimento Coletivo Instintivo na população}
+	\centering
+	\includegraphics[scale=0.5]{images/movimento_coletivo.png}
+	\label{fig:coletive_moviment}{\\Fonte: \citeonline{c2009influence}.}
+\end{figure}
+
+\noindent \textbf{Operador de Movimentação Coletiva Volátil}
+
+Este movimento é baseado na melhora em geral da população, que é representada através do peso médio da população. Quando tem-se uma melhora nas soluções ocorre a contração da população em relação ao baricentro dos indivíduos, caso contrário, ocorre a dilatação. O cálculo deste baricentro é feito com base na posição de cada indivíduo e o peso de cada um deles. Todos os indivíduos da população são afetados pela contração ou dilatação, de forma que a busca pode ficar mais focada em um ponto, ou expandida para buscar mais resultados, como mostrado na Figura \ref{fig:volitute_moviment}. Esse operador tem como maior contribuição tanto a manutenção da variabilidade genética, de forma que ajuda a busca a não ficar presa em um ótimo local, quanto a intensificação da mesma, pois quando acontece uma contração a busca naquele local fica mais concentrada.
+
+\begin{figure}[!htb]
+	\caption{Representação gráfica da influência do Movimento Coletivo Instintivo de uma contração}
+	\centering
+	\includegraphics[scale=0.5]{images/movimento_volatil.png}
+	\label{fig:volitute_moviment}{\\Fonte: \citeonline{c2009influence}.}
+\end{figure}
 
 \section{Intensificação e Diversificação}
 \label{sec:intesification_diversification}
