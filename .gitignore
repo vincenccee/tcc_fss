@@ -28,5 +28,17 @@
 *.app
 
 # default
+test
 *.pdf
-*.exe
+*.log
+*.dvi
+*.lof
+*.lot
+*.nlo
+*.out
+*.toc
+*.aux
+*.bak
+*.bbl
+*.blg
+*.gz
