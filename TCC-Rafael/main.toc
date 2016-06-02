@@ -7,23 +7,25 @@
 \contentsline {section}{\numberline {2.1}Algoritmos Evolutivos}{12}{section.2.1}
 \contentsline {subsection}{\numberline {2.1.1}Algoritmo Gen\IeC {\'e}tico}{13}{subsection.2.1.1}
 \contentsline {subsection}{\numberline {2.1.2}Evolu\IeC {\c c}\IeC {\~a}o Diferencial}{13}{subsection.2.1.2}
-\contentsline {section}{\numberline {2.2}Algoritmos de Intelig\IeC {\^e}ncia de Enxame}{13}{section.2.2}
-\contentsline {subsection}{\numberline {2.2.1}Otimiza\IeC {\c c}\IeC {\~a}o por Enxame de Part\IeC {\'\i }culas}{13}{subsection.2.2.1}
-\contentsline {subsection}{\numberline {2.2.2}Otimiza\IeC {\c c}\IeC {\~a}o por Col\IeC {\^o}nia de Formigas}{14}{subsection.2.2.2}
-\contentsline {subsection}{\numberline {2.2.3}Otimiza\IeC {\c c}\IeC {\~a}o por Col\IeC {\^o}nia Artificial de Abelhas}{14}{subsection.2.2.3}
-\contentsline {section}{\numberline {2.3}Intensifica\IeC {\c c}\IeC {\~a}o e Diversifica\IeC {\c c}\IeC {\~a}o}{14}{section.2.3}
-\contentsline {section}{\numberline {2.4}Algoritmo de Busca por Cardume de Peixes}{14}{section.2.4}
-\contentsline {subsection}{\numberline {2.4.1}Operadores Evolutivos}{14}{subsection.2.4.1}
-\contentsline {chapter}{\numberline {3}Problemas Abordados}{15}{chapter.3}
-\contentsline {section}{\numberline {3.1}Fun\IeC {\c c}\IeC {\~o}es Benchmark}{15}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.1}Avalia\IeC {\c c}\IeC {\~a}o de Performance}{17}{subsection.3.1.1}
-\contentsline {subsubsection}{Otimalidade}{17}{section*.6}
-\contentsline {subsubsection}{Comportamento}{18}{section*.7}
-\contentsline {section}{\numberline {3.2}Problemas Din\IeC {\^a}micos com dom\IeC {\'\i }nio cont\IeC {\'\i }nuo}{18}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Moving Peaks}{19}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}Ocillating Peaks}{20}{subsection.3.2.2}
-\contentsline {chapter}{\numberline {4}Trabalhos Relacionados}{21}{chapter.4}
-\contentsline {section}{\numberline {4.1}Revis\IeC {\~a}o da Gera\IeC {\c c}\IeC {\~a}o do LaTeX}{21}{section.4.1}
-\contentsline {chapter}{\numberline {5}Proposta}{22}{chapter.5}
-\contentsline {chapter}{\numberline {6}Considera\IeC {\c c}\IeC {\~o}es}{23}{chapter.6}
-\contentsline {chapter}{Bibliografia}{24}{chapter*.8}
+\contentsline {section}{\numberline {2.2}Algoritmos de Intelig\IeC {\^e}ncia de Enxame}{14}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Otimiza\IeC {\c c}\IeC {\~a}o por Enxame de Part\IeC {\'\i }culas}{14}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}\textit {Biomimicry of bacterial foraging}}{14}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Otimiza\IeC {\c c}\IeC {\~a}o por Col\IeC {\^o}nia Vaga-lumes}{14}{subsection.2.2.3}
+\contentsline {subsection}{\numberline {2.2.4}Otimiza\IeC {\c c}\IeC {\~a}o por Col\IeC {\^o}nia de Morcegos}{15}{subsection.2.2.4}
+\contentsline {section}{\numberline {2.3}Algoritmo de Busca por Cardume de Peixes}{15}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Operadores Evolutivos}{15}{subsection.2.3.1}
+\contentsline {section}{\numberline {2.4}Intensifica\IeC {\c c}\IeC {\~a}o e Diversifica\IeC {\c c}\IeC {\~a}o}{16}{section.2.4}
+\contentsline {chapter}{\numberline {3}Problemas Abordados}{17}{chapter.3}
+\contentsline {section}{\numberline {3.1}Fun\IeC {\c c}\IeC {\~o}es Benchmark}{17}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Avalia\IeC {\c c}\IeC {\~a}o de Performance}{19}{subsection.3.1.1}
+\contentsline {subsubsection}{Otimalidade}{19}{section*.6}
+\contentsline {subsubsection}{Comportamento}{20}{section*.7}
+\contentsline {section}{\numberline {3.2}Problemas Din\IeC {\^a}micos com dom\IeC {\'\i }nio cont\IeC {\'\i }nuo}{20}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Moving Peaks}{21}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Ocillating Peaks}{22}{subsection.3.2.2}
+\contentsline {chapter}{\numberline {4}Trabalhos Relacionados}{23}{chapter.4}
+\contentsline {section}{\numberline {4.1}Comportamento do AG em ambientes din\IeC {\^a}micos}{23}{section.4.1}
+\contentsline {section}{\numberline {4.2}Comportamento do PSO em ambientes din\IeC {\^a}micos}{24}{section.4.2}
+\contentsline {chapter}{\numberline {5}Proposta}{25}{chapter.5}
+\contentsline {chapter}{\numberline {6}Considera\IeC {\c c}\IeC {\~o}es}{26}{chapter.6}
+\contentsline {chapter}{Bibliografia}{27}{chapter*.8}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.9.16)  31 MAY 2016 12:36
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.9.16)  1 JUN 2016 21:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -823,9 +823,9 @@ l.48 \tableofcontents
 
 ] (./main.toc
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 25.
+(babel)             in language append on input line 26.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 25.
+(babel)             in language append on input line 26.
  [2
 
 ])
@@ -881,6 +881,9 @@ Underfull \hbox (badness 1448) in paragraph at lines 6--7
 []\OT1/ptm/m/n/12 A ca-rac-ter[]^^Pstica que vem cha-mando aten[][]ao para a []
 area de otimiza[][]ao na
  []
+
+
+LaTeX Warning: Citation `abc' on page 7 undefined on input line 8.
 
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 9.
@@ -947,34 +950,47 @@ Package babel Info: Redefining portuges shorthand "|
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 33.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 40.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 44.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 48.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 48.
+(babel)             in language append on input line 33.
  [13]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 48.
+(babel)             in language append on input line 36.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 52.
+(babel)             in language append on input line 43.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <14.4> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 47.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 47.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 51.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 59.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 59.
+ [14]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 65.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 71.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 75.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 79.
 
-Underfull \hbox (badness 2486) in paragraph at lines 54--55
+Underfull \hbox (badness 2486) in paragraph at lines 81--82
 []\OT1/ptm/m/n/12 Import[]ancia da diversifica[][]ao e diversifica[][]ao na oti
 miza[][]ao de pro-ble-mas
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 62.
+(babel)             in language append on input line 83.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 66.
-)
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 10.
+(babel)             in language append on input line 83.
+[15])
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 10.
- [14]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 10.
+ [16]
 \openout2 = `problemas.aux'.
 
  (./problemas.tex
@@ -987,7 +1003,7 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 21.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 21.
-[15
+[17
 
 
 
@@ -996,14 +1012,14 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 41.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 41.
- [16]
+ [18]
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 44.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 63.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 63.
- [17]
+ [19]
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 72.
 Package babel Info: Redefining portuges shorthand "|
@@ -1012,7 +1028,7 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 81.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 81.
- [18] <images/moving_peak.png, id=355, 421.575pt x 289.08pt>
+ [20] <images/moving_peak.png, id=392, 421.575pt x 289.08pt>
 File: images/moving_peak.png Graphic file (type png)
 
 <use images/moving_peak.png>
@@ -1031,12 +1047,12 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 115.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 115.
-[19])
+[21])
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 11.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 11.
- [20 <./images/moving_peak.png>]
+ [22 <./images/moving_peak.png>]
 \openout2 = `relacionados.aux'.
 
  (./relacionados.tex
@@ -1045,16 +1061,23 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 1.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 7.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 18.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 18.
+[23
+
+
+
+]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 29.
 )
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 12.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 12.
- [21
-
-
-
-]
+ [24]
 \openout2 = `proposta.aux'.
 
  (./proposta.tex
@@ -1066,7 +1089,7 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 13.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 13.
- [22
+ [25
 
 
 
@@ -1082,7 +1105,7 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 14.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 14.
- [23
+ [26
 
 
 
@@ -1096,21 +1119,21 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 70.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 70.
- [24
+ [27
 
 
 
 ]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 137.
+(babel)             in language append on input line 136.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 137.
- [25]))
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 15.
+(babel)             in language append on input line 136.
+ [28]))
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 15.
- [26]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 15.
+ [29]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 16.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 16.
  (./main.aux (./capa.aux) (./introducao.aux) (./fundamentos.aux) (./problemas.a
@@ -1119,7 +1142,10 @@ ux) (./relacionados.aux) (./proposta.aux) (./consideracoes.aux) (./bibliography
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 16.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 16.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 46956762FB95AC110D33086B2D84CE9E;1883.
+(rerunfilecheck)             Checksum: 730574BD398A8DA70695D390560634F6;2060.
+
+
+LaTeX Warning: There were undefined references.
 
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
@@ -1127,11 +1153,11 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 16.
  ) 
 Here is how much of TeX's memory you used:
- 10280 strings out of 495004
- 145771 string characters out of 6180662
- 256729 words of memory out of 5000000
- 13101 multiletter control sequences out of 15000+600000
- 29442 words of font info for 71 fonts, out of 8000000 for 9000
+ 10311 strings out of 495004
+ 146118 string characters out of 6180662
+ 257179 words of memory out of 5000000
+ 13119 multiletter control sequences out of 15000+600000
+ 31071 words of font info for 73 fonts, out of 8000000 for 9000
  16 hyphenation exceptions out of 8191
  43i,17n,35p,1977b,476s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
@@ -1143,12 +1169,13 @@ ublic/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
 m/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 8.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (29 pages, 223390 bytes).
+re/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/urw/times/utmri8a.pfb>
+Output written on main.pdf (32 pages, 245464 bytes).
 PDF statistics:
- 466 PDF objects out of 1000 (max. 8388607)
- 418 compressed objects within 5 object streams
- 109 named destinations out of 1000 (max. 500000)
- 214 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 520 PDF objects out of 1000 (max. 8388607)
+ 468 compressed objects within 5 object streams
+ 120 named destinations out of 1000 (max. 500000)
+ 230 words of extra memory for PDF output out of 10000 (max. 10000000)
 

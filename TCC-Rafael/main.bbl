@@ -92,13 +92,6 @@
   introductory analysis with applications to biology, control, and artificial
   intelligence.} : U Michigan Press, 1975.}
 
-\bibitem[Karaboga e Basturk 2007]{abc}
-\abntrefinfo{Karaboga e Basturk}{KARABOGA; BASTURK}{2007}
-{KARABOGA, D.; BASTURK, B. A powerful and efficient algorithm for numerical
-  function optimization: artificial bee colony (abc) algorithm.
-\emph{ Journal of global optimization}, Springer, v.~39, n.~3, p. 459--471,
-  2007.}
-
 \bibitem[Li, Yang e Kang 2006]{li2006new}
 \abntrefinfo{Li, Yang e Kang}{LI; YANG; KANG}{2006}
 {LI, C.; YANG, M.; KANG, L. A new approach to solving dynamic traveling
@@ -161,6 +154,12 @@ Citeseer, 2007.}
   and control.
 \emph{ Control Systems, IEEE}, IEEE, v.~22, n.~3, p. 52--67, 2002.}
 
+\bibitem[Price, Storn e Lampinen 2006]{de}
+\abntrefinfo{Price, Storn e Lampinen}{PRICE; STORN; LAMPINEN}{2006}
+{PRICE, K.; STORN, R.~M.; LAMPINEN, J.~A. \emph{ Differential evolution: a
+  practical approach to global optimization}. : Springer Science \& Business
+  Media, 2006.}
+
 \bibitem[Rand e Riolo 2005]{rand2005measurements}
 \abntrefinfo{Rand e Riolo}{RAND; RIOLO}{2005}
 {RAND, W.; RIOLO, R. Measurements for understanding the behavior of the genetic
@@ -179,5 +178,17 @@ Citeseer, 2007.}
   Evolutionary Computation Proceedings, 1998. IEEE World Congress on
   Computational Intelligence., The 1998 IEEE International Conference on}.
   1998. p. 69--73.}
+
+\bibitem[Yang 2008]{firefly}
+\abntrefinfo{Yang}{YANG}{2008}
+{YANG, X.-S. Firefly algorithm.
+\emph{ Nature-inspired metaheuristic algorithms}, v.~20, p. 79--90, 2008.}
+
+\bibitem[Yang e Hossein~Gandomi 2012]{bat}
+\abntrefinfo{Yang e Hossein~Gandomi}{YANG; HOSSEIN~GANDOMI}{2012}
+{YANG, X.-S.; HOSSEIN~GANDOMI, A. Bat algorithm: a novel approach for global
+  engineering optimization.
+\emph{ Engineering Computations}, Emerald Group Publishing Limited, v.~29,
+  n.~5, p. 464--483, 2012.}
 
 \end{thebibliography}

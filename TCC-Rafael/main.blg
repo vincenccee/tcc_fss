@@ -15,55 +15,60 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: abnt-options.bib
 Database file #2: refs.bib
-I was expecting an "="---line 229 of file refs.bib
+I was expecting an "="---line 238 of file refs.bib
  :   
  :   title={Particle swarms and population diversity},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
+Repeated entry---line 329 of file refs.bib
+ : @inproceedings{rand2005measurements
+ :                                    ,
+I'm skipping whatever remains of this entry
 Warning--I didn't find a database entry for "abnt-url-package=hyperref"
+Warning--I didn't find a database entry for "abc"
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Warning--campo journal vazio em moser2007review
 Warning--Aviso: Este estilo está em desenvolvimento.
 Warning--Caso tenha problemas procure por http://abntex.codigolivre.org.br
-You've used 29 entries,
+You've used 31 entries,
             4388 wiz_defined-function locations,
-            1004 strings with 12131 characters,
-and the built_in function-call counts, 21347 in all, are:
-= -- 1764
-> -- 1010
-< -- 51
-+ -- 423
-- -- 303
-* -- 1309
-:= -- 3070
-add.period$ -- 109
-call.type$ -- 29
-change.case$ -- 270
-chr.to.int$ -- 62
-cite$ -- 30
-duplicate$ -- 1286
-empty$ -- 1759
-format.name$ -- 383
-if$ -- 4882
+            1015 strings with 12329 characters,
+and the built_in function-call counts, 22631 in all, are:
+= -- 1857
+> -- 1077
+< -- 54
++ -- 446
+- -- 323
+* -- 1389
+:= -- 3258
+add.period$ -- 115
+call.type$ -- 31
+change.case$ -- 287
+chr.to.int$ -- 67
+cite$ -- 32
+duplicate$ -- 1369
+empty$ -- 1864
+format.name$ -- 408
+if$ -- 5169
 int.to.chr$ -- 0
 int.to.str$ -- 0
-missing$ -- 362
-newline$ -- 135
-num.names$ -- 145
-pop$ -- 754
+missing$ -- 388
+newline$ -- 144
+num.names$ -- 155
+pop$ -- 806
 preamble$ -- 1
-purify$ -- 120
+purify$ -- 128
 quote$ -- 0
-skip$ -- 899
+skip$ -- 952
 stack$ -- 0
-substring$ -- 786
-swap$ -- 683
-text.length$ -- 40
+substring$ -- 820
+swap$ -- 724
+text.length$ -- 42
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 3
 warning$ -- 3
-while$ -- 210
+while$ -- 223
 width$ -- 0
-write$ -- 466
-(There was 1 error message)
+write$ -- 496
+(There were 2 error messages)
