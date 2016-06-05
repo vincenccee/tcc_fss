@@ -29,6 +29,7 @@
 
 # default
 test
+main.pdf
 *.pdf
 *.log
 *.dvi
