@@ -141,24 +141,54 @@ Este movimento é baseado na melhora em geral da população, que é representad
 
 \section{Divesidade Populacional}
 \label{sec:population_diversity}
-Importância da diversificação e diversificação na otimização de problemas dinâmicos e técnicas utilizadas para mante-las.
+Uma população com diversidade pode ser capaz de lidar com funções multimodais e explorar simultaneamente diferentes picos na superfície da função objetivo, como também melhorar a exploração global e ajudar a encontrar vários ótimos globais e locais.
 
 \subsubsection{Manutenção}
 \label{sec:maintain_diversity}
+As principais estratégias encontradas na literatura são o \textit{fitness sharing, clearing, crowding, deterministic crowding} e \textit{probabilistic crowding}.
 
-\begin{enumerate}
-\item Compartilhamento (\textit{Sharing}): Partilha foi introduzido por Goldberg e Richardson \cite{sharing}, com a intenção de localizar múltiplos picos simultaneamente. A idéia básica é de punir indivíduos que ocupam as mesmas regiões no espaço de busca por escala a aptidão de cada indivíduo de acordo com o número de indivíduos na vizinhança. Assim, penalizando indivíduos que se aglomeram em conjunto, o regime de partilha impede a convergência para um único pico.
+Compartilhamento (\textit{Sharing}): Partilha foi introduzido por Goldberg e Richardson \cite{sharing}, com a intenção de localizar múltiplos picos simultaneamente. A idéia básica é de punir indivíduos que ocupam as mesmas regiões no espaço de busca por escala a aptidão de cada indivíduo de acordo com o número de indivíduos na vizinhança. Assim, penalizando indivíduos que se aglomeram em conjunto, o regime de partilha impede a convergência para um único pico. O \textit{fitness sharing} de um indivíduo $i$ é definido pela Equação \ref{eq:sharing}. Onde $n$ é o número de indivíduos da população, $\sigma_{share}$ indica o limiar de dissimilaridade e d ji é a medida de distância entre o indivíduo $i$ e $j$.
 
-\item Aglomeramento (\textit{Crowding}): O método de \textit{Crowding} proposto por De Jong \cite{crowding}. Este método de nichos de espécies compara um descendente com alguns indivíduos escolhidos aleatoriamente da população atual. O indivíduo mais semelhante será substituído se o descendente oferecer melhor valor de \textit{fitness}. O fator de aglomeração (parâmetro $CF$) é definida como uma pequena parcela da populaçao, o qual é utilizado para controlar o tamanho da amostra. O erro de substituição é a principal desvantagem do  \textit{Crowding}, além disso, o \textit{Crowding} é propenso a aglomeração de indivíduos ao redor das picos de soluções ótimas.
-\end{enumerate}
+\begin{equation}
+\label{eq:sharing}
+\begin{split}
+& f_{shar}^i = \frac{f_i}{\sum_{j=0}^{n} sharing_j^i} \\
+& sharing_j^i =
+	\begin{cases}
+	1 - (d_j^i/\sigma_{share})^2 	& \quad \text{if } d_j^i < \sigma_{share}\\
+	0 							& \quad \text{Otherwise}\\
+	\end{cases} 
+\end{split}
+\end{equation}
+
+Compensação (\textit{clearing}): é um método muito similar ao Compartilhamento, porém é baseado no conceito de recursos limitados no ambiente \cite{clearing}. Ao invés de compartilhar recursos entre todos os indivíduos de uma subpopulação, o método de compensação atribui o \textit{fitness} apenas para os melhores indivíduos da subpopulação. Assim, o \textit{clearing} preserva o \textit{fitness} dos $k$ melhores indivíduos do nicho e redefine o fitness dos outros que pertencem à mesma subpopulação. Como no método de sharing, indivíduos pertencem ao mesmo nicho se sua distância no espaço de busca for menor
+que um limiar de dissimilaridade $\sigma_s$ (raio de \textit{clearing}). O clearing pode ser combinado com estratégias de elitismo para preservar as melhores soluções dos nichos durante gerações.
+
+Aglomeramento (\textit{Crowding}): O método de \textit{Crowding} proposto por De Jong \cite{crowding}. Este método de nichos de espécies compara um descendente com alguns indivíduos escolhidos aleatoriamente da população atual. O indivíduo mais semelhante será substituído se o descendente oferecer melhor valor de \textit{fitness}. O fator de aglomeração (parâmetro $CF$) é definida como uma pequena parcela da populaçao, o qual é utilizado para controlar o tamanho da amostra. O erro de substituição é a principal desvantagem do  \textit{Crowding}, além disso, o \textit{Crowding} é propenso a aglomeração de indivíduos ao redor das picos de soluções ótimas.
+
+Aglomeramento Deterministico (\textit{Deterministic Crowding}): Para aliviar o problema de erro de substituição, foi introduzido uma melhoria na aglomeração original, que não utiliza o parâmetro do fator de aglomeração. Este método foi chamado aglomeração determinista \cite{deterministic_crowding}. Essa abordagem minimiza o erro de substituição significativamente e restaura a pressão seletiva. No entanto, este método também tem uma desvantagem, em que almenta a perda de nichos devido ao uso de seleção por torneio entre indivíduo semelhante.
+
+Aglomeramento Probabilistico (\textit{Probabilistic Crowding}): Para superar o problema da falta ótimos locais foi criado o método de aglomeração probabilística \cite{probabilisti_crowding}. A regra de substituição probabilística é usado para manter uma elevada diversidade na população que substitui indivíduos de menor \textit{fitness} por indivíduos de \textit{fitness} mais elevados de acordo com a sua proporção de \textit{fitness}. O principal problema deste processo é que ele tem uma taxa de convergência muito lenta e baixa capacidade de pesquisa.
 
 \subsubsection{Métricas}
 \label{sec:evaluete_diversity}
 
-Duas medidas de convergência podem ser aplicadas como métricas de análise da diversificação e intensificação da população de soluções durante a otimização. A medida de diversidade fenotípica (MDF) e genotípica (MDG). A MDF mede a diversidade de \textit{fitness} das soluções, ou seja, a diversidade de diferentes qualidades de soluções. Já a MDG mensura a diversidade genética das soluções, avaliando o conjunto de variáveis (genes) que influenciam na função objetivo.
+Para poder avaliar o estado da diversidade de uma população é utilizado dois tipos de medidas de diversidade: A medida de diversidade fenotípica (MDF) e genotípica (MDG). A MDF mede a diversidade de \textit{fitness} das soluções, ou seja, a diversidade de diferentes qualidades de soluções. Já a MDG mensura a diversidade genética das soluções, avaliando o conjunto de variáveis (genes) que influenciam na função objetivo.
 
-entropy: \cite{mori2001adaptation}
-hamming distance: \cite{rand2005measurements}
-memory-of-inertia: \cite{morrison2001measurement}
-peak cover: \cite{branke2012evolutionary}
-maximun-spread: \cite{goh2009competitive}
+A MDF é apresentada na equação \ref{eq:fenotype}, em que variável $VMD$ é um fator de normalização que corresponde a medida de diversidade de uma população virtual com os valores de \textit{fitness} distribuídos de maneira uniforme com uma distância predeterminada. Onde $f_{worst}$ representa o pior \textit{fitness} e o $f_{best}$ o melhor \textit{fitness} e $N$ o tamanho da população \cite{phenotypic}. Quando o tamanho da população ou a faixa de \textit{fitness} absoluto são modificados é necessário recalcular o $VMD$. É importante ressaltar que para calcular a MDF é preciso que os valores de \textit{fitness} estejam ordenados.
+
+\begin{equation}
+\label{eq:fenotype}
+\begin{split}
+& MDF = \frac{\sum_{i=0}^{n-1} \ln(1 + |f_i - f_{i+1}|)}{VMD} \\
+& VMD = \sum_{i=0}^{n-1} \ln(1 + |f_i - f_{i+1}|)
+\end{split}
+\end{equation}
+
+A MDG  proposta por Corriveau \cite{genotypic}. Esta medida foi desenvolvida com base na MDF, sendo indicada para variáveis contínuas. A medida é apresentada na Equação \ref{eq:genotypic}, onde $D$ é a quantidade de dimensões da solução, $N$ o tamanho da população e $x$ a solução candidata. A variável
+$NMDF$ é o fator de normalização que corresponde ao valor máximo de diversidade conhecida até o momento. O valor 1 obtido da medida corresponde a diversidade genotípica máxima enquanto o valor 0 corresponde a convergência da população de soluções.
+
+\begin{equation}
+\label{eq:genotypic}
+MDG = \frac{\sum_{i=0}^{n-1} \ln \left(1 + \min_{j \in [i_1,N]} \frac{1}{D} \sqrt{ \sum\limits_{k=1}^{D} (x_{i,k} - x_{j,k})^2}\right)}{NMDF}
+\end{equation}
