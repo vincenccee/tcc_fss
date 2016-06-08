@@ -105,6 +105,7 @@ Um exemplo de como as máximas se movem ao longo do tempo em um espaço bidimens
 \end{figure}
 
 \subsection{\textit{Ocillating Peaks}}
+\label{sec:ocillating_peaks}
 
 O \textit{benchmark} de oscilação de picos (\textit{ocillating peaks}) é baseado no de movimentação de picos, porem foi desenvolvido para algoritmos evolutivos com utilização de memória.
 
@@ -120,3 +121,33 @@ O \textit{benchmark} de oscilação de picos (\textit{ocillating peaks}) é base
 & G(t,\vec{x}) = \lambda (t) g_1(\vec{x}) + (1-\lambda (t))g_2(\vec{x})
 \end{split}
 \end{equation}
+
+\subsection{\textit{Shaky Ladder Hyperplane-defined Functions}}
+\label{sec:df1_generator} 
+
+\textit{Shaky Ladder Hyperplane-defined Functions} \cite{rand2005shaky}
+
+\subsection{Gerador de Problemas testes para Ambientes não Estacionários}
+\label{sec:df1_generator}
+
+O Gerador de Problemas testes para Ambientes não Estacionários (DF1) foi utilizado para gerar ambientes, tais como o mostrado na Figura \ref{fig:problem_generator} proposto por Morrison e Jong \cite{morrison1999test}. Este gerador é capaz de criar um número especificado de pontos ótimos em duas dimensões utilizando a Equação \ref{eq:problem_generator} 
+
+\begin{figure}[!htb]
+	\caption{Gráfico que representa os ambientes gerados pelo Gerador de Problemas testes para Ambientes não Estacionários}
+	\centering
+	\includegraphics[scale=0.31]{images/bm_generator.png}
+	\label{fig:problem_generator}{\\Fonte: \citeonline{morrison1999test}.}
+\end{figure}
+
+\begin{equation}
+\label{eq:problem_generator}
+\begin{split}
+& f(X,Y) = \max_{i=1,N}\left[H_i - R_i . \sqrt{(X - X_i)^2 + (Y - Y_I)^2}\right] \\
+& H_i \in [H_{base}, H_{base} + H_{range}] \\
+& R_i \in [R_{base}, R_{base} + R_{range}]
+\end{split}
+\end{equation}
+
+\noindent Em que $N$ representa o número de pontos ótimos a serem gerados, $(X,Y)$ representa sua posição, $H_i$ representa sua altura e $R_i$ representa sua inclinação. o limite da altura e inclinação são apresentados na Equação \ref{eq:problem_generator}. Nesse sistema variam suas posições, formas e alturas. A alturas varia entre um valor máximo e mínimo, criando assim um perfil de dente de serra, enquanto a altura é representada graficamente. O \textit{fitness} de cada ponto da superfície é atribuído a altura máxima de todos os pontos ótimos.
+
+Embora o número de pontos ótimos presente não pode ser alterado uma vez que o ambiente tenha sido inicializado, a combinação de mudança alturas e posições faz com uma solução ótima fique temporariamente obscura em relação ao vizinhos, assim da a impressão que alguns pontos desaparecem e ressurgem. O dinamismo do ambiente pode ser especificado por um parâmetro $A$ que varia de [0, 4]. A direção de cada etapa é escolhido aleatoriamente para coordenadas espaciais, com passos que podem colocar um pico fora dos limites das variáveis. A direção da mudança na variáveis de altura e inclinação são escolhidas aleatoriamente inicialmente e continuam nessa direção até exceder o intervalo.

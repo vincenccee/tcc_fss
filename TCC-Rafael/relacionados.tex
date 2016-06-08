@@ -26,8 +26,100 @@ A análise da satisfabilidade mostra que em relação a aplicação em um ambien
 Na analise de robustez pode-se notar que a cada 100 iteração (quando ocorre uma mudança no ambiente) exite uma queda na média do \textit{fitness}, porém o sistema se recupera rapidamente, e a cada nova mudança e queda do \textit{fitness} diminui.
 
 A diversidade do sistema teve um comportamento inesperado, pois inicialmente achava-se que o sistema iria perder a diversidade até uma mudança ocorrer e depois a diversidade iria aumentar, porém aconteceu exatamente o contrário, tendo que após uma mudança a diversidade diminui e vai aumentando até identificar uma nova mudança.
+
+\section{Evolução Diferencial Local à Base de Aglomeração e com Memória Baseada em Espécies}
+\label{sec:crowding_base_de}
+
+No trabalho de \cite{kundu2013crowding}, é feito uma análise comparativa das versões do DE existentes, especificando suas necessidades ao serem aplicados em ambiente dinâmicos e ao final é apresentado a proposta de aplicação. As versões que são analisadas são as seguintes:
+
+\begin{itemize}
+\item Evolução Diferencial Baseada em Aglomeração (\textit{Crowding-based DE} - CDE) \cite{thomsen2004multimodal}: Basicamente, o CDE estende DE com o esquema \textit{Crowding}. Assim, a única modificação ao DE convencional é sobre o indivíduo (pai) ser substituído. Normalmente o pai produzir a descendência é substituído, ao passo que no CDE a descendência substitui o indivíduo mais similar entre um subconjunto da população.
+
+\item Evolução Diferencial Baseada em Espécies (\textit{Species-based DE} - SDE) \cite{li2005efficient}: Seguindo os passos para determinar sementes de espécies (centros de populações menores dentro da população original), o SDE é capaz de identificar múltiplas espécies entre toda a população a cada iteração. Cada espécie identificada é otimizada por uma instância do DE.
+
+\item Evolução Diferencial Baseada em Compartilhamento (\textit{Sharing-based DE} - ShDE) \cite{thomsen2004multimodal}: O SDE modifica o DE convencional da maneira seguinte. Em primeiro lugar, em vez dos pais serem substituídos por todas as crias, elas são adicionados à população. Em segundo lugar, a adequação de todos os indivíduos é redimensionada usando a função de \textit{Sharing}. Em terceiro lugar, a população é ordenada no que diz respeito ao novo \textit{fitness}. Finalmente, a pior metade da população (igual ao tamanho da população inicial) é removido.
+\end{itemize}
+
+Após a análise dos algoritmos é demonstrado a proposta do autor, em que pode-se ver os pontos que foram adaptados dos trabalhos citados anteriormente e quais aspectos desses algoritmos foram alterados. No novo modelo, chamado de Evolução Diferencial Local à Base de Aglomeração e com Memória Baseada em Espécies (\textit{Crowding-based local Differential Evolution with Speciation-based Memory} - ClDES), possui 3 características que se diferenciam do DE convencional, sendo elas:
+
+\begin{enumerate}
+\item Mutação por Vizinhança: durante a mutação feita pelo ClDES são escolhidos somente os indivíduos que estão próximos a vizinhança, de forma que, em relação a população total, somente uma pequena parte pode ser escolhida.
+
+\item Função de Teste: É estipulada uma função de teste para detectar mudanças no ambiente que não faz parte do processo evolutivo, porém a cada geração essa função é testada e se for identificado alguma alteração no resultado do \textit{fitness} fica comprovado a mudança no ambiente. Ao ser identificado essa mudança o algoritmo toma as ações necessárias para manter um determinado nível de \textit{fitness}.
+
+\item Arquivo de Memória Baseada em Especiação: ao detectar uma mudança no ambiente, o sistema procura os núcleos de espécias, chamados de sementes de espécies, e a partir dele são selecionados indivíduos que serão mantidos na nova população. A nova população feita utilizando metade dos indivíduos selecionados pelas sementes de espécies e a outra metade é gerada aleatoriamente.
+\end{enumerate}
+
+O ClDES foi aplicado no MP \textit{benchmark} e foi comparado com outras versões do PSO, que são: \textit{Dynamic Species-Based Particle Swarm Optimizer} (DSPSO) e \textit{Clustering Particle Swarm Optimizer} (CPSO), em que mostra-se superior a ambas as versões em quase todos os casos. A principal dificuldade encontrada pelo algoritmo acontece quando o número de dimensões aumenta, tornando cada vez mais difícil do algoritmo sempre encontrar todos os picos do problema.
+
+\section{Algoritmo de Vaga-Lumes baseado em multi-enxames}
+\label{sec:fa_behaviour}
+
+O trabalho de \cite{farahani2011multiswarm} propões uma junção da ideia do FA com a ideia de multi-enxames (\textit{MultiSwarm} - MS). A ideia principal da técnica MS é dividir a população em um número de sub enxames, com o objetivo de posicionar cada um desses sub enxames sobre diferentes áreas, visando encontrar diferentes picos no espaço de busca. No entanto, simplesmente separar o enxame em um número de enxames independentes não são susceptíveis de serem eficazes, uma vez que não tenha interação entre os sub enxames. existem algumas abordagens chamadas de Exclusão e Anti-convergência para resolver este problema.
+
+\begin{enumerate}
+\item Exclusão: A exclusão é uma interação local entre enxames próximos de colidir. Se um enxame é dividido em um certo número de sub enxames, pode acontecer que partículas de diferentes enxames girem em torno de um único pico. Isso é indesejável uma vez que a motivação por trás de uma abordagem MS é postular diferentes enxames em diferentes picos. A fim de evitar isso é feito uma competição entre os enxames, quem possuir o melhor \textit{fitness} continua na otimização, o outro sub enxame é extinto e é gerado novamente.
+
+\item Anti-convergência: Anti- convergência é uma partilha de informações interações entre todos os sub enxames como uma interação global no algoritmo MS, com o objetivo de permitir que novos picos sejam detectados.
+\end{enumerate}
+
+O algoritmo proposto usa a MS para localizar todos o picos do MP \textit{benchmark}, em que cada sub enxame é um FA. Para a manutenção da diversidade no sistema MS utiliza-se partículas carregadas e partículas quânticas. Devido à lenta velocidade de convergência do FA e as armadilhas em vários locais ótimos do espaço de busca, neste trabalho, um novo comportamento é introduzido que melhora o desempenho do FA. No algoritmo proposto todas as partículas quânticas de cada enxame irão se mover em direção do melhor vaga-lume global ($G_best$) se não houver nenhum vaga-lume melhor entre seus seus vizinhos. Este comportamento melhora a velocidade de convergência. Também para cobrir eventuais desvios no movimento de vaga-lume, é usado um ângulo que torna o movimento dos vaga-lumes previsíveis e dá uma direção para cada vaga-lume.
+
+Os resultados obtidos da aplicação do Algoritmo de Vaga-Lumes Baseado em Multi-Enxames (\textit{Multiswarm Based Firefly Algorithm} - MSFA) no MP \textit{benchmark} mostram que o MSFA mostra-se superior ao FA e a outras versões do PSO. A principal característica constatada é quando o número de picos é diferente do número de sub enxames, de forma que se o número de sub enxames for menor o desempenho do algoritmo cai drasticamente.
+
 \section{Comportamento do PSO em ambientes dinâmicos}
 \label{sec:pso_behaviour}
-O PSO\cite{carlisle2002applying}
 
-\cite{modified_pso}
+O PSO é um dos algoritmos de IS mais estudados na área de otimização de problemas dinâmicos, de forma que são geradas várias versões dele com vários operadores interessantes e suas versões são os algoritmos mais usados para comparação de performance de novos algoritmos desenvolvidos \cite{carlisle2002applying}. Uma das versões do PSO é o \textit{Dynamic Species-Based Particle Swarm Optimizer} DSPSO.
+
+\subsection{\textit{Dynamic Species-Based Particle Swarm Optimizer}}
+\label{sec:dspso}
+
+O DSPSO \cite{parrott2006locating} é baseado na sua versão não dinâmica, o SPSO que é baseado no sistema de espécies. Um sistema baseado em especias possui vários nichos de especies e em cada um deles existe um centro geográfico chamado de semente da espécie (textit{specie seed}). Esse nichos de especies são utilizados para que o sistema possa encontrar vários pontos ótimos durante o processo de otimização, fazendo com o que sistema não fique estagnado em um pico sub ótimo.
+
+Para encontrar os pontos ótimos após uma mudança no ambiente, para cada partícula da população é reavaliado o \textit{fiteness} em função do melhor \textit{fiteness} da população. Então cada partícula usa sua informação de aptidão para realizar o movimento, tendo sempre uma noção prévia do ambiente ao seu redor. Para incentivar o enxame a realizar uma busca no ambiente e evitar uma convergência prematura do sistema, foi introduzido o parâmetro de limite de partículas por espécies ($P_{max}$), de forma que se uma partícula fosse entrar para um espécia mas o limite integrantes daquela especie for exceder, a partícula com o menor valor de \textit{fiteness} é reiniciada. Uma desvantagem desse sistema é que gera uma lentidão no processo de convergência se o $P_{max}$ for muito baixo.
+
+Nos resultados pode-se observar que nem sempre o DSPSO obteve resultados mais precisos, porém sempre foi capaz de encontrar mais ou o mesmo número de picos que os outros algoritmos. Isso se deve a vasta busca global que o algoritmo apresenta, isso ocorre a custa do nível de acurácia do sistema.
+
+\subsection{\textit{Clustering Particle Swarm Optimizer}}
+\label{sec:cpso}
+
+Outra versão do PSO é o \textit{Clustering Particle Swarm Optimizer} CPSO \cite{yang2010clustering}, em que também utiliza o modelo de multi-enxames explicado na Seção \ref{sec:fa_behaviour}.
+
+CPSO começa a partir de um enxame inicial, chamado de enxame berço. Em seguida, sub enxames são criados por um método de clusterização hierárquico. Quando sub enxames são criados, uma busca local é aplicada sobre eles, a fim de explorar potenciais picos próximos deles. após isso é feito uma checagem de sub enxames sobrepostos, convergência prematura, e superlotação antes dos próximos ciclos de iteração. Se uma mudança ambiental é detectada, um novo enxame berço será aleatoriamente re-gerado com a reserva das posições localizadas por todos sobreviveram dos sub enxames no ambiente anterior.
+
+A divisão do enxame berço para os sub enxames é feito por um processo de clusterização hierárquico de ligação única. O processo de busca local utilizado é que utiliza a partícula de melhor \textit{fiteness} global para direcionar o enxame berço, a fim de obter uma convergência mais rápida. Esse modelo de busca locar é o utilizado na versão normal do PSO. 
+
+O resultados do algoritmo aplicados no MP \textit{benchmark} mostram que ele teve um performance superior as outras versões do PSO analisadas, de forma que quase sempre foi possível encontrar todos os picos e o resultado.
+
+\subsection{\textit{Volitive Particle Swarm Optimizer}}
+\label{sec:vpso}
+
+Uma aplicação do PSO gerou uma versão hybrida dele com o FSS, utilizando os operadores de alimentação e de movimentação coletiva volátil. No \textit{Volitive Particle Swarm Optimizer} (VPSO) \cite{cavalcanti2011hybrid}, cada partícula torna-se uma partícula ponderada, em que o peso é usado para calcular o movimento colectivo volátil, resultando na expansão ou contração do enxame. Nessa proposta o $step_{vol}$ não diminui linearmente, ele decresce a partir da Equação \ref{eq:vpso}. A percentagem de decaimento do parâmetro volátil ($decay_{vol}$) deve estar no intervalo [0,100].
+
+\begin{equation}
+\label{eq:vpso}
+step_{vol}(t+1) = step_{vol}(t) \frac{100 - decay_{vol}}{100}
+\end{equation}
+
+\noindent O $step_{vol}$ é reinicializado para o $step_{volMax}$ quando uma mudança no ambiente é detectado. É utilizado uma partícula sentinela para detectar estas mudanças. A aptidão da partícula sentinela é avaliado no final de cada iteração e no início da iteração seguinte.
+
+\section{Algoritmo Dinâmico de Otimização por Colônia de Bactérias}
+\label{sec:bfo_behaviour}
+
+O processo de reprodução de BFA com o objetivo de acelerar a convergência é adequado em problemas estáticos, porém isso gera uma falta de adaptação em ambientes dinâmicos. Assim, a fim de se comprometer entre a convergência rápida e a alta diversidade, é propomos um algoritmo dinâmico de Otimização por Colônia de Bactérias (\textit{Dynamic Bacterial Foraging Algorithm} - DBFA) \cite{passino2002biomimicry} em que não é utilizado a eliminação-dispersão, um processo de seleção é introduzido através de um esquema mais flexível para permitir uma melhor capacidade de adaptação em um ambiente em mudança. A ideia básica da DBFA é manter uma diversidade adequada para pesquisa global, enquanto a capacidade de busca local não é degradada, e também considerar as alterações no ambiente. O processo de seleção é descrito na Equação \ref{eq:dbfo}
+
+\begin{equation}
+\label{eq:dbfo}
+\begin{split}
+& J_i = \sum_{j=1}^{n} J_i(j,r) \\
+& rank_i = sort(J_i) \\
+& W_i = m \frac{(rank_i)^k}{\sum_{i=1}^{P} (rank_i)^k} + (1 - m) \frac{J_i}{\sum_{i=1}^{P} J_i}
+\end{split}
+\end{equation}
+
+\noindent em que $n$ é o número de etapas quimiotácticos (cada passo pode conter uma corrida ou um tombo) durante o tempo de vida de uma bactéria, $j$ é o seu índice e $P$ é o tamanho da população, o símbolo $m$ representa o peso de diversidade, e $k$ é o expoente de classificação $rank_i$. Assim, essas áreas mais ricas em nutrientes experientes são mais propensas a ser selecionadas como um pai para a próxima geração. No entanto, esse domínio não ajudaria a diversidade manutenção.
+
+Em seguida tem-se a combinação da solução e da classificação, que são escolhida para evitar uma rápida convergência e devem ser evitada para manter uma capacidade de adaptação do DBFA. Assim, toda a população é classificada de acordo com $J_i$ usando um tipo de operador, em seguida, $rank_i$ é alocado como classificação da bactéria $i$. É utilizado o parâmetro $m$ que afeta a diversidade para o processo de seleção através da combinação da classificação da bactéria ($rank_i$) $k$ com o cálculo de \textit{fitness} $J_i$. A probabilidade de sobrevivência da bactéria é determinada pela somatória da variável $W_i$. Ao final a aplicado a seleção por roleta utilizada nos AGs.
+
+O BFA e o DBFA foram aplicados no MP \textit{benchmark} e foi avaliado seus desempenho e sua diversidade durante a otimização. Foi constatado que a diversidade de DBFA muda depois de cada processo quimiotático em vez da dispersão adotada pelo BFA, que ocorre depois de várias gerações. O DBFA utiliza não só a busca local, mas também aplica o esquema de seleção flexível para manter uma diversidade apropriada durante todo o processo evolutivo. O DBFA supera o BFA em quase todos os ambientes dinâmicos. Além disso, a detecção de mudanças ambientais não é necessário no DBFA. O DBFA tem a mesma complexidade computacional com a do BFA , mas oferece o melhor desempenho.

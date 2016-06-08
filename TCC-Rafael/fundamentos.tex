@@ -1,7 +1,14 @@
 \chapter{Fundamentação Teórica}
 \label{ch:fundamentos}
 
-Neste capítulo são abordados conceitos importantes para o entendimento das técnicas que são utilizadas neste trabalho. A Seção \ref{sec:evolutionary_algorithms} é introduzido os algoritmos evolutivos, apresentando seus pontos fortes e suas influências para a otimização de problemas complexos. A seguir, na Seção \ref{sec:swarm_intelligence_algorithms} é introduzido os algoritmos de inteligência de enxame e seus pontos positivos na otimização de problemas dinâmicos. Por fim, na Seção \ref{sec:intesification_diversification} é apresentado a relação de intensificação e diversificação na convergência de algoritmos durante o processo de otimização.
+Neste capítulo são abordados conceitos importantes para o entendimento das técnicas que são utilizadas neste trabalho. A Seção \ref{sec:intesification_diversification} apresenta uma introdução a divesificação e intensificação, na Seção \ref{sec:evolutionary_algorithms} é introduzido os algoritmos evolutivos, apresentando seus pontos fortes e suas influências para a otimização de problemas complexos. A seguir, na Seção \ref{sec:swarm_intelligence_algorithms} é introduzido os algoritmos de inteligência de enxame e seus pontos positivos na otimização de problemas dinâmicos. Por fim, na Seção \ref{sec:population_diversity} é apresentado a importância da diversidade populacional, mostrando métodos de manutençao e métricas de avaliação.
+
+\section{Intensificação e Diversificação}
+\label{sec:intesification_diversification}
+
+A qualidade da otimização de um algoritmo depende do equilíbrio dos componentes de diversificação e intensificação \cite{vcrepinvsek2013exploration}. O equilíbrio adequado permite explorar com mais eficiência o espaço de busca e, consequentemente, obter resultados melhores. A diversificação explora o máximo possível do espaço de busca para identificar diferentes picos de soluções de alta qualidade. Na intensificação ocorre a exploração local, em que se faz a busca mais intensiva em uma área específica. Um algoritmo com rotinas de diversificação em excesso se aproxima de um processo de busca aleatória e um com rotinas de intensificação em excesso, leva a uma maior chance de estagnar a busca em um ponto sub-ótimo. 
+
+Esses dois componentes tem ligação direta com a diversidade populacional, de modo que um sistema com muita intensificação gora pouca diversidade, e um sistema com muita diversificação gera uma grande diversidade. Na Natureza pode-se observar que espécies de animais com grande diversidade tem maiores chances de sobreviventes, e para problemas dinâmicos a diversidade é um ponto ainda mais crucial para manter um certo nível de aptidão dos indivíduos durante o processo de otimização.
 
 \section{Algoritmos Evolutivos}
 \label{sec:evolutionary_algorithms}
@@ -35,10 +42,7 @@ Para criar o vetor doador, obtém-se uma amostra de três indivíduos distintos 
 
 \section{Algoritmos de Inteligência de Enxame}
 \label{sec:swarm_intelligence_algorithms}
-Os algoritmos de inteligência de enxame
-%falar sobre as dificuldades dos problemas de swarm em problemas dinâmicos \cite{blackwell2005particle}:
-%- Memória do algoitmo: pois após uma mudança no ambiente, os dados colhetados podem não ser mais válidos falar do "Melhor erro Antes da Mudança"
-%- perda de divercidade: 
+Sistemas baseados em enxames são inspirados pelo comportamento de alguns seres vivos sociais, como formigas, cupins, aves e peixes. A auto-organização e controle descentralizado são características notáveis de sistemas baseados em enxames que, tal como na natureza, leva a um comportamento emergente. O comportamento emergente é uma propriedade que emerge através de interações locais entre os componentes do sistema e não é possível de ser conseguido por qualquer um dos componentes do sistema atuando isoladamente \cite{garnier2007biological}.
 
 \subsection{Otimização por Enxame de Partículas}
 \label{sec:particle_swarm_optimization}
@@ -46,9 +50,9 @@ A otimização por enxame de partículas (\textit{Particle Swarm Optimization} -
 
 \subsection{Otimização por Colônia de Bactérias}
 \label{sec:biomimicry_bacterial_foraging}
-O algoritmo de Otimização por Colônia de Bactérias (\textit{Bacterial Foraging Optimization} - BFO) foi proposto por Passino \cite{passino2002biomimicry}, inspirada no comportamento social de busca por alimento das bactérias Escherichia Coli. Durante o processo de busca a bactéria se move em pequenos passos enquanto procura alimento. Seu movimento é realizado através de um conjunto de filamentos conhecido como flagelos, que ajudam a bactéria se mover em períodos alternados de natação (\textit{swim}) e tombos (\textit{tumble}). A alternância entre estes dois períodos chama-se quimiotaxia. Cada bactéria representa uma solução para o problema. O ambiente fornece o substrato para as bactérias interagirem e é representado pelo espaço de busca sendo otimizado. Quanto melhor for a região do espaço de busca, melhor será o resultado da função objetivo, e consequentemente, melhor será o substrato para as bactérias.
+O algoritmo de Otimização por Colônia de Bactérias (\textit{Bacterial Foraging Algorithm} - BFA) foi proposto por Passino \cite{passino2002biomimicry}, inspirada no comportamento social de busca por alimento das bactérias Escherichia Coli. Durante o processo de busca a bactéria se move em pequenos passos enquanto procura alimento. Seu movimento é realizado através de um conjunto de filamentos conhecido como flagelos, que ajudam a bactéria se mover em períodos alternados de natação (\textit{swim}) e tombos (\textit{tumble}). A alternância entre estes dois períodos chama-se quimiotaxia. Cada bactéria representa uma solução para o problema. O ambiente fornece o substrato para as bactérias interagirem e é representado pelo espaço de busca sendo otimizado. Quanto melhor for a região do espaço de busca, melhor será o resultado da função objetivo, e consequentemente, melhor será o substrato para as bactérias.
 
-O BFO é composto por três rotinas principais: quimiotaxia, reprodução e eliminação-dispersão. Na quimiotaxia, uma bactéria com direção aleatória representa um tombo e uma bactéria com a mesma direção do passo anterior indicando uma execução. Na reprodução, a saúde de cada bactéria representa seu valor de \textit{fitness}. Todas as bactérias são classificadas de acordo com seu estado de saúde e apenas a primeira metade da população sobrevive. As bactérias sobreviventes são divididos em dois filhos idênticos, de modo a formar uma nova população. O processo de eliminação-dispersão é responsável por aumentar a diversidade da população. A dispersão ocorre depois de um certo número de etapas de reprodução, quando algumas bactérias são escolhidos de acordo com uma probabilidade predefinida. Tais bactérias são mortas e os novos são gerados aleatoriamente em outra posição dentro do espaço de busca. A intecificação busca é realizado por ambos os passos de quimiotaxia e de reprodução.
+O BFA é composto por três rotinas principais: quimiotaxia, reprodução e eliminação-dispersão. Na quimiotaxia, uma bactéria com direção aleatória representa um tombo e uma bactéria com a mesma direção do passo anterior indicando uma execução. Na reprodução, a saúde de cada bactéria representa seu valor de \textit{fitness}. Todas as bactérias são classificadas de acordo com seu estado de saúde e apenas a primeira metade da população sobrevive. As bactérias sobreviventes são divididos em dois filhos idênticos, de modo a formar uma nova população. O processo de eliminação-dispersão é responsável por aumentar a diversidade da população. A dispersão ocorre depois de um certo número de etapas de reprodução, quando algumas bactérias são escolhidos de acordo com uma probabilidade predefinida. Tais bactérias são mortas e os novos são gerados aleatoriamente em outra posição dentro do espaço de busca. A intecificação busca é realizado por ambos os passos de quimiotaxia e de reprodução.
 
 \subsection{Otimização por Colônia Vaga-lumes}
 \label{sec:firefly_algorithm}
@@ -78,6 +82,15 @@ O algoritmo de Busca por Cardume de Peixes (\textit{Fish School Search} - FSS) f
 \subsubsection{Operadores Evolutivos}
 \label{sec:evolutionary_operators}
 A versão do algoritmo estuda possui 4 operadores com suas funções bem definidas, que podem ser separados em duas classes \cite{c2009influence}: Alimentação (OA) e Movimentação. Para a movimentação temos as seguintes classificações: Operador de Movimento Individual (OMI); Operador de Movimentação Coletiva Instintiva (OMCI); e Operador de Movimentação Coletiva Volátil (OMCV).
+
+O processo evolutivo do FSS acontece da seguinte forma \ref{fig:pseudo_code}: primeiramente a população inicial é gerada aleatoriamente, depois ela é avaliada. Assim, o ciclo evolutivo começa. O cliclo principal é dividido em 3 outros ciclos menores, em que cada um deles representa um operador de movimento. No primeiro ciclo é feito a avaliação da nova geração, depois é calculado o OMI e os peixes que realizaram esse movimento são marcados e tem seus pesos atualizados, por fim outra avaliação da população é feita. No segundo ciclo é calculado o OMCI e aplicado em todos os peixes do cardume, mesmo os que não realizaram o movimento individual. No terceiro ciclo é feito o movimento volátil, em que, se a população em geral sofreu uma melhora no peso, ela contrai. e se a população sofreu uma piora no peso, ela dilata. Por fim são atualizados os pesos e as variáveis de $step_ind$ e $step_vol$.
+
+\begin{figure}[!htb]
+	\caption{Pseudo Código do FSS}
+	\centering
+	\includegraphics[scale=0.5]{images/pseudo_codigo.png}
+	\label{fig:pseudo_code}{\\Fonte: \citeonline{c2009influence}.}
+\end{figure}
 
 \noindent \textbf{Operador de Movimento Individual}
 
@@ -126,12 +139,56 @@ Este movimento é baseado na melhora em geral da população, que é representad
 	\label{fig:volitute_moviment}{\\Fonte: \citeonline{c2009influence}.}
 \end{figure}
 
-\section{Intensificação e Diversificação}
-\label{sec:intesification_diversification}
-Importância da diversificação e diversificação na otimização de problemas dinâmicos e técnicas utilizadas para mante-las.
+\section{Divesidade Populacional}
+\label{sec:population_diversity}
+Uma população com diversidade pode ser capaz de lidar com funções multimodais e explorar simultaneamente diferentes picos na superfície da função objetivo, como também melhorar a exploração global e ajudar a encontrar vários ótimos globais e locais.
 
-entropy: \cite{mori2001adaptation}
-hamming distance: \cite{rand2005measurements}
-memory-of-inertia: \cite{morrison2001measurement}
-peak cover: \cite{branke2012evolutionary}
-maximun-spread: \cite{goh2009competitive}
+\subsubsection{Manutenção}
+\label{sec:maintain_diversity}
+As principais estratégias encontradas na literatura são o \textit{fitness sharing, clearing, crowding, deterministic crowding} e \textit{probabilistic crowding}.
+
+Compartilhamento (\textit{Sharing}): Partilha foi introduzido por Goldberg e Richardson \cite{sharing}, com a intenção de localizar múltiplos picos simultaneamente. A ideia básica é de punir indivíduos que ocupam as mesmas regiões no espaço de busca por escala a aptidão de cada indivíduo de acordo com o número de indivíduos na vizinhança. Assim, penalizando indivíduos que se aglomeram em conjunto, o regime de partilha impede a convergência para um único pico. O \textit{fitness sharing} de um indivíduo $i$ é definido pela Equação \ref{eq:sharing}. Onde $n$ é o número de indivíduos da população, $\sigma_{share}$ indica o limiar de dissimilaridade e d ji é a medida de distância entre o indivíduo $i$ e $j$.
+
+\begin{equation}
+\label{eq:sharing}
+\begin{split}
+& f_{shar}^i = \frac{f_i}{\sum_{j=0}^{n} sharing_j^i} \\
+& sharing_j^i =
+	\begin{cases}
+	1 - (d_j^i/\sigma_{share})^2 	& \quad \text{if } d_j^i < \sigma_{share}\\
+	0 							& \quad \text{Otherwise}\\
+	\end{cases} 
+\end{split}
+\end{equation}
+
+Compensação (\textit{clearing}): é um método muito similar ao Compartilhamento, porém é baseado no conceito de recursos limitados no ambiente \cite{clearing}. Ao invés de compartilhar recursos entre todos os indivíduos de uma subpopulação, o método de compensação atribui o \textit{fitness} apenas para os melhores indivíduos da subpopulação. Assim, o \textit{clearing} preserva o \textit{fitness} dos $k$ melhores indivíduos do nicho e redefine o \textit{fitness} dos outros que pertencem à mesma subpopulação. Como no método de \textit{sharing}, indivíduos pertencem ao mesmo nicho se sua distância no espaço de busca for menor
+que um limiar de dissimilaridade $\sigma_s$ (raio de \textit{clearing}). O clearing pode ser combinado com estratégias de elitismo para preservar as melhores soluções dos nichos durante gerações.
+
+Aglomeração (\textit{Crowding}): O método de \textit{Crowding} proposto por De Jong \cite{crowding}. Este método de nichos de espécies compara um descendente com alguns indivíduos escolhidos aleatoriamente da população atual. O indivíduo mais semelhante será substituído se o descendente oferecer melhor valor de \textit{fitness}. O fator de aglomeração (parâmetro $CF$) é definido como uma pequena parcela da população, o qual é utilizado para controlar o tamanho da amostra. O erro de substituição é a principal desvantagem do  \textit{Crowding}, além disso, o \textit{Crowding} é propenso a aglomeração de indivíduos ao redor das picos de soluções ótimas.
+
+Aglomeramento Deterministico (\textit{Deterministic Crowding}): Para aliviar o problema de erro de substituição, foi introduzido uma melhoria na aglomeração original, que não utiliza o parâmetro do fator de aglomeração. Este método foi chamado aglomeração determinista \cite{deterministic_crowding}. Essa abordagem minimiza o erro de substituição significativamente e restaura a pressão seletiva. No entanto, este método também tem uma desvantagem, em que aumenta a perda de nichos devido ao uso de seleção por torneio entre indivíduo semelhante.
+
+Aglomeramento Probabilistico (\textit{Probabilistic Crowding}): Para superar o problema da falta ótimos locais foi criado o método de aglomeração probabilística \cite{probabilisti_crowding}. A regra de substituição probabilística é usado para manter uma elevada diversidade na população que substitui indivíduos de menor \textit{fitness} por indivíduos de \textit{fitness} mais elevados de acordo com a sua proporção de \textit{fitness}. O principal problema deste processo é que ele tem uma taxa de convergência muito lenta e baixa capacidade de pesquisa.
+
+\subsubsection{Métricas}
+\label{sec:evaluete_diversity}
+
+Para poder avaliar o estado da diversidade de uma população é utilizado dois tipos de medidas de diversidade: A medida de diversidade fenotípica (MDF) e genotípica (MDG). A MDF mede a diversidade de \textit{fitness} das soluções, ou seja, a diversidade de diferentes qualidades de soluções. Já a MDG mensura a diversidade genética das soluções, avaliando o conjunto de variáveis (genes) que influenciam na função objetivo.
+
+A MDF é apresentada na equação \ref{eq:fenotype}, em que variável $VMD$ é um fator de normalização que corresponde a medida de diversidade de uma população virtual com os valores de \textit{fitness} distribuídos de maneira uniforme com uma distância predeterminada. Onde $f_{worst}$ representa o pior \textit{fitness} e o $f_{best}$ o melhor \textit{fitness} e $N$ o tamanho da população \cite{phenotypic}. Quando o tamanho da população ou a faixa de \textit{fitness} absoluto são modificados é necessário recalcular o $VMD$. É importante ressaltar que para calcular a MDF é preciso que os valores de \textit{fitness} estejam ordenados.
+
+\begin{equation}
+\label{eq:fenotype}
+\begin{split}
+& MDF = \frac{\sum_{i=0}^{n-1} \ln(1 + |f_i - f_{i+1}|)}{VMD} \\
+& VMD = \sum_{i=0}^{n-1} \ln(1 + |f_i - f_{i+1}|)
+\end{split}
+\end{equation}
+
+A MDG  proposta por Corriveau \cite{genotypic}. Esta medida foi desenvolvida com base na MDF, sendo indicada para variáveis contínuas. A medida é apresentada na Equação \ref{eq:genotypic}, onde $D$ é a quantidade de dimensões da solução, $N$ o tamanho da população e $x$ a solução candidata. A variável
+$NMDF$ é o fator de normalização que corresponde ao valor máximo de diversidade conhecida até o momento. O valor 1 obtido da medida corresponde a diversidade genotípica máxima enquanto o valor 0 corresponde a convergência da população de soluções.
+
+\begin{equation}
+\label{eq:genotypic}
+MDG = \frac{\sum_{i=0}^{n-1} \ln \left(1 + \min_{j \in [i_1,N]} \frac{1}{D} \sqrt{ \sum\limits_{k=1}^{D} (x_{i,k} - x_{j,k})^2}\right)}{NMDF}
+\end{equation}
