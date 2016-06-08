@@ -1,10 +1,10 @@
-\chapter{Problemas Abordados}
+\chapter{Problemas Dinâmicos com Domínio Contínuo}
 \label{ch:problemas}
-Nessa seção será apresentada uma breve introdução aos \textit{benchmarks} que serão utilizados para análise nesse trabalho, junto a isso é feito uma introdução aos problemas dinâmicos, suas variações e dificuldades.
+Nessa seção será apresentada uma breve introdução aos \textit{benchmarks} que serão utilizados para análise nesse trabalho, junto a isso será feita uma introdução aos problemas dinâmicos, suas variações e dificuldades.
 
-Durante o dia a dia, pode-se observar diversos problemas complexos em que as condições do ambiente podem mudar com o passar do tempo, sendo assim uma solução válida com o passar do tempo, acaba não sendo mais suficientemente boa para suprir as necessidades das novas condições \cite{branke2012evolutionary}.Para problemas com mudanças em seu ambiente é necessário um sistema de resolução que se adapte as alterações e esteja sempre apto a procurar por soluções melhores.
+Durante o dia-a-dia, pode-se observar diversos problemas complexos em que as condições do ambiente podem mudar com o passar do tempo, sendo assim uma solução válida com o passar do tempo, acaba não sendo mais suficientemente boa para suprir as necessidades das novas condições \cite{branke2012evolutionary}.Para problemas com mudanças em seu ambiente é necessário um sistema de resolução que se adapte as alterações e esteja sempre apto a procurar por soluções melhores.
 
-Na computação existem várias áreas que se dedicam a otimizar problemas desse tipo como por exemplo os EA e os IS. Para que poder avaliar os algoritmos utilizados na otimização destes problemas são geradas funções \textit{benchmarks} que apresentam características dos problemas reais, como por exemplo mudança de elevação de terrenos.
+Na computação existem várias áreas que se dedicam a otimizar problemas desse tipo como por exemplo os EA e os SI. Para que poder avaliar os algoritmos utilizados na otimização destes problemas são geradas funções \textit{benchmarks} que apresentam características dos problemas reais, como por exemplo mudança de elevação de terrenos.
 
 \section{Funções \textit{Benchmark}}
 \label{sec:revisao_benchmark}
@@ -64,15 +64,15 @@ As medidas de desempenho baseadas em comportamento avaliam a influência de cert
 \item Performance Após uma Mudança: mede a capacidade do algoritmo de buscar novos resultados após as mudanças no ambiente, de forma que restringe a queda do \textit{fitness} quando percebe uma piora. Essa medida também é conhecida como medida de estabilidade ou satisfabilidade.
 \end{itemize}
 
-\section{Problemas Dinâmicos com domínio contínuo}
+\section{Instâncias de Problemas}
 \label{sec:revisao_dinamic_problems}
 Nesta etapa serão apresentados e detalhados os problemas que serão abordados no trabalho. Os problemas selecionados para esse trabalho serão usados para realizar uma análise comparativa com outras abordagens encontradas na literatura e também testar o desempenho de cada operador evolutivo que os algoritmos irão abordar.
 A maioria dos problemas selecionados não possuem um \textit{link} temporal com as soluções anteriores. São apresentados com e sem restrições na função objetivo ou no limite do domínio das variáveis, tendo em sua maioria dinamismos previsíveis, periódicos e constantes.
 
-\subsection{\textit{Moving Peaks}}
+\subsection{\textit{Moving Peaks} - MP}
 \label{sec:moving_peaks}
 
-O \textit{benchmark} de movimentação de picos (\textit{moving peaks}) foi desenvolvido por Jürgen Branke \cite{moving_peak_1999} e tem como principal ideia gerar um problema que possa ser amplamente utilizado em algoritmos bioinspirados, pois a maioria dos problemas dinâmicos, até o dado momento, sofriam uma alteração que gerava um novo ambiente totalmente diferente do anterior, tornando assim um recomeço da otimização uma solução melhor.
+O \textit{benchmark} de movimentação de picos (\textit{moving peaks}) foi desenvolvido por Jürgen Branke \cite{moving_peak_1999} e tem como principal ideia gerar um problema que possa ser amplamente utilizado em algoritmos bioinspirados. A característica diferencial do MP em relação a maioria dos problemas dinâmicos, até o dado momento, é que eles sofriam uma alteração drástica que gerava um novo ambiente totalmente diferente do anterior, tornando assim um recomeço da otimização uma solução melhor.
 
 A ideia é gerar um \textit{benchmark} que, ao sofrer uma mudança no ambiente, ficasse levemente alterado, o suficiente para que as soluções anteriores ajudassem a encontrar as novas geradas. Para isso foi criado o \textit{moving peaks} com a ideia de ter uma paisagem multidimensional artificial que consiste em vários picos, em que a altura, a largura e a posição de cada pico é ligeiramente alterada cada vez que uma mudança no ambiente ocorre.
 
@@ -104,7 +104,7 @@ Um exemplo de como as máximas se movem ao longo do tempo em um espaço bidimens
 	\label{fig:moving_peaks}{\\Fonte: \citeonline{moving_peak_1999}.}
 \end{figure}
 
-\subsection{\textit{Ocillating Peaks}}
+\subsection{\textit{Ocillating Peaks} - OP}
 \label{sec:ocillating_peaks}
 
 O \textit{benchmark} de oscilação de picos (\textit{ocillating peaks}) é baseado no de movimentação de picos, porem foi desenvolvido para algoritmos evolutivos com utilização de memória.
@@ -125,9 +125,13 @@ O \textit{benchmark} de oscilação de picos (\textit{ocillating peaks}) é base
 \subsection{\textit{Shaky Ladder Hyperplane-defined Functions}}
 \label{sec:df1_generator} 
 
+Os \textit{Hyperplane-defined Functions} (HDFs) foram projetados para representar a forma como as pesquisas do GA ocorrem, através da combinação da construção de blocos.
+
+baseia-se no HDF - \cite{holland2000building}
+
 \textit{Shaky Ladder Hyperplane-defined Functions} \cite{rand2005shaky}
 
-\subsection{Gerador de Problemas testes para Ambientes não Estacionários}
+\subsection{Gerador de Problemas de teste para Ambientes não Estacionários}
 \label{sec:df1_generator}
 
 O Gerador de Problemas testes para Ambientes não Estacionários (DF1) foi utilizado para gerar ambientes, tais como o mostrado na Figura \ref{fig:problem_generator} proposto por Morrison e Jong \cite{morrison1999test}. Este gerador é capaz de criar um número especificado de pontos ótimos em duas dimensões utilizando a Equação \ref{eq:problem_generator} 
