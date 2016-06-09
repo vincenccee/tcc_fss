@@ -14,17 +14,7 @@ Population::Population(){}
 
 Population::~Population(){}
 
-void Population::showPopulation(){
-  for(unsigned int i=0; i<tamPopulation; i++){
-    cout << "ind " << i << "\t";
-    for(unsigned int j=0; j<dimension; j++){
-      cout << population[i].getPosition(j) << " * ";
-    }
-    cout << endl;
-  }
-}
-
-void Population::initializePipulation(){
+void Population::initializePopulation(){
   this->population.clear();
   std::vector<double> position;
   Fish *tmpFish;
@@ -38,8 +28,32 @@ void Population::initializePipulation(){
   }
 }
 
+void Population::updatePopulationDisplacement(){
+  std::vector<double> displacement;
+  for(unsigned int i=0; i< tamPopulation; i++){
+    if(population[i].getImproved()){
+      displacement.clear();
+      // cout << "displacement: " << i << " - ";
+      for(unsigned int j=0; j<dimension; j++){
+        displacement.push_back(population[i].getCurrentPosition()[j] - population[i].getPreviuosPosition()[j]);
+        // cout << " * " << displacement[j];
+      }
+      // cout << endl;
+      population[i].setIndividualDisplacement(displacement);
+    }
+  }
+}
+
 std::vector<Fish> Population::getPopulation(){
   return population;
+}
+
+Fish * Population::getFish(int pos){
+  return &population[pos];
+}
+
+void Population::updateFish(Fish fish, int pos){
+  this->population[pos] = fish;
 }
 
 int Population::getTamPopulation(){

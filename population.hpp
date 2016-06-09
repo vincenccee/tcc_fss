@@ -21,11 +21,13 @@ class Population {
   	Population();
     ~Population();
 
-    void showPopulation();
-    void initializePipulation();
+    void initializePopulation();
     void evaluatePopulation();
     std::vector<double> randonPosition();
     std::vector<Fish> getPopulation();
+    Fish * getFish(int pos);
+    void updateFish(Fish fish, int pos);
+    void updatePopulationDisplacement();
 
     int getTamPopulation();
     double getMinWeight();

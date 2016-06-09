@@ -28,12 +28,12 @@ double Problem::evaluateFitness(std::vector<double> solution){
   }
   
   fitness = 1 + auxSum - auxMul;
-  return fitness;
+  return 451 - fitness;
 }
 
 std::vector<double> Problem::validatePosition(std::vector<double> position){
   std::vector<double> newPosition(position);
-  for (int i = 0; i < dimension; i++) {
+  for (int i = 0; i < this->dimension; i++) {
     if (position[i] >= getUpperBound()) {
       newPosition[i] = getUpperBound();
     }

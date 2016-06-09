@@ -5,6 +5,7 @@ using namespace std;
 Fish::Fish(double weight, std::vector<double> position){
   this->setWeight(weight);
   this->setCurrentPosition(position);
+  this->setImproved(false);
 }
 
 Fish::~Fish() {}
@@ -50,14 +51,18 @@ void Fish::setWeightVariation(double weightVariation){
 }
 
 void Fish::setCurrentPosition(std::vector<double> currentPosition){
+  this->setPreviuosPosition(getCurrentPosition());
+  this->currentPosition.clear();
   this->currentPosition = currentPosition;
 }
 
 void Fish::setPreviuosPosition(std::vector<double> previuosPosition){
+  this->previuosPosition.clear();
   this->previuosPosition = previuosPosition;
 }
 
 void Fish::setIndividualDisplacement(std::vector<double> individualDisplacement){
+  this->individualDisplacement.clear();
   this->individualDisplacement = individualDisplacement;
 }
 
