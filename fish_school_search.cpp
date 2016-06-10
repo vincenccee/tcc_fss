@@ -41,15 +41,15 @@ void FishSchoolSearch::evolutionaryCicle(int iterations){
   for(unsigned int i=0; i<this->iterations; i++){
     localSearch();
     setLocalSchoolNewWeight();
-    // cout << "after localSearch: " << endl;
-    // showPopulation();
+    cout << "after localSearch: " << endl;
+    showPopulation();
     collectiveMovement();
-    // cout << "after collectiveMovement: " << endl;
-    // showPopulation();
+    cout << "after collectiveMovement: " << endl;
+    showPopulation();
     volitiveMovement();
     setSchoolNewWeight();
-    // cout << "after volitiveMovement: " << endl;
-    // showPopulation();
+    cout << "after volitiveMovement: " << endl;
+    showPopulation();
     updateBestPosition();
     updateStepPercentage();
   }
@@ -110,13 +110,11 @@ void FishSchoolSearch::setLocalSchoolNewWeight(){
     if(tmpFish->getImproved()){
       fitnessGain = calculateFitnessGain(tmpFish);
       newWeight = tmpFish->getWeight() + fitnessGain/greaterFitnessGain;
-      if(newWeight < 10 or newWeight > 4500){
-        cout << "new weight: " << newWeight << endl; 
-        cout << "fit gain: " << fitnessGain << endl; 
-        cout << "great fit gain: " << greaterFitnessGain << endl; 
-        cout << "local: " << endl; 
-        getchar();
+
+      if(newWeight < 5 or newWeight > 4950){
+        cout << "muita treta vish" << endl;
       }
+
       if(newWeight < minWeight){
         newWeight = minWeight;
       }else if(newWeight > maxWeight){
@@ -139,13 +137,11 @@ void FishSchoolSearch::setSchoolNewWeight(){
     tmpFish = school->getFish(i);
     fitnessGain = calculateFitnessGain(tmpFish);
     newWeight = tmpFish->getWeight() + fitnessGain/greaterFitnessGain;
-    if(newWeight < 10 or newWeight > 4500){
-      cout << "new weight: " << newWeight << endl; 
-      cout << "fit gain: " << fitnessGain << endl; 
-      cout << "great fit gain: " << greaterFitnessGain << endl; 
-      cout << "Search: " << endl; 
-      getchar();
+
+    if(newWeight < 5 or newWeight > 4950){
+      cout << "muita treta vish" << endl;
     }
+
     if(newWeight < minWeight){
       newWeight = minWeight;
     }else if(newWeight > maxWeight){
@@ -286,7 +282,7 @@ double FishSchoolSearch::weightVariationSignal(){
   for(unsigned int i=0; i < tamPopulation; i++) {
     weightVariation += school->getFish(i)->getWeightVariation();
   }
-  if(weightVariation < 0) cout << "Dilatação porraaaaa!!!!" << endl;
+  if(weightVariation < 0) cout << "Dilatação!!!!" << endl;
   return (weightVariation >= 0 ? -1.0 : 1.0);
 }
 
