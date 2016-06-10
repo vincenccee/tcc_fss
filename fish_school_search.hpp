@@ -9,6 +9,8 @@
 #include "problem.hpp"
 #include "fish.hpp"
 
+#define OUTPUT_DIR "output/"
+
 class FishSchoolSearch {
   private:
     Problem problem;
@@ -56,6 +58,10 @@ class FishSchoolSearch {
     double getBestFitness();
 
     double fRand(double fMin, double fMax);
+
+    void gnu_plot_convergence(double *mean_gen, int m_gen, std::string name, std::string title, std::string y_axis, double max_range);
+    void gnu_plot_convergence_best_mean(double *d_data1, double *d_data2, int n_lines, std::string title, std::string filename);
+    std::string space2underscore(std::string text);
 };
 
 #endif
