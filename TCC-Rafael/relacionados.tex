@@ -2,15 +2,13 @@
 \label{ch:relacionados}
 A Computação Natural possuí vários operadores diferentes em algoritmos diferentes para serem aplicados em diversos tipos de problemas. Nesta Seção são apresentados os trabalhos do estado da arte encontrados na literatura que utilizam esses algoritmos bioinspirados em problemas dinâmicos de domínio contínuo.
 
-Os trabalhos apresentados nesta seção são utilizado para analisar a aplicação destes algoritmos em diferentes ambiente e com diferentes condições, conseguindo assim extrair informações de influência de cada operador evolutivo utilizado na otimização dos problemas e/ou re-otimização.
-
 \section{Comportamento do AG em ambientes dinâmicos}
 \label{sec:ag_behaviour}
 
-No trabalho de \cite{rand2005measurements} é feito uma análise do comportamento do AG em ambientes dinâmicos e mostra que na maioria dos trabalhos que analisam o AG, somente a performance do algoritmo é analisada, ou seja, o quão perto do melhor resultado chegou. Então são analisados quatro fatores principais para determinar a eficiência do AG em ambientes dinâmicos neste trabalho, sendo eles:
+No trabalho de \cite{rand2005measurements} é feita uma análise do comportamento do AG em ambientes dinâmicos e mostra que na maioria dos trabalhos que analisam o AG, somente a performance do algoritmo é analisada, ou seja, o quão perto do melhor resultado chegou. São analisados quatro fatores principais para determinar a eficiência do AG em ambientes dinâmicos, sendo eles:
 
 \begin{enumerate}
-\item Performance: Para entender a performance do algoritmo existe duas vertentes, sendo uma a avaliação do melhor indivíduo da população para cada iteração do AG, e a outra é avaliar a média da população em para cada uma das iterações. Para a aplicar AG no SL-HDF é usado a melhor solução antes da primeira alteração como média inicial.
+\item Performance: Para entender a performance do algoritmo existem duas vertentes, sendo uma a avaliação do melhor indivíduo da população para cada iteração do AG, e a outra é avaliar a média da população em para cada uma das iterações. Para a aplicar AG no SL-HDF é usado a melhor solução antes da primeira alteração como média inicial.
 
 \item Satisfabilidade: É a medida da habilidade do sistema de manter um certo nível de \textit{fitness} no decorrer da otimização e não deixar esse nível cair abaixo de um determinado limite. Esta medida não necessariamente representa o quão rápido (menos interações necessárias) o sistema chega em uma nova ótima solução, e sim se ele consegue manter um nível de \textit{fitness} da população.
 
@@ -21,13 +19,13 @@ No trabalho de \cite{rand2005measurements} é feito uma análise do comportament
 
 Na aplicação do AG no SL-HDF pode-se notar que a performance do algoritmo no ambiente dinâmico é superior sua aplicação em ambientes estáticos quando há um grande número de iterações. Inicialmente o ambiente dinâmico perde para o estático mas a partir da metade do processo evolutivo o dinâmico gera um \textit{fitness} maior no melhor indivíduo e na média da população.
 
-A análise da satisfabilidade mostra que em relação a aplicação em um ambiente estático o ambiente dinâmico tem quase o mesmo nível médio de \textit{fitness} porém o ambiente dinâmico está sendo recompensado por blocos de construção intermediária diferentes e, portanto, tem uma pressão seletiva superior para encontrá-los.
+A análise da satisfabilidade mostra o nível do \textit{fitness} durante o processo evolutivo, e com ele pode-se notar que mesmo em relação a uma aplicação em um ambiente estático, o nível de \textit{fitness} pode ser mantido acima de um limiar.
 
 Na analise de robustez pode-se notar que a cada 100 iteração (quando ocorre uma mudança no ambiente) exite uma queda na média do \textit{fitness}, porém o sistema se recupera rapidamente, e a cada nova mudança e queda do \textit{fitness} diminui.
 
 A diversidade do sistema teve um comportamento inesperado, pois inicialmente achava-se que o sistema iria perder a diversidade até uma mudança ocorrer e depois a diversidade iria aumentar, porém aconteceu exatamente o contrário, tendo que após uma mudança a diversidade diminui e vai aumentando até identificar uma nova mudança.
 
-\section{Evolução Diferencial Local à Base de Aglomeração e com Memória Baseada em Espécies}
+\section{Evolução Diferencial Local a Base de Aglomeração e com Memória Baseada em Espécies}
 \label{sec:crowding_base_de}
 
 No trabalho de \cite{kundu2013crowding}, é feito uma análise comparativa das versões do DE existentes, especificando suas necessidades ao serem aplicados em ambiente dinâmicos e ao final é apresentado a proposta de aplicação. As versões que são analisadas são as seguintes:
@@ -45,9 +43,9 @@ Após a análise dos algoritmos é demonstrado a proposta do autor, em que pode-
 \begin{enumerate}
 \item Mutação por Vizinhança: durante a mutação feita pelo ClDES são escolhidos somente os indivíduos que estão próximos a vizinhança, de forma que, em relação a população total, somente uma pequena parte pode ser escolhida.
 
-\item Função de Teste: É estipulada uma função de teste para detectar mudanças no ambiente que não faz parte do processo evolutivo, porém a cada geração essa função é testada e se for identificado alguma alteração no resultado do \textit{fitness} fica comprovado a mudança no ambiente. Ao ser identificado essa mudança o algoritmo toma as ações necessárias para manter um determinado nível de \textit{fitness}.
+\item Função de Teste: É estipulada uma função de teste para detectar mudanças no ambiente que não faz parte do processo evolutivo, porém a cada geração essa função é testada e se for identificado alguma alteração no resultado do \textit{fitness} fica comprovado a mudança no ambiente. Ao ser identificada essa mudança o algoritmo toma as ações necessárias para manter um determinado nível de \textit{fitness}.
 
-\item Arquivo de Memória Baseada em Especiação: ao detectar uma mudança no ambiente, o sistema procura os núcleos de espécias, chamados de sementes de espécies, e a partir dele são selecionados indivíduos que serão mantidos na nova população. A nova população feita utilizando metade dos indivíduos selecionados pelas sementes de espécies e a outra metade é gerada aleatoriamente.
+\item Arquivo de Memória Baseada em Especiação: ao detectar uma mudança no ambiente, o sistema procura os núcleos de espécies, chamados de sementes de espécies, e a partir dele são selecionados indivíduos que serão mantidos na nova população. A nova população feita utilizando metade dos indivíduos selecionados pelas sementes de espécies e a outra metade é gerada aleatoriamente.
 \end{enumerate}
 
 O ClDES foi aplicado no MP \textit{benchmark} e foi comparado com outras versões do PSO, que são: \textit{Dynamic Species-Based Particle Swarm Optimizer} (DSPSO) e \textit{Clustering Particle Swarm Optimizer} (CPSO), em que mostra-se superior a ambas as versões em quase todos os casos. A principal dificuldade encontrada pelo algoritmo acontece quando o número de dimensões aumenta, tornando cada vez mais difícil do algoritmo sempre encontrar todos os picos do problema.
@@ -55,33 +53,33 @@ O ClDES foi aplicado no MP \textit{benchmark} e foi comparado com outras versõe
 \section{Algoritmo de Vaga-Lumes baseado em multi-enxames}
 \label{sec:fa_behaviour}
 
-O trabalho de \cite{farahani2011multiswarm} propões uma junção da ideia do FA com a ideia de multi-enxames (\textit{MultiSwarm} - MS). A ideia principal da técnica MS é dividir a população em um número de sub enxames, com o objetivo de posicionar cada um desses sub enxames sobre diferentes áreas, visando encontrar diferentes picos no espaço de busca. No entanto, simplesmente separar o enxame em um número de enxames independentes não são susceptíveis de serem eficazes, uma vez que não tenha interação entre os sub enxames. existem algumas abordagens chamadas de Exclusão e Anti-convergência para resolver este problema.
+O trabalho de \cite{farahani2011multiswarm} propões uma junção da ideia do FA com a ideia de multi-enxames (\textit{MultiSwarm} - MS). A ideia principal da técnica MS é dividir a população em um número de sub enxames, com o objetivo de posicionar cada um desses sub enxames sobre diferentes áreas, visando encontrar diferentes picos no espaço de busca. No entanto, simplesmente separar o enxame em um número de enxames independentes não são susceptíveis de serem eficazes, uma vez que não tenha interação entre os sub enxames. Existem algumas abordagens chamadas de Exclusão e Anti-convergência para resolver este problema.
 
 \begin{enumerate}
 \item Exclusão: A exclusão é uma interação local entre enxames próximos de colidir. Se um enxame é dividido em um certo número de sub enxames, pode acontecer que partículas de diferentes enxames girem em torno de um único pico. Isso é indesejável uma vez que a motivação por trás de uma abordagem MS é postular diferentes enxames em diferentes picos. A fim de evitar isso é feito uma competição entre os enxames, quem possuir o melhor \textit{fitness} continua na otimização, o outro sub enxame é extinto e é gerado novamente.
 
-\item Anti-convergência: Anti- convergência é uma partilha de informações interações entre todos os sub enxames como uma interação global no algoritmo MS, com o objetivo de permitir que novos picos sejam detectados.
+\item Anti-convergência: Anti- convergência é uma partilha de informações de cada interação entre todos os sub enxames como uma interação global no algoritmo MS, com o objetivo de permitir que novos picos sejam detectados.
 \end{enumerate}
 
 O algoritmo proposto usa a MS para localizar todos o picos do MP \textit{benchmark}, em que cada sub enxame é um FA. Para a manutenção da diversidade no sistema MS utiliza-se partículas carregadas e partículas quânticas. Devido à lenta velocidade de convergência do FA e as armadilhas em vários locais ótimos do espaço de busca, neste trabalho, um novo comportamento é introduzido que melhora o desempenho do FA. No algoritmo proposto todas as partículas quânticas de cada enxame irão se mover em direção do melhor vaga-lume global ($G_best$) se não houver nenhum vaga-lume melhor entre seus seus vizinhos. Este comportamento melhora a velocidade de convergência. Também para cobrir eventuais desvios no movimento de vaga-lume, é usado um ângulo que torna o movimento dos vaga-lumes previsíveis e dá uma direção para cada vaga-lume.
 
 Os resultados obtidos da aplicação do Algoritmo de Vaga-Lumes Baseado em Multi-Enxames (\textit{Multiswarm Based Firefly Algorithm} - MSFA) no MP \textit{benchmark} mostram que o MSFA mostra-se superior ao FA e a outras versões do PSO. A principal característica constatada é quando o número de picos é diferente do número de sub enxames, de forma que se o número de sub enxames for menor o desempenho do algoritmo cai drasticamente.
 
-\section{Comportamento do PSO em ambientes dinâmicos}
+\section{Algoritmo PSO em ambientes dinâmicos}
 \label{sec:pso_behaviour}
 
-O PSO é um dos algoritmos de IS mais estudados na área de otimização de problemas dinâmicos, de forma que são geradas várias versões dele com vários operadores interessantes e suas versões são os algoritmos mais usados para comparação de performance de novos algoritmos desenvolvidos \cite{carlisle2002applying}. Uma das versões do PSO é o \textit{Dynamic Species-Based Particle Swarm Optimizer} DSPSO.
+O PSO é um dos algoritmos de SI mais estudados na área de otimização de problemas dinâmicos, de forma que são geradas várias versões dele com vários operadores interessantes \cite{carlisle2002applying}.
 
-\subsection{\textit{Dynamic Species-Based Particle Swarm Optimizer}}
+\subsection{\textit{Dynamic Species-Based Particle Swarm Optimizer} - DSPSO}
 \label{sec:dspso}
 
-O DSPSO \cite{parrott2006locating} é baseado na sua versão não dinâmica, o SPSO que é baseado no sistema de espécies. Um sistema baseado em especias possui vários nichos de especies e em cada um deles existe um centro geográfico chamado de semente da espécie (textit{specie seed}). Esse nichos de especies são utilizados para que o sistema possa encontrar vários pontos ótimos durante o processo de otimização, fazendo com o que sistema não fique estagnado em um pico sub ótimo.
+O DSPSO \cite{parrott2006locating} é baseado na sua versão estacionária, o SPSO que é baseado no sistema de espécies. Um sistema baseado em espécies possui vários nichos de espécies e em cada um deles existe um centro geográfico chamado de semente da espécie (textit{specie seed}). Esse nichos de espécies são utilizados para que o sistema possa encontrar vários pontos ótimos durante o processo de otimização, fazendo com o que sistema não fique estagnado em um pico sub ótimo.
 
-Para encontrar os pontos ótimos após uma mudança no ambiente, para cada partícula da população é reavaliado o \textit{fiteness} em função do melhor \textit{fiteness} da população. Então cada partícula usa sua informação de aptidão para realizar o movimento, tendo sempre uma noção prévia do ambiente ao seu redor. Para incentivar o enxame a realizar uma busca no ambiente e evitar uma convergência prematura do sistema, foi introduzido o parâmetro de limite de partículas por espécies ($P_{max}$), de forma que se uma partícula fosse entrar para um espécia mas o limite integrantes daquela especie for exceder, a partícula com o menor valor de \textit{fiteness} é reiniciada. Uma desvantagem desse sistema é que gera uma lentidão no processo de convergência se o $P_{max}$ for muito baixo.
+Para encontrar os pontos ótimos após uma mudança no ambiente, para cada partícula da população é reavaliado o \textit{fitness} em função do melhor \textit{fitness} da população. Então cada partícula usa sua informação de aptidão para realizar o movimento, tendo sempre uma noção prévia do ambiente ao seu redor. Para incentivar o enxame a realizar uma busca no ambiente e evitar uma convergência prematura do sistema, foi introduzido o parâmetro de limite de partículas por espécies ($P_{max}$), de forma que se uma partícula fosse entrar para um espécie mas o limite de integrantes daquela espécie exceder, a partícula com o menor valor de \textit{fitness} é reiniciada. Uma desvantagem desse sistema é que gera uma lentidão no processo de convergência se o $P_{max}$ for muito baixo.
 
-Nos resultados pode-se observar que nem sempre o DSPSO obteve resultados mais precisos, porém sempre foi capaz de encontrar mais ou o mesmo número de picos que os outros algoritmos. Isso se deve a vasta busca global que o algoritmo apresenta, isso ocorre a custa do nível de acurácia do sistema.
+Nos resultados pôde-se observar que nem sempre o DSPSO obteve resultados mais precisos, porém sempre foi capaz de encontrar mais ou o mesmo número de picos que os outros algoritmos.
 
-\subsection{\textit{Clustering Particle Swarm Optimizer}}
+\subsection{\textit{Clustering Particle Swarm Optimizer} - CPSO}
 \label{sec:cpso}
 
 Outra versão do PSO é o \textit{Clustering Particle Swarm Optimizer} CPSO \cite{yang2010clustering}, em que também utiliza o modelo de multi-enxames explicado na Seção \ref{sec:fa_behaviour}.
