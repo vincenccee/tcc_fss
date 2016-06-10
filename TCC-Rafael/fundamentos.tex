@@ -97,10 +97,10 @@ O OMI representa o movimento de cada um dos peixes individualmente, sem a influ�
 \begin{equation}
 \label{eq:individual_moviment}
 \begin{split}
-& n_i(t) = x_i(t) + N(-1,1).Step_ind \\
+& n_i(t) = x_i(t) + N(-1,1).Step_{ind} \\
 & \Delta f = f(\vec{n}) - f(\vec{x}) \\
 & \Delta x = \vec{n} - \vec{x} \\
-& Step_ind(t+1) = Step_ind(t) - \frac{Step_indInicial - Step_indFinal}{iteracoes};
+& Step_{ind}(t+1) = Step_{ind}(t) - \frac{Step_{indInicial} - Step_{indFinal}}{iteracoes};
 \end{split}
 \end{equation}
 
@@ -144,7 +144,7 @@ Na Figura \ref{fig:volitute_moviment} pode-se observar uma contração que mostr
 \label{eq:volitive_instintive}
 \begin{split}
 & \vec{B}(t) = \frac{\sum_{i=1}^{n} \vec{x}_i  w_i(t)}{\sum_{i=1}^{n} w_i(t)} \\
-& \vec{x}_contract(t+1) = \vec{x}_contract(t) - step_{vol}N(0,1) \frac{\vec{x}(t)-\vec{B}(t)} {\textit{distance}(\vec{x}(t),\vec{B}(t)))}
+& \vec{x}_{contract}(t+1) = \vec{x}_{contract}(t) - step_{vol}N(0,1) \frac{\vec{x}(t)-\vec{B}(t)} {\textit{distance}(\vec{x}(t),\vec{B}(t)))}
 \end{split}
 \end{equation}
 
