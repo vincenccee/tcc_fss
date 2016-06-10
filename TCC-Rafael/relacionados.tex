@@ -2,29 +2,6 @@
 \label{ch:relacionados}
 A Computação Natural possuí vários operadores diferentes em algoritmos diferentes para serem aplicados em diversos tipos de problemas. Nesta Seção são apresentados os trabalhos do estado da arte encontrados na literatura que utilizam esses algoritmos bioinspirados em problemas dinâmicos de domínio contínuo.
 
-\section{Comportamento do AG em ambientes dinâmicos}
-\label{sec:ag_behaviour}
-
-No trabalho de \cite{rand2005measurements} é feita uma análise do comportamento do AG em ambientes dinâmicos e mostra que na maioria dos trabalhos que analisam o AG, somente a performance do algoritmo é analisada, ou seja, o quão perto do melhor resultado chegou. São analisados quatro fatores principais para determinar a eficiência do AG em ambientes dinâmicos, sendo eles:
-
-\begin{enumerate}
-\item Performance: Para entender a performance do algoritmo existem duas vertentes, sendo uma a avaliação do melhor indivíduo da população para cada iteração do AG, e a outra é avaliar a média da população em para cada uma das iterações. Para a aplicar AG no SL-HDF é usado a melhor solução antes da primeira alteração como média inicial.
-
-\item Satisfabilidade: É a medida da habilidade do sistema de manter um certo nível de \textit{fitness} no decorrer da otimização e não deixar esse nível cair abaixo de um determinado limite. Esta medida não necessariamente representa o quão rápido (menos interações necessárias) o sistema chega em uma nova ótima solução, e sim se ele consegue manter um nível de \textit{fitness} da população.
-
-\item Robustez: É a medida de como o sistema reage a uma alteração, de forma que ao sofrer uma alteração o \textit{fitness} não pode ter uma queda muito brusca. A medida de robustez usada neste trabalho foi a média do \textit{fitness} no estado atual do ambiente sobre a média do \textit{fitness} no estado anterior do sistema, para uma alteração perceptível.
-
-\item Diversidade: É a medida que representa a variação do genoma da população, de forma que uma população que possuí uma alta diversidade tem maiores chances de encontrar novas solução e assim se adaptar melhor a uma mudança do ambiente. Existem várias técnicas estudadas para manter a diversidade da população durante o processo evolutivo, e para medir a diferença genotípica é usado a distância de \textit{Hamming}.
-\end{enumerate}
-
-Na aplicação do AG no SL-HDF pode-se notar que a performance do algoritmo no ambiente dinâmico é superior sua aplicação em ambientes estáticos quando há um grande número de iterações. Inicialmente o ambiente dinâmico perde para o estático mas a partir da metade do processo evolutivo o dinâmico gera um \textit{fitness} maior no melhor indivíduo e na média da população.
-
-A análise da satisfabilidade mostra o nível do \textit{fitness} durante o processo evolutivo, e com ele pode-se notar que mesmo em relação a uma aplicação em um ambiente estático, o nível de \textit{fitness} pode ser mantido acima de um limiar.
-
-Na analise de robustez pode-se notar que a cada 100 iteração (quando ocorre uma mudança no ambiente) exite uma queda na média do \textit{fitness}, porém o sistema se recupera rapidamente, e a cada nova mudança e queda do \textit{fitness} diminui.
-
-A diversidade do sistema teve um comportamento inesperado, pois inicialmente achava-se que o sistema iria perder a diversidade até uma mudança ocorrer e depois a diversidade iria aumentar, porém aconteceu exatamente o contrário, tendo que após uma mudança a diversidade diminui e vai aumentando até identificar uma nova mudança.
-
 \section{Evolução Diferencial Local a Base de Aglomeração e com Memória Baseada em Espécies}
 \label{sec:crowding_base_de}
 
@@ -38,7 +15,7 @@ No trabalho de \cite{kundu2013crowding}, é feito uma análise comparativa das v
 \item Evolução Diferencial Baseada em Compartilhamento (\textit{Sharing-based DE} - ShDE) \cite{thomsen2004multimodal}: O SDE modifica o DE convencional da maneira seguinte. Em primeiro lugar, em vez dos pais serem substituídos por todas as crias, elas são adicionados à população. Em segundo lugar, a adequação de todos os indivíduos é redimensionada usando a função de \textit{Sharing}. Em terceiro lugar, a população é ordenada no que diz respeito ao novo \textit{fitness}. Finalmente, a pior metade da população (igual ao tamanho da população inicial) é removido.
 \end{itemize}
 
-Após a análise dos algoritmos é demonstrado a proposta do autor, em que pode-se ver os pontos que foram adaptados dos trabalhos citados anteriormente e quais aspectos desses algoritmos foram alterados. No novo modelo, chamado de Evolução Diferencial Local à Base de Aglomeração e com Memória Baseada em Espécies (\textit{Crowding-based local Differential Evolution with Speciation-based Memory} - ClDES), possui 3 características que se diferenciam do DE convencional, sendo elas:
+Após a análise dos algoritmos é demonstrado a proposta do autor, em que pode-se ver os pontos que foram adaptados dos trabalhos citados anteriormente e quais aspectos desses algoritmos foram alterados. No novo modelo, chamado de Evolução Diferencial Local à Base de Aglomeração e com Memória Baseada em Espécies (\textit{Crowding-based local Differential Evolution with Speciation-based Memory} - ClDES) existem 3 características que se diferenciam do DE convencional, sendo elas:
 
 \begin{enumerate}
 \item Mutação por Vizinhança: durante a mutação feita pelo ClDES são escolhidos somente os indivíduos que estão próximos a vizinhança, de forma que, em relação a população total, somente uma pequena parte pode ser escolhida.
@@ -50,7 +27,7 @@ Após a análise dos algoritmos é demonstrado a proposta do autor, em que pode-
 
 O ClDES foi aplicado no MP \textit{benchmark} e foi comparado com outras versões do PSO, que são: \textit{Dynamic Species-Based Particle Swarm Optimizer} (DSPSO) e \textit{Clustering Particle Swarm Optimizer} (CPSO), em que mostra-se superior a ambas as versões em quase todos os casos. A principal dificuldade encontrada pelo algoritmo acontece quando o número de dimensões aumenta, tornando cada vez mais difícil do algoritmo sempre encontrar todos os picos do problema.
 
-\section{Algoritmo de Vaga-Lumes baseado em multi-enxames}
+\section{Algoritmo de Vaga-Lumes baseado em multi-enxames - MSFA}
 \label{sec:fa_behaviour}
 
 O trabalho de \cite{farahani2011multiswarm} propões uma junção da ideia do FA com a ideia de multi-enxames (\textit{MultiSwarm} - MS). A ideia principal da técnica MS é dividir a população em um número de sub enxames, com o objetivo de posicionar cada um desses sub enxames sobre diferentes áreas, visando encontrar diferentes picos no espaço de busca. No entanto, simplesmente separar o enxame em um número de enxames independentes não são susceptíveis de serem eficazes, uma vez que não tenha interação entre os sub enxames. Existem algumas abordagens chamadas de Exclusão e Anti-convergência para resolver este problema.
@@ -84,28 +61,28 @@ Nos resultados pôde-se observar que nem sempre o DSPSO obteve resultados mais p
 
 Outra versão do PSO é o \textit{Clustering Particle Swarm Optimizer} CPSO \cite{yang2010clustering}, em que também utiliza o modelo de multi-enxames explicado na Seção \ref{sec:fa_behaviour}.
 
-CPSO começa a partir de um enxame inicial, chamado de enxame berço. Em seguida, sub enxames são criados por um método de clusterização hierárquico. Quando sub enxames são criados, uma busca local é aplicada sobre eles, a fim de explorar potenciais picos próximos deles. após isso é feito uma checagem de sub enxames sobrepostos, convergência prematura, e superlotação antes dos próximos ciclos de iteração. Se uma mudança ambiental é detectada, um novo enxame berço será aleatoriamente re-gerado com a reserva das posições localizadas por todos sobreviveram dos sub enxames no ambiente anterior.
+CPSO começa a partir de um enxame inicial, chamado de enxame berço. Em seguida, sub enxames são criados por um método de clusterização hierárquico. Quando sub enxames são criados, uma busca local é aplicada sobre eles, a fim de explorar potenciais picos próximos deles. Após isso é feita uma checagem de sub enxames sobrepostos, convergência prematura, e superlotação antes dos próximos ciclos de iteração. Se uma mudança ambiental é detectada, um novo enxame berço será aleatoriamente re-gerado com a reserva das posições dos sobreviveram dos sub enxames anteriores.
 
-A divisão do enxame berço para os sub enxames é feito por um processo de clusterização hierárquico de ligação única. O processo de busca local utilizado é que utiliza a partícula de melhor \textit{fiteness} global para direcionar o enxame berço, a fim de obter uma convergência mais rápida. Esse modelo de busca locar é o utilizado na versão normal do PSO. 
+A divisão do enxame berço para os sub enxames é feita por um processo de clusterização hierárquico de ligação única. O processo de busca local utiliza a partícula de melhor \textit{fitness} global para direcionar o enxame berço, a fim de obter uma convergência mais rápida. Esse modelo de busca local é o utilizado na versão normal do PSO. 
 
-O resultados do algoritmo aplicados no MP \textit{benchmark} mostram que ele teve um performance superior as outras versões do PSO analisadas, de forma que quase sempre foi possível encontrar todos os picos e o resultado.
+O resultados do algoritmo aplicados no \textit{benchmark} MP mostram que ele teve um performance superior as outras versões do PSO analisadas, de forma que quase sempre foi possível encontrar todos os picos e o resultado ótimo.
 
-\subsection{\textit{Volitive Particle Swarm Optimizer}}
+\subsection{\textit{Volitive Particle Swarm Optimizer} - VPSO}
 \label{sec:vpso}
 
-Uma aplicação do PSO gerou uma versão hybrida dele com o FSS, utilizando os operadores de alimentação e de movimentação coletiva volátil. No \textit{Volitive Particle Swarm Optimizer} (VPSO) \cite{cavalcanti2011hybrid}, cada partícula torna-se uma partícula ponderada, em que o peso é usado para calcular o movimento colectivo volátil, resultando na expansão ou contração do enxame. Nessa proposta o $step_{vol}$ não diminui linearmente, ele decresce a partir da Equação \ref{eq:vpso}. A percentagem de decaimento do parâmetro volátil ($decay_{vol}$) deve estar no intervalo [0,100].
+Uma aplicação do PSO gerou uma versão hybrida dele com o FSS, utilizando os operadores de alimentação e de movimentação coletiva volátil. No \textit{Volitive Particle Swarm Optimizer} (VPSO) \cite{cavalcanti2011hybrid}, cada partícula torna-se uma partícula ponderada, em que o peso é usado para calcular o movimento colessstivo volátil, resultando na expansão ou contração do enxame. Nessa proposta o $step_{vol}$ não diminui linearmente, ele decresce a partir da Equação \ref{eq:vpso}. A percentagem de decaimento do parâmetro volátil ($decay_{vol}$) deve estar no intervalo [0,100].
 
 \begin{equation}
 \label{eq:vpso}
 step_{vol}(t+1) = step_{vol}(t) \frac{100 - decay_{vol}}{100}
 \end{equation}
 
-\noindent O $step_{vol}$ é reinicializado para o $step_{volMax}$ quando uma mudança no ambiente é detectado. É utilizado uma partícula sentinela para detectar estas mudanças. A aptidão da partícula sentinela é avaliado no final de cada iteração e no início da iteração seguinte.
+\noindent O $step_{vol}$ é reinicializado para o $step_{volMax}$ quando uma mudança no ambiente é detectado. É utilizada uma partícula sentinela para detectar estas mudanças. A aptidão da partícula sentinela é avaliada no final de cada iteração e no início da iteração seguinte. Este Algoritmo foi aplicado no DF1 \textit{benchmark} e obeteve resultados melhores que suas versões anteriores, mostrando assim a grande influência que o operador de movimento volátil tem sobre os ambientes dinâmicos.
 
-\section{Algoritmo Dinâmico de Otimização por Colônia de Bactérias}
+\section{Otimização por Colônia de Bactérias em Problemas Dinâmicos}
 \label{sec:bfo_behaviour}
 
-O processo de reprodução de BFA com o objetivo de acelerar a convergência é adequado em problemas estáticos, porém isso gera uma falta de adaptação em ambientes dinâmicos. Assim, a fim de se comprometer entre a convergência rápida e a alta diversidade, é propomos um algoritmo dinâmico de Otimização por Colônia de Bactérias (\textit{Dynamic Bacterial Foraging Algorithm} - DBFA) \cite{passino2002biomimicry} em que não é utilizado a eliminação-dispersão, um processo de seleção é introduzido através de um esquema mais flexível para permitir uma melhor capacidade de adaptação em um ambiente em mudança. A ideia básica da DBFA é manter uma diversidade adequada para pesquisa global, enquanto a capacidade de busca local não é degradada, e também considerar as alterações no ambiente. O processo de seleção é descrito na Equação \ref{eq:dbfo}
+O processo de reprodução da BFA que tem o objetivo de acelerar a convergência é adequado em problemas estáticos, porém isso gera uma falta de adaptação em ambientes dinâmicos. Assim, a fim de se comprometer entre a convergência rápida e a alta diversidade, é proposto um algoritmo dinâmico de Otimização por Colônia de Bactérias (\textit{Dynamic Bacterial Foraging Algorithm} - DBFA) \cite{passino2002biomimicry} em que não é utilizada a eliminação-dispersão. Um processo de seleção é introduzido através de um esquema mais flexível para permitir uma melhor capacidade de adaptação em um ambiente em mudança. A ideia básica do DBFA é manter uma diversidade adequada para pesquisa global, enquanto a capacidade de busca local não é degradada, e também considerar as alterações no ambiente. O processo de seleção é descrito na Equação \ref{eq:dbfo}
 
 \begin{equation}
 \label{eq:dbfo}
@@ -116,8 +93,43 @@ O processo de reprodução de BFA com o objetivo de acelerar a convergência é 
 \end{split}
 \end{equation}
 
-\noindent em que $n$ é o número de etapas quimiotácticos (cada passo pode conter uma corrida ou um tombo) durante o tempo de vida de uma bactéria, $j$ é o seu índice e $P$ é o tamanho da população, o símbolo $m$ representa o peso de diversidade, e $k$ é o expoente de classificação $rank_i$. Assim, essas áreas mais ricas em nutrientes experientes são mais propensas a ser selecionadas como um pai para a próxima geração. No entanto, esse domínio não ajudaria a diversidade manutenção.
+\noindent em que $n$ é o número de etapas quimiotáticos (cada passo pode conter uma corrida ou um tombo) durante o tempo de vida de uma bactéria, $j$ é o seu índice e $P$ é o tamanho da população, o símbolo $m$ representa o peso de diversidade, e $k$ é o expoente de classificação $rank_i$. Assim, essas áreas mais ricas em nutrientes experientes (melhor \textit{fitness}) são mais propensas a serem selecionadas como um pai para a próxima geração. No entanto, esse domínio não ajudaria na manutenção da diversidade.
 
-Em seguida tem-se a combinação da solução e da classificação, que são escolhida para evitar uma rápida convergência e devem ser evitada para manter uma capacidade de adaptação do DBFA. Assim, toda a população é classificada de acordo com $J_i$ usando um tipo de operador, em seguida, $rank_i$ é alocado como classificação da bactéria $i$. É utilizado o parâmetro $m$ que afeta a diversidade para o processo de seleção através da combinação da classificação da bactéria ($rank_i$) $k$ com o cálculo de \textit{fitness} $J_i$. A probabilidade de sobrevivência da bactéria é determinada pela somatória da variável $W_i$. Ao final a aplicado a seleção por roleta utilizada nos AGs.
+Em seguida tem-se a combinação da solução e da classificação, que são escolhidas para evitar uma rápida convergência e devem ser evitadas para manter uma capacidade de adaptação do DBFA. Assim, toda a população é classificada de acordo com $J_i$ usando um tipo de operador, em seguida, $rank_i$ é alocado como classificação da bactéria $i$. É utilizado o parâmetro $m$ que afeta a diversidade para o processo de seleção através da combinação da classificação da bactéria ($rank_i$) $k$ com o cálculo de \textit{fitness} $J_i$. A probabilidade de sobrevivência da bactéria é determinada pela somatória da variável $W_i$. Ao final é aplicada a seleção por roleta utilizada nos AGs.
 
-O BFA e o DBFA foram aplicados no MP \textit{benchmark} e foi avaliado seus desempenho e sua diversidade durante a otimização. Foi constatado que a diversidade de DBFA muda depois de cada processo quimiotático em vez da dispersão adotada pelo BFA, que ocorre depois de várias gerações. O DBFA utiliza não só a busca local, mas também aplica o esquema de seleção flexível para manter uma diversidade apropriada durante todo o processo evolutivo. O DBFA supera o BFA em quase todos os ambientes dinâmicos. Além disso, a detecção de mudanças ambientais não é necessário no DBFA. O DBFA tem a mesma complexidade computacional com a do BFA , mas oferece o melhor desempenho.
+O BFA e o DBFA foram aplicados no \textit{benchmark} MP e foram avaliados seus desempenho e sua diversidade durante a otimização. Foi constatado que a diversidade de DBFA muda depois de cada processo quimiotático em vez da dispersão adotada pelo BFA, que ocorre depois de várias gerações. O DBFA utiliza não só a busca local, mas também aplica o esquema de seleção flexível para manter uma diversidade apropriada durante todo o processo evolutivo. O DBFA supera o BFA em quase todos os ambientes dinâmicos. Além disso, a detecção de mudanças ambientais não é necessária no DBFA. O DBFA tem a mesma complexidade computacional que a do BFA , mas oferece o melhor desempenho.
+
+\section{Considerações}
+\label{sec:problems_considerations}
+
+Com a análise destes problemas foi possível extrair algumas informações relevantes, que estão esquematizadas na Tabela \ref{tab:problems_table}, entre elas tem-se os problemas abordados pelos algoritmos, seuas rotinas de manutenção da diversidade populacional e por final é apresentado alguma outras informações importântes de cada problema em particular.
+
+O CIDES utilisa como conceito as suas versões anteriores, para que assim podesse diminuir a quantidade de erro da sua aplicação em problemas dinâmicos. A sua mutação por vizinhança ajudou a manter a busca global mais controlada, de forma que pudesse buscar por valores mais próximos de forma aleatória. Sua função de teste é uma das formas mais básicas estudades de perceber mudanças no ambiente, o que é uma ferramente muito importante na aplicação dos algoritmos em ambiente que sofrem essas mudanças constantemente.
+
+O MSFA mostra a importância da aplicação da abordagem de Multi Enxames, que tem como base a co-evolução. suas rotinas de exclusão e anti-convergência formam a comunicação entre as pequenas populações que existem na otimização, abstraindo a otimização um nível a cima de apenas uma população.
+
+O VPSO demostra uma aplicação do operador de movimentação coletiva volátil do FSS, que é o foco da pesquisa deste trabalho, e mostra que tem grandes possibilidade para ajudar a manter a população no caminha certo durante as mudanças do ambiente.
+
+No DBFA pode-se notar mais uma vesão conjunta de dois algoritmos, em que usa-se o Algoritmo BFA com a rotina de seleção do AG. Isso mostra que mesmo algortimos de classes diferentes (como os EA com o AG e os SI com o BFA) podem ser aplicados em conjunto e terem resultados melhores que separados.
+
+\begin{table}[]
+	\label{tab:problems_table}
+	\centering
+	\caption{Tabela das Relações dos Algoritmos Analisados}
+	\label{my-label}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		Algoritmos & Problemas Abordados & Rotinas de manutenção da diversisdade \\ \hline
+		CDE        & MP \textit{benchmark}   & \textit{Crowding} \\ \hline
+		SES        & OP \textit{benchmark}   & Diferenciação por espécies \\ \hline
+		ShDE       & MP \textit{benchmark}   & \textit{Sharing} \\ \hline
+		CIDES      & MP \textit{benchmark}   & Mutação por Vizinhança \\ \hline
+		MSFA       & MP \textit{benchmark}   & Parículas carregadas e Quânticas \\ \hline
+		DSPSO      & MP \textit{benchmark}   & Limitação de partículas por Espécies \\ \hline
+		CPSO       & MP \textit{benchmark}   & Clusterização Hierárquico de Ligação Única \\ \hline
+		VPSO       & DF1 \textit{benchmark}  & Movimentação volátil \\ \hline
+		DBFA       & MP \textit{benchmark}   & Combinação da Classificação das Bactérias \\ \hline
+	\end{tabular}
+\end{table}
+
+Em geral a manutenção da diversidade da população sempre tem sido um dos focos no desenvolvimento de novas abordagens de algoritmos bioinspirados, com isso pode-se afirmar que nessa classe de problemas esse é um ponto crucial que deve ser levado em concideração e deve ser analisado várias técnicas diferentes para estipular a relevância de cada uma dela.
