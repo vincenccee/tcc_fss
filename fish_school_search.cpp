@@ -37,28 +37,35 @@ void FishSchoolSearch::evolutionaryCicle(int iterations){
   this->stepIndPercentage = this->stepIndInit;
   this->stepVolPercentage = this->stepVolInit;
   initializeBestPosition();
+  popdata.open("testdata1.txt");
+  bestPopulationFitness.clear();
+  bestIndividualFitness.clear();
   // showPopulation();
   for(unsigned int i=0; i<this->iterations; i++){
     localSearch();
     setLocalSchoolNewWeight();
-    cout << "after localSearch: " << endl;
-    showPopulation();
+    // cout << "after localSearch: " << endl;
+    // showPopulation();
     collectiveMovement();
-    cout << "after collectiveMovement: " << endl;
-    showPopulation();
+    // cout << "after collectiveMovement: " << endl;
+    // showPopulation();
     volitiveMovement();
-    setSchoolNewWeight();
-    cout << "after volitiveMovement: " << endl;
-    showPopulation();
+    // setSchoolNewWeight();
+    // cout << "after volitiveMovement: " << endl;
+    // showPopulation();
     updateBestPosition();
+    updatePlot();
     updateStepPercentage();
   }
-  showPopulation();
+  // showPopulation();
+  // gnu_plot_convergence_best_mean(bestIndividualFitness, bestPopulationFitness, iterations, "MelhoraFitness", "melhora_fit");
+  // gnu_plot_convergence(bestPopulationFitness, iterations, "pop_fitess", "fitnessdaPopulacao", "Iterations", 451);
   cout << "position:  ";
   for(unsigned int i=0; i<bestPosition.size(); i++){
     cout << " * " << bestPosition[i];
   }
   cout << "\nBest Finess = " << getBestFitness() << endl;
+  popdata.close();
 }
 
 void FishSchoolSearch::localSearch(){
@@ -107,13 +114,9 @@ void FishSchoolSearch::setLocalSchoolNewWeight(){
 
   for(unsigned int i=0; i < tamPopulation; i++) {
     tmpFish = school->getFish(i);
-    if(tmpFish->getImproved()){
+    if(tmpFish->getImproved() and greaterFitnessGain != 0){
       fitnessGain = calculateFitnessGain(tmpFish);
       newWeight = tmpFish->getWeight() + fitnessGain/greaterFitnessGain;
-
-      if(newWeight < 5 or newWeight > 4950){
-        cout << "muita treta vish" << endl;
-      }
 
       if(newWeight < minWeight){
         newWeight = minWeight;
@@ -138,10 +141,6 @@ void FishSchoolSearch::setSchoolNewWeight(){
     fitnessGain = calculateFitnessGain(tmpFish);
     newWeight = tmpFish->getWeight() + fitnessGain/greaterFitnessGain;
 
-    if(newWeight < 5 or newWeight > 4950){
-      cout << "muita treta vish" << endl;
-    }
-
     if(newWeight < minWeight){
       newWeight = minWeight;
     }else if(newWeight > maxWeight){
@@ -154,7 +153,7 @@ void FishSchoolSearch::setSchoolNewWeight(){
 }
 
 double FishSchoolSearch::calculateLocalGreaterFitnessGain(){
-  double greaterFitnessGain = pow(10, -32);
+  double greaterFitnessGain = 0;
   double fitnessGain;
 
   for(unsigned int i=1; i < tamPopulation; i++) {
@@ -171,7 +170,6 @@ double FishSchoolSearch::calculateLocalGreaterFitnessGain(){
 double FishSchoolSearch::calculateGreaterFitnessGain(){
   double greaterFitnessGain = pow(10, -32);
   double fitnessGain;
-  // cout << "greater fit gain: " << greaterFitnessGain << endl;
 
   for(unsigned int i=1; i < tamPopulation; i++) {
     fitnessGain = calculateFitnessGain(school->getFish(i));
@@ -214,7 +212,6 @@ std::vector<double> FishSchoolSearch::calculateCollectiveMovementSum(){
   std::vector<double> colMovement;
   std::vector<double> fitnessGain = schoolFitnessGain();
   double fitnessGainSum = pow(10, -32);
-  // cout << "star gain: " << fitnessGainSum << endl;
   for(unsigned int i=0; i < tamPopulation; i++) {
     fitnessGainSum += fitnessGain[i];
   }
@@ -297,7 +294,6 @@ double FishSchoolSearch::euclidianDistance(std::vector<double> a, std::vector<do
 std::vector<double> FishSchoolSearch::calculateBarycenter(){
   std::vector<double> barycenter;
   double weightSum = calculateWeightSum();
-  // cout << "weightSum: " << weightSum << endl;
   double aux;
 
   for(unsigned int i=0; i < problem.dimension; i++) {
@@ -330,6 +326,7 @@ void FishSchoolSearch::updateBestPosition(){
       bestPosition = school->getFish(i)->getCurrentPosition();
     }
   }
+  bestIndividualFitness.push_back(problem.evaluateFitness(bestPosition));
 }
 
 void FishSchoolSearch::updateStepPercentage(){
@@ -342,92 +339,107 @@ double FishSchoolSearch::getBestFitness(){
 }
 
 double FishSchoolSearch::fRand(double fMin, double fMax){
-    double f = (double)rand() / RAND_MAX;
-    return fMin + f * (fMax - fMin);
+  double f = (double)rand() / RAND_MAX;
+  return fMin + f * (fMax - fMin);
 }
 
-void FishSchoolSearch::gnu_plot_convergence(double *mean_gen, int m_gen, std::string name, std::string title, std::string y_axis, double max_range){
+void FishSchoolSearch::updatePlot(){
+  double totalFit = 0;
+  double mediaFit = 0;
+  Fish *tmpFish;
 
-  // FILE *pipe = popen("gnuplot", "w");
+  for(unsigned int i=0; i < tamPopulation; i++) {
+    tmpFish = school->getFish(i);
+    totalFit += problem.evaluateFitness(tmpFish->getCurrentPosition());
+  }
+  mediaFit = totalFit/tamPopulation;
+  bestPopulationFitness.push_back(mediaFit);
 
-  // name = space2underscore(name);
-  // title = space2underscore(title);
+  popdata << mediaFit << endl;
+}
 
-  // if (pipe != NULL) {
-  //   fprintf(pipe, "set terminal postscript eps enhanced color colortext font 'Arial,22'\n");
-  //   fprintf(pipe,"set key font 'Arial,18'\n");
-  //   fprintf(pipe,"set encoding iso_8859_1\n");
-  //   fprintf(pipe,"set xlabel 'Gera{/E \347}{/E \365}es'\n");
-  //   string output_y_label("set ylabel '" + y_axis + "'\n");
-  //   fprintf(pipe, "%s", output_y_label.c_str());
-  //   string output("set output '" + OUTPUT_DIR + name + std::string(".eps") + "'\n");
-  //   fprintf(pipe, "%s", output.c_str());
+void FishSchoolSearch::gnu_plot_convergence(std::vector<double> mean_gen, int m_gen, std::string name, std::string title, std::string y_axis, double max_range){
 
-  //   if(max_range){
-  //     //fprintf(pipe, "set xrange [-1:42]\n");
-  //     string output_range("set yrange [0:" + to_string(max_range) + "]\n");
-  //     fprintf(pipe, "%s", output_range.c_str());
-  //   }
-  //   fprintf(pipe, "set style line 1 lc rgb 'black' \n");
+  FILE *pipe = popen("gnuplot", "w");
+
+  name = space2underscore(name);
+  title = space2underscore(title);
+
+  if (pipe != NULL) {
+    fprintf(pipe,"set terminal postscript eps enhanced color colortext font 'Arial,22'\n");
+    fprintf(pipe,"set key font 'Arial,18'\n");
+    fprintf(pipe,"set encoding iso_8859_1\n");
+    fprintf(pipe,"set xlabel 'Gera{/E \347}{/E \365}es'\n");
+    string output_y_label("set ylabel '" + y_axis + "'\n");
+    fprintf(pipe, "%s", output_y_label.c_str());
+    string output("set output '" + OUTPUT_DIR + name + std::string(".eps") + "'\n");
+    fprintf(pipe, "%s", output.c_str());
+
+    if(max_range){
+      //fprintf(pipe, "set xrange [-1:42]\n");
+      string output_range("set yrange [0:" + to_string(max_range) + "]\n");
+      fprintf(pipe, "%s", output_range.c_str());
+    }
+    fprintf(pipe, "set style line 1 lc rgb 'black' \n");
     
-  //   ofstream color1(OUTPUT_DIR + name + ".dataset");
-  //   for(int k=0; k<m_gen; k++) {
-  //     color1 << k << " " << mean_gen[k] << endl; 
-  //   }                  
+    ofstream color1(OUTPUT_DIR + name + ".dataset");
+    for(int k=0; k<m_gen; k++) {
+      color1 << k << " " << mean_gen[k] << endl; 
+    }                  
 
-  //   color1.close();
-  //   std::string str_plot = "plot '" + OUTPUT_DIR + name + ".dataset' with lines ls 1 title '" + title + "'\n";
-  //   fprintf(pipe, "%s", str_plot.c_str());
+    color1.close();
+    std::string str_plot = "plot '" + OUTPUT_DIR + name + ".dataset' with lines ls 1 title '" + title + "'\n";
+    fprintf(pipe, "%s", str_plot.c_str());
 
-  //   fflush(pipe);
-  //   pclose(pipe);
-  // } else{
-  //   std::cout << "Could not open pipe" << std::endl;
-  // }
+    fflush(pipe);
+    pclose(pipe);
+  } else{
+    std::cout << "Could not open pipe" << std::endl;
+  }
 }
 
-void FishSchoolSearch::gnu_plot_convergence_best_mean(double *d_data1, double *d_data2, int n_lines, std::string title, std::string filename){
+void FishSchoolSearch::gnu_plot_convergence_best_mean(std::vector<double> d_data1, std::vector<double> d_data2, int n_lines, std::string title, std::string filename){
 
-  // FILE *pipe = popen("gnuplot", "w");
+  FILE *pipe = popen("gnuplot", "w");
 
-  // title = space2underscore(title);
-  // filename = space2underscore(filename);
+  title = space2underscore(title);
+  filename = space2underscore(filename);
 
-  // ofstream melhor_output(OUTPUT_DIR + filename + "_melhor.output");
-  // ofstream media_output(OUTPUT_DIR + filename + "_media.output");
-  // for(int k=0; k<n_lines; k++) {
-  //   melhor_output << k << " " << d_data1[k] << endl; 
-  //   media_output << k << " " << d_data2[k] << endl; 
-  // }
-  // melhor_output.close();
-  // media_output.close();
+  ofstream melhor_output(OUTPUT_DIR + filename + "_melhor.output");
+  ofstream media_output(OUTPUT_DIR + filename + "_media.output");
+  for(int k=0; k<n_lines; k++) {
+    melhor_output << k << " " << d_data1[k] << endl; 
+    media_output << k << " " << d_data2[k] << endl; 
+  }
+  melhor_output.close();
+  media_output.close();
 
-  // if (pipe != NULL) {
-  //   fprintf(pipe, "set bmargin 7\n");
-  //   fprintf(pipe, "unset colorbox\n");
-  //   fprintf(pipe, "set terminal postscript eps enhanced color colortext font 'Arial,22'\n");
-  //   fprintf(pipe, "set key font 'Arial,18'\n");
-  //   fprintf(pipe, "set encoding iso_8859_1\n");
-  //   fprintf(pipe, "set xlabel 'Gera{/E \347}{/E \365}es'\n");
-  //   fprintf(pipe, "set ylabel 'M{/E \351}dia Fitness'\n");
-  //   string output("set output '" + OUTPUT_DIR + filename + std::string(".eps") + "'\n");
-  //   fprintf(pipe, "%s", output.c_str());
-  //   //fprintf(pipe, "set xrange [-1:42]\n"); // set the terminal
-  //   //fprintf(pipe, "set yrange [-1:42]\n"); // set the terminal
-  //   fprintf(pipe, "set style line 1  lc rgb '#B22C2C' dashtype 2 \n");
-  //   fprintf(pipe, "set style line 2  lc rgb '#0404E9' lt 2 \n");
-  //   std::string str_title = "set title '" + title + "'\n";
-  //   fprintf(pipe, "%s", str_title.c_str());
-  //   std::string str_plot1 = "plot '" + OUTPUT_DIR + filename + "_melhor.output' using 1:2 title 'Melhor' ls 1 lw 5 with lines, ";
-  //   std::string str_plot2 = "'" + OUTPUT_DIR + filename + "_media.output' using 1:2 title 'M{/E \351}dia' ls 2  lw 3 with lines\n ";
-  //   fprintf(pipe, "%s", str_plot1.c_str());
-  //   fprintf(pipe, "%s", str_plot2.c_str());
+  if (pipe != NULL) {
+    fprintf(pipe, "set bmargin 7\n");
+    fprintf(pipe, "unset colorbox\n");
+    fprintf(pipe, "set terminal postscript eps enhanced color colortext font 'Arial,22'\n");
+    fprintf(pipe, "set key font 'Arial,18'\n");
+    fprintf(pipe, "set encoding iso_8859_1\n");
+    fprintf(pipe, "set xlabel 'Gera{/E \347}{/E \365}es'\n");
+    fprintf(pipe, "set ylabel 'M{/E \351}dia Fitness'\n");
+    string output("set output '" + OUTPUT_DIR + filename + std::string(".eps") + "'\n");
+    fprintf(pipe, "%s", output.c_str());
+    //fprintf(pipe, "set xrange [-1:42]\n"); // set the terminal
+    //fprintf(pipe, "set yrange [-1:42]\n"); // set the terminal
+    fprintf(pipe, "set style line 1  lc rgb '#B22C2C' dashtype 2 \n");
+    fprintf(pipe, "set style line 2  lc rgb '#0404E9' lt 2 \n");
+    std::string str_title = "set title '" + title + "'\n";
+    fprintf(pipe, "%s", str_title.c_str());
+    std::string str_plot1 = "plot '" + OUTPUT_DIR + filename + "_melhor.output' using 1:2 title 'Melhor' ls 1 lw 5 with lines, ";
+    std::string str_plot2 = "'" + OUTPUT_DIR + filename + "_media.output' using 1:2 title 'M{/E \351}dia' ls 2  lw 3 with lines\n ";
+    fprintf(pipe, "%s", str_plot1.c_str());
+    fprintf(pipe, "%s", str_plot2.c_str());
 
-  //   fflush(pipe);
-  //   pclose(pipe);
-  // } else{
-  //   std::cout << "Could not open pipe" << std::endl;
-  // }
+    fflush(pipe);
+    pclose(pipe);
+  } else{
+    std::cout << "Could not open pipe" << std::endl;
+  }
 }
 
 std::string FishSchoolSearch::space2underscore(std::string text) {

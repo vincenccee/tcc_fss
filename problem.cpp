@@ -28,7 +28,7 @@ double Problem::evaluateFitness(std::vector<double> solution){
   }
   
   fitness = 1 + auxSum - auxMul;
-  return 451 - fitness;
+  return 930 - fitness;
 }
 
 std::vector<double> Problem::validatePosition(std::vector<double> position){
