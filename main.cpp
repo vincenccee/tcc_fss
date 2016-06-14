@@ -2,13 +2,15 @@
 #include <cstdlib>
 #include <vector>
 #include <algorithm>
-#include "fish_school_search.hpp"
-#include "problem.hpp"
-// #include "parameters.cpp" 
 
 #define TAM_POP 30
 #define DIMENSION 30
 #define ITERATIONS 5000
+#define RUNS 10
+
+#include "fish_school_search.hpp"
+#include "problem.hpp"
+// #include "parameters.cpp" 
 
 using namespace std;
 
@@ -22,7 +24,7 @@ int main(int argc, char **argv) {
   // cout << "tudo 600: " << problem->evaluateFitness(test) << endl;
 
   FishSchoolSearch *fss = new FishSchoolSearch(*problem, TAM_POP);
-  fss->evolutionaryCicle(ITERATIONS);
+  fss->evolutionaryCicle(ITERATIONS, RUNS);
 
 	return 0;
 }

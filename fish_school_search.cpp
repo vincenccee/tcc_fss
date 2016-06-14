@@ -30,41 +30,59 @@ void FishSchoolSearch::showPopulation(){
   }
 }
 
-void FishSchoolSearch::evolutionaryCicle(int iterations){
+void FishSchoolSearch::evolutionaryCicle(int iterations, int runs){
   this->iterations = iterations;
-  this->school = new Population(tamPopulation, problem.dimension, problem.getLowerBound(), problem.getUpperBound());
-  school->initializePopulation();
-  this->stepIndPercentage = this->stepIndInit;
-  this->stepVolPercentage = this->stepVolInit;
-  initializeBestPosition();
+  this->runs = runs;
   popdata.open("testdata1.txt");
-  bestPopulationFitness.clear();
-  bestIndividualFitness.clear();
-  // showPopulation();
+
   for(unsigned int i=0; i<this->iterations; i++){
-    localSearch();
-    setLocalSchoolNewWeight();
-    // cout << "after localSearch: " << endl;
-    // showPopulation();
-    collectiveMovement();
-    // cout << "after collectiveMovement: " << endl;
-    // showPopulation();
-    volitiveMovement();
-    // setSchoolNewWeight();
-    // cout << "after volitiveMovement: " << endl;
-    // showPopulation();
-    updateBestPosition();
-    updatePlot();
-    updateStepPercentage();
+    bestPopulationFitness.push_back(0.0);
+    bestIndividualFitness.push_back(0.0);
+    populationDiversity.push_back(0.0);
   }
-  // showPopulation();
-  // gnu_plot_convergence_best_mean(bestIndividualFitness, bestPopulationFitness, iterations, "MelhoraFitness", "melhora_fit");
-  // gnu_plot_convergence(bestPopulationFitness, iterations, "pop_fitess", "fitnessdaPopulacao", "Iterations", 451);
-  cout << "position:  ";
-  for(unsigned int i=0; i<bestPosition.size(); i++){
-    cout << " * " << bestPosition[i];
+  // cout << "test: " << bestPopulationFitness.size() << " " << bestPopulationFitness[49] << endl;
+
+  for(unsigned int j=0; j<this->runs; j++){
+    this->school = new Population(tamPopulation, problem.dimension, problem.getLowerBound(), problem.getUpperBound());
+    school->initializePopulation();
+    this->stepIndPercentage = this->stepIndInit;
+    this->stepVolPercentage = this->stepVolInit;
+    this->m_nmdf = 0;
+
+    initializeBestPosition();
+    // showPopulation();
+    for(unsigned int i=0; i<this->iterations; i++){
+      localSearch();
+      setLocalSchoolNewWeight();
+      // cout << "after localSearch: " << endl;
+      // showPopulation();
+      collectiveMovement();
+      // cout << "after collectiveMovement: " << endl;
+      // showPopulation();
+      volitiveMovement();
+      // setSchoolNewWeight();
+      // cout << "after volitiveMovement: " << endl;
+      // showPopulation();
+      updateBestPosition(i);
+      updatePlot(i);
+      updateStepPercentage();
+    }
+    // showPopulation();
+    cout << "position:  ";
+    for(unsigned int i=0; i<bestPosition.size(); i++){
+      cout << " * " << bestPosition[i];
+    }
+
+    cout << "\nBest Finess = " << getBestFitness() << endl;
   }
-  cout << "\nBest Finess = " << getBestFitness() << endl;
+  for(unsigned int j=0; j<this->iterations; j++){
+    bestPopulationFitness[j] = bestPopulationFitness[j]/this->runs;
+    bestIndividualFitness[j] = bestIndividualFitness[j]/this->runs;
+    populationDiversity[j] = populationDiversity[j]/this->runs;
+  }
+
+  gnu_plot_convergence_best_mean(bestIndividualFitness, bestPopulationFitness, iterations, "MelhoraFitness", "melhora_fit");
+  gnu_plot_convergence(populationDiversity, iterations, "pop_diversity", "fitnessdaPopulacao", "Divesidade Genotipica", 1);
   popdata.close();
 }
 
@@ -279,7 +297,7 @@ double FishSchoolSearch::weightVariationSignal(){
   for(unsigned int i=0; i < tamPopulation; i++) {
     weightVariation += school->getFish(i)->getWeightVariation();
   }
-  if(weightVariation < 0) cout << "Dilatação!!!!" << endl;
+  // if(weightVariation < 0) cout << "Dilatação!!!!" << endl;
   return (weightVariation >= 0 ? -1.0 : 1.0);
 }
 
@@ -319,14 +337,14 @@ void FishSchoolSearch::initializeBestPosition(){
   bestPosition = school->getFish(0)->getCurrentPosition();
 }
 
-void FishSchoolSearch::updateBestPosition(){
+void FishSchoolSearch::updateBestPosition(int pos){
   for(unsigned int i=0; i < tamPopulation; i++) {
     if(problem.evaluateFitness(school->getFish(i)->getCurrentPosition()) > problem.evaluateFitness(bestPosition)){
       bestPosition.clear();
       bestPosition = school->getFish(i)->getCurrentPosition();
     }
   }
-  bestIndividualFitness.push_back(problem.evaluateFitness(bestPosition));
+  bestIndividualFitness[pos] += problem.evaluateFitness(bestPosition);
 }
 
 void FishSchoolSearch::updateStepPercentage(){
@@ -343,7 +361,7 @@ double FishSchoolSearch::fRand(double fMin, double fMax){
   return fMin + f * (fMax - fMin);
 }
 
-void FishSchoolSearch::updatePlot(){
+void FishSchoolSearch::updatePlot(int pos){
   double totalFit = 0;
   double mediaFit = 0;
   Fish *tmpFish;
@@ -353,9 +371,8 @@ void FishSchoolSearch::updatePlot(){
     totalFit += problem.evaluateFitness(tmpFish->getCurrentPosition());
   }
   mediaFit = totalFit/tamPopulation;
-  bestPopulationFitness.push_back(mediaFit);
-
-  popdata << mediaFit << endl;
+  bestPopulationFitness[pos] += mediaFit;
+  populationDiversity[pos] += defaultGenotypicDiversityMeasure();
 }
 
 void FishSchoolSearch::gnu_plot_convergence(std::vector<double> mean_gen, int m_gen, std::string name, std::string title, std::string y_axis, double max_range){
@@ -449,4 +466,35 @@ std::string FishSchoolSearch::space2underscore(std::string text) {
       }
   }
   return text;
+}
+
+double FishSchoolSearch::defaultGenotypicDiversityMeasure(){
+  double diversity = 0;
+  double aux_1 = 0;
+  double aux_2 = 0;
+  double buffer = 0;
+  unsigned short int a = 0;
+  unsigned short int b = 0;
+  unsigned short int d = 0;
+  for(a = 0; a < tamPopulation; a++)
+  {
+    for(b = (a+1); b < tamPopulation; b++)
+    {
+      aux_1 = 0;
+      for(d = 0; d < problem.dimension; d++)
+      {       
+        aux_1 += pow(school->getFish(a)->getCurrentPosition()[d] - school->getFish(b)->getCurrentPosition()[d], 2);
+      }
+      if(b == (a+1) || aux_2 > aux_1)
+      {
+        aux_2 = aux_1;
+      }
+    }
+    diversity += log((double)1.0 + aux_2);  
+  } 
+  if(m_nmdf < diversity)
+  {
+    m_nmdf = diversity;
+  }
+  return diversity / m_nmdf;
 }

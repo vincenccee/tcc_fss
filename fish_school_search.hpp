@@ -18,6 +18,7 @@ class FishSchoolSearch {
     std::vector<double> bestPosition;
     std::vector<double> bestPopulationFitness;
     std::vector<double> bestIndividualFitness;
+    std::vector<double> populationDiversity;
     std::string OUTPUT_DIR;
     std::ofstream popdata;
 
@@ -29,6 +30,8 @@ class FishSchoolSearch {
     double stepVolFinal;
     double minWeight;
     double maxWeight;
+    double m_nmdf;
+    int runs;
     int iterations;
     int tamPopulation;
 
@@ -38,7 +41,7 @@ class FishSchoolSearch {
     ~FishSchoolSearch();
 
     void showPopulation();
-    void evolutionaryCicle(int iterations);
+    void evolutionaryCicle(int iterations, int runs);
     void localSearch();
     std::vector<double> createNeighboorPosition(std::vector<double> position);
     std::vector<double> validatePosition(std::vector<double> position);
@@ -57,16 +60,17 @@ class FishSchoolSearch {
     std::vector<double> calculateBarycenter();
     double calculateWeightSum();
     void initializeBestPosition();
-    void updateBestPosition();
+    void updateBestPosition(int pos);
     void updateStepPercentage();
     double getBestFitness();
 
     double fRand(double fMin, double fMax);
 
-    void updatePlot();
+    void updatePlot(int pos);
     void gnu_plot_convergence(std::vector<double> mean_gen, int m_gen, std::string name, std::string title, std::string y_axis, double max_range);
     void gnu_plot_convergence_best_mean(std::vector<double> d_data1, std::vector<double> d_data2, int n_lines, std::string title, std::string filename);
     std::string space2underscore(std::string text);
+    double defaultGenotypicDiversityMeasure();
 };
 
 #endif
