@@ -5,15 +5,14 @@ A proposta principal deste trabalho é desenvolver uma versão do algoritmo FSS 
 
 Com este algoritmo será possível realizar experimentos para validar a relevância dos operadores utilizados para cada classe de problemas, como problemas com dinamismos na função objetivo, no limite das variáveis ou até problemas com restrições dinâmicas. Além disso será possível analisar a interação dos operadores entre si e entre as técnicas de manutenção da diversidade populacional.
 
-Para a realização dos testes serão aplicadas as mesmas métricas de performance, satisfabilidade, robustez e diversidade para realizar uma comparação justa e detalhada dos componentes usados no algoritmo final. Com o intuito de melhor entender os componentes e o comportamento do algoritmo FSS, este será implementado na sua versão canônica estacionária e um será feito um estudo de caso para analisar seus componentes.
+Para a realização dos testes serão aplicadas as mesmas métricas de performance, satisfabilidade, robustez e diversidade para realizar uma comparação justa e detalhada dos componentes usados no algoritmo final. 
 
-\begin{comment}
-Para a realização dos testes serão aplicadas as mesmas métricas de performance, satisfabilidade, robustez e diversidade para realizar uma comparação justa e detalhada dos componentes usados no algoritmo final. Com o intuito de melhor entender os componentes e o comportamento do algoritmo FSS, este foi implementado na sua versão canônica estacionária e um estudo de caso é detalhado a seguir na Seção \ref{sec:test_case}.
+Com o intuito de melhor entender os componentes e o comportamento do algoritmo FSS, este foi implementado na sua versão canônica estacionária e um estudo de caso é detalhado a seguir na Seção \ref{sec:test_case}.
 
 \section{Estudo de Caso}
 \label{sec:test_case}
 
-O algoritmo foi aplicado nas seguintes funções de \textit{benchmarks} estáticos: Rosembrock, Rastrigin, Griewank, Ackley e Schefel 1.2 que são descritas a seguir.
+O algoritmo foi aplicado nas seguintes funções de \textit{benchmarks} estáticas: Rosembrock, Rastrigin, Griewank, Ackley e Schefel 1.2 que são descritas a seguir.
 
 \begin{equation}
 \label{eq:rosembrock}
@@ -75,22 +74,19 @@ F_{Schefel 1.2}(x) = \sum_{i=0}^{n} \left(\sum_{j=0}^{i} x_i\right)^2
 	\label{fig:f_schafel}
 \end{figure}
 
-Nos testes foram feitas 10 aplicações para cada função, utilizando: 30 dimensões, 30 peixes e 5.000 iterações sendo que o o número total de avaliações de \textit{fitness} é de 300.000. O parâmetros do FSS foram: o $step_{ind}$ inicial de 0,01 e o final de 0,00001, o $step_{vol}$ inicial de 0,01 e final de 0,0001 e o peso inicial de 2500, variando de 1 a 5000.
-	Os Resultados obtidos estão apresentados na Tabela \ref{tb:results}
+Nos testes foram feitas 10 aplicações para cada função, utilizando: 30 dimensões, 30 peixes e 5.000 iterações sendo que o o número total de avaliações de \textit{fitness} é de 300.000. O parâmetros do FSS foram: o $step_{ind}$ inicial de 0,01 e o final de 0,00001, o $step_{vol}$ inicial de 0,01 e final de 0,0001 e o peso inicial de 2500, variando de 1 a 5000. Os Resultados obtidos estão apresentados na Tabela \ref{tb:results}
 	
 \begin{table}[]
 	\centering
 	\caption{Tabela de resultados do FSS canônico}
 	\label{tb:results}
-	\begin{tabular}{|c|c|c|}
+	\begin{tabular}{|c|c|c|c|}
 		\hline
-		\multicolumn{1}{|l|}{Problemas} & \multicolumn{1}{l|}{Melhor Resultado} & \multicolumn{1}{l|}{Desvio Padrão} \\ \hline
-		Rosembrock                      &                                       &                                    \\ \hline
-		Rastrigin                       &                                       &                                    \\ \hline
-		Griewank                        &                                       &                                    \\ \hline
-		Ackley                          &                                       &                                    \\ \hline
-		Schafel 1,2                     &                                       &                                    \\ \hline
+		\multicolumn{1}{|l|}{Problemas} & \multicolumn{1}{l|}{Melhor Resultado} & \multicolumn{1}{l|}{Performance} & \multicolumn{1}{l|}{Diversidade}\\ \hline
+		Rosembrock & 0.001 & \raisebox{-.5\height}{\includegraphics[scale=0.35]{images/p_rosem}} & \raisebox{-.5\height}{\includegraphics[scale=0.35]{images/d_rosem}} \\ \hline
+		Rastrigin  &  & \raisebox{-.5\height}{\includegraphics[scale=0.35]{images/p_rast}} & \raisebox{-.5\height}{\includegraphics[scale=0.35]{images/d_rast}} \\ \hline
+		Griewank  &  & \raisebox{-.5\height}{\includegraphics[scale=0.35]{images/pop_diversity}} & \raisebox{-.5\height}{\includegraphics[scale=0.35]{images/pop_diversity}} \\ \hline
+		Ackley  &  & \raisebox{-.5\height}{\includegraphics[scale=0.35]{images/pop_diversity}} & \raisebox{-.5\height}{\includegraphics[scale=0.35]{images/pop_diversity}} \\ \hline
+		Schafel 1,2  &  & \raisebox{-.5\height}{\includegraphics[scale=0.35]{images/pop_diversity}} & \raisebox{-.5\height}{\includegraphics[scale=0.35]{images/pop_diversity}} \\ \hline
 	\end{tabular}
 \end{table}
-
-\end{comment}
