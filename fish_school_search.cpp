@@ -34,6 +34,7 @@ void FishSchoolSearch::evolutionaryCicle(int iterations, int runs){
   this->iterations = iterations;
   this->runs = runs;
   popdata.open("testdata1.txt");
+  double result;
 
   for(unsigned int i=0; i<this->iterations; i++){
     bestPopulationFitness.push_back(0.0);
@@ -72,14 +73,19 @@ void FishSchoolSearch::evolutionaryCicle(int iterations, int runs){
     for(unsigned int i=0; i<bestPosition.size(); i++){
       cout << " * " << bestPosition[i];
     }
+    result = (getBestFitness() - 35)*-1.0;
+    finalFitness.push_back(result);
 
-    cout << "\nBest Finess = " << getBestFitness() << endl;
+    cout << "\nBest Finess = " << result << endl;
   }
   for(unsigned int j=0; j<this->iterations; j++){
     bestPopulationFitness[j] = bestPopulationFitness[j]/this->runs;
     bestIndividualFitness[j] = bestIndividualFitness[j]/this->runs;
     populationDiversity[j] = populationDiversity[j]/this->runs;
   }
+  cout << "************** Final ****************" << endl;
+  cout << "Media do Fitness: " << arithmeticAverage(finalFitness) << endl;
+  cout << "Desvio Padrao: " << standardDeviation(finalFitness) << endl;
 
   gnu_plot_convergence_best_mean(bestIndividualFitness, bestPopulationFitness, iterations, "MelhoraFitness", "melhora_fit");
   gnu_plot_convergence(populationDiversity, iterations, "pop_diversity", "fitnessdaPopulacao", "Divesidade Genotipica", 1);
@@ -497,4 +503,22 @@ double FishSchoolSearch::defaultGenotypicDiversityMeasure(){
     m_nmdf = diversity;
   }
   return diversity / m_nmdf;
+}
+
+double FishSchoolSearch::standardDeviation(std::vector<double> data){
+  double media = arithmeticAverage(data);
+  double sum1 = 0;
+
+  for (unsigned int i=0; i<data.size(); i++) {
+      sum1 += pow((data[i] - media), 2);
+  }
+  return sqrt(sum1 / (double)(data.size() - 1));
+}
+
+double FishSchoolSearch::arithmeticAverage(std::vector<double> data){
+  double sum = 0;
+  for (unsigned int i=0; i<data.size(); i++) {
+      sum += data[i];
+  }
+  return (sum / data.size());
 }

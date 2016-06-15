@@ -18,6 +18,8 @@ class Problem {
     double evaluateFitness(std::vector<double> solution);
     std::vector<double> validatePosition(std::vector<double> position);
     std::string getName();
+    bool fitnesIsBetter(double newFit, double oldFit);
+    bool isMinimization();
 };
 
 #endif

@@ -19,6 +19,7 @@ class FishSchoolSearch {
     std::vector<double> bestPopulationFitness;
     std::vector<double> bestIndividualFitness;
     std::vector<double> populationDiversity;
+    std::vector<double> finalFitness;
     std::string OUTPUT_DIR;
     std::ofstream popdata;
 
@@ -71,6 +72,8 @@ class FishSchoolSearch {
     void gnu_plot_convergence_best_mean(std::vector<double> d_data1, std::vector<double> d_data2, int n_lines, std::string title, std::string filename);
     std::string space2underscore(std::string text);
     double defaultGenotypicDiversityMeasure();
+    double standardDeviation(std::vector<double> data);
+    double arithmeticAverage(std::vector<double> data);
 };
 
 #endif

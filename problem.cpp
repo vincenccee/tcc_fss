@@ -10,25 +10,28 @@ Problem::Problem() {}
 Problem::~Problem() {}
 
 double Problem::getUpperBound(){
-  return 600.0;
+  return 32.0;
 }
 
 double Problem::getLowerBound(){
-  return -600.0;
+  return -32.0;
 }
 
 double Problem::evaluateFitness(std::vector<double> solution){
-  double fitness = 0;
-  double auxSum = 0;
-  double auxMul = 1;
-  
-  for (unsigned int i = 0; i < this->dimension; i++) {
-      auxSum += (pow(solution[i], 2) / 4000);
-      auxMul *= cos(solution[i] / sqrt(i + 1));
+  double aux = 0;
+  double aux1 = 0;
+  unsigned short int i;
+  for (i = 0; i < this->dimension; i++)
+  {
+    aux += solution[i]*solution[i];
   }
-  
-  fitness = 1 + auxSum - auxMul;
-  return 930 - fitness;
+  for (i = 0; i < this->dimension; i++)
+  {
+    aux1 += cos(2.0*M_PI*solution[i]);
+  }
+
+  aux = -20.0*(exp(-0.2*sqrt(1.0/(float)this->dimension*aux)))-exp(1.0/(float)this->dimension*aux1)+20.0+exp(1);
+  return 35 - aux;
 }
 
 std::vector<double> Problem::validatePosition(std::vector<double> position){
@@ -45,5 +48,13 @@ std::vector<double> Problem::validatePosition(std::vector<double> position){
 }
 
 std::string Problem::getName(){
-  return "Griewank";
+  return "Ackley";
 }
+
+bool Problem::fitnesIsBetter(double newFit, double oldFit){
+  return newFit<oldFit;
+}
+
+bool Problem::isMinimization(){
+  return true;
+} 
