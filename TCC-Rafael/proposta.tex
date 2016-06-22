@@ -82,13 +82,15 @@ F_{Schefel 1.2}(x) = \sum_{i=0}^{n} \left(\sum_{j=0}^{i} x_i\right)^2
 \centering
 \caption{Funções \textit{benchmark}}
 \label{my-label}
+\newcommand{\specialcell}[2][c]{%
+	  \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
 \begin{tabular}{|c|c|}
 \hline
 Equações & Representação do espaço \\ \hline
 $F_{Rosembrock}(x) = \sum_{i=1}^{n-1} \left[ 100 (x_{i+1} - x_i^2)^2 + (1 - x_i)^2\right]$ & \raisebox{-.5\height}{\includegraphics[scale=0.28]{images/f_rosembrock.jpg}} \\ \hline
 $F_{Rastrigin}(x) = 10 n + \sum_{i=1}^{n} \left[ x_i^2 - 10\cos(2\pi x_i)\right]$ & \raisebox{-.5\height}{\includegraphics[scale=0.4]{images/f_rastrigin.jpg}} \\ \hline
 $F_{Griewank}(x) = 1+ \sum_{i=1}^{n} \frac{x_i^2}{4000} - \prod_{i=1}^{n} \cos$ & \raisebox{-.5\height}{\includegraphics[scale=0.28]{images/f_griewank.png}} \\ \hline
-$F_{Ackley}(x) = -20 \exp \left(-0.2 \sqrt{\frac{1}{n} \sum_{i=0}^{n} x_i^2 }\right) - \exp$ & \raisebox{-.5\height}{\includegraphics[scale=0.28]{images/f_ackley.png}} \\ \hline
+\specialcell{$F_{Ackley}(x) = -20 \exp \left(-0.2 \sqrt{\frac{1}{n} \sum_{i=0}^{n} x_i^2 }\right)$\\$ - \exp \left(\frac{1}{d} \sum_{i=1}^{d} \cos(cx_i) \right) + a + \exp(1)$ }& \raisebox{-.5\height}{\includegraphics[scale=0.28]{images/f_ackley.png}} \\ \hline
 $F_{Schefel 1.2}(x) = \sum_{i=0}^{n} \left(\sum_{j=0}^{i} x_i\right)^2$ & \raisebox{-.5\height}{\includegraphics[scale=0.28]{images/f_schafel.png}} \\ \hline
 \end{tabular}
 \end{table}
