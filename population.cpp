@@ -14,17 +14,7 @@ Population::Population(){}
 
 Population::~Population(){}
 
-void Population::showPopulation(){
-  for(unsigned int i=0; i<tamPopulation; i++){
-    cout << "ind " << i << "\t";
-    for(unsigned int j=0; j<dimension; j++){
-      cout << population[i].getPosition(j) << " * ";
-    }
-    cout << endl;
-  }
-}
-
-void Population::initializePipulation(){
+void Population::initializePopulation(){
   this->population.clear();
   std::vector<double> position;
   Fish *tmpFish;
@@ -38,16 +28,36 @@ void Population::initializePipulation(){
   }
 }
 
-void Population::evaluatePopulation(){
-
+void Population::updatePopulationDisplacement(){
+  std::vector<double> displacement;
+  for(unsigned int i=0; i< tamPopulation; i++){
+    if(population[i].getImproved()){
+      displacement.clear();
+      // cout << "displacement: " << i << " - ";
+      for(unsigned int j=0; j<dimension; j++){
+        displacement.push_back(population[i].getCurrentPosition()[j] - population[i].getPreviuosPosition()[j]);
+        // cout << " * " << displacement[j];
+      }
+      // cout << endl;
+      population[i].setIndividualDisplacement(displacement);
+    }
+  }
 }
 
-double Population::getStepInd(){
-  return this->stepInd;
+std::vector<Fish> Population::getPopulation(){
+  return population;
 }
 
-double Population::getStepVol(){
-  return this->stepVol;
+Fish * Population::getFish(int pos){
+  return &population[pos];
+}
+
+void Population::updateFish(Fish fish, int pos){
+  this->population[pos] = fish;
+}
+
+int Population::getTamPopulation(){
+  return tamPopulation;
 }
 
 double Population::getMinWeight(){
@@ -56,14 +66,6 @@ double Population::getMinWeight(){
 
 double Population::getMaxWeight(){
   return this->maxWeight;
-}
-
-void Population::setStepInd(double stepInd){
-  this->stepInd = stepInd;
-}
-
-void Population::setStepVol(double stepVol){
-  this->stepVol = stepVol;
 }
 
 void Population::setMinWeight(double minWeight){
