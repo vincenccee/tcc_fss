@@ -1,14 +1,12 @@
 \chapter{Problemas Dinâmicos com Domínio Contínuo}
 \label{ch:problemas}
-Nessa seção será apresentada uma breve introdução aos \textit{benchmarks} que serão utilizados para análise nesse trabalho, junto a isso será feita uma introdução aos problemas dinâmicos, suas variações e dificuldades.
+Neste capítulo é apresentado uma breve introdução aos \textit{benchmarks} que serão utilizados para análise nesse trabalho, junto a isso é feita uma introdução aos problemas dinâmicos, suas variações e dificuldades.
 
-Durante o dia-a-dia, pode-se observar diversos problemas complexos em que as condições do ambiente podem mudar com o passar do tempo, sendo assim uma solução válida com o passar do tempo, acaba não sendo mais suficientemente boa para suprir as necessidades das novas condições \cite{branke2012evolutionary}.Para problemas com mudanças em seu ambiente é necessário um sistema de resolução que se adapte as alterações e esteja sempre apto a procurar por soluções melhores.
-
-Na computação existem várias áreas que se dedicam a otimizar problemas desse tipo como por exemplo os EA e os SI. Para que poder avaliar os algoritmos utilizados na otimização destes problemas são geradas funções \textit{benchmarks} que apresentam características dos problemas reais, como por exemplo mudança de elevação de terrenos.
+Durante o dia-a-dia, pode-se observar diversos problemas complexos em que as condições do ambiente podem mudar com o tempo, sendo assim uma solução válida encontrada em um instante anterior acaba não sendo mais suficientemente boa para suprir as necessidades das novas condições \cite{branke2012evolutionary}. Para problemas com mudanças em seu ambiente é necessário um sistema de resolução que se adapte as alterações e esteja sempre apto a procurar por soluções melhores. Na computação existem várias áreas nas quais se dedicam a otimizar esses problemas, como por exemplo os EA e os SI. Para poder avaliar os algoritmos utilizados na otimização destes problemas são geradas funções \textit{benchmarks} que apresentam características dos problemas reais, como por exemplo mudança de elevação de terrenos.
 
 \section{Funções \textit{Benchmark}}
 \label{sec:revisao_benchmark}
-O uso das funções \textit{benchmark} é um ponto crucial para o desenvolvimento, comparação, avaliação e otimização dessa classe de problemas \cite{evolution_dynamic}. O fato das condições do problema variarem de acordo com o tempo acrescentam uma camada de dificuldade a mais para obter uma solução satisfatória após uma mudança. Um bom \textit{benchmark} possui as seguintes características.
+O uso das funções \textit{benchmark} é um ponto crucial para o desenvolvimento, comparação, avaliação e otimização dessa classe de problemas \cite{evolution_dynamic}. O fato das condições do problema variarem de acordo com o tempo acrescentam uma camada de dificuldade a mais para obter uma solução satisfatória após uma mudança. Um bom \textit{benchmark} deve possuir as seguintes características.
 
 \begin{enumerate}  
 \item Flexibilidade: Configurável sobre diferentes abordagens dinâmicas, como por exemplo, a frequência ou intensidade das alterações no ambiente, em diferentes escalas.
@@ -18,29 +16,29 @@ O uso das funções \textit{benchmark} é um ponto crucial para o desenvolviment
 \item Associação com Problemas Reais: Ter a capacidade de fazer previsões em problemas reais ou se assemelhar em alguma extensão.
 \end{enumerate}
 
-Para a analisar um \textit{benchmarks} é necessário dar atenção para o tipo de dinamismo que esse problema apresenta, pois para otimiza-lo são escolhidas estratégias de otimização baseadas no tipo de dinamismo. Cada \textit{benchmarks} possui suas características e com isso cada algoritmo aplicado a ele terá que analisar como está abordando essas peculiaridades. A Características observadas nas funções encontradas são \cite{cruz2011optimization}:
+Para a analisar um \textit{benchmark} é necessário dar atenção para o tipo de dinamismo que esse problema apresenta, pois para otimizá-lo são escolhidas estratégias de otimização baseadas no tipo de dinamismo. Cada \textit{benchmark} possui suas características e com isso cada algoritmo aplicado a ele terá que analisar como está abordando essas peculiaridades. As Características observadas nas funções encontradas são \cite{cruz2011optimization}:
 
 \begin{enumerate}
 \item Influência Temporal: Sempre que uma solução futura depende de outra encontrada anteriormente pelo algoritmo, ou seja, quando o tipo de mudança que o algoritmo vai sofrer depende de quais soluções foram encontradas ao decorrer da otimização. Neste caso os resultados podem mudar para cada tentativa de otimização.
 
-\item Previsibilidade: Quando as mudanças geradas pelo problema seguem um padrão que pode ser previsto durante a otimização do problema. Podem ser alterações por mudança em uma escala fixa, incremental, cíclica, periódica.
+\item Previsibilidade: Quando as mudanças geradas pelo problema seguem um padrão que pode ser previsto durante a otimização do problema. Podem ser alterações por mudança em uma escala fixa, incremental, cíclica ou periódica.
 
-\item Visibilidade: Sempre que as mudanças são visíveis pelo algoritmo que está otimizando o problema, de foram que o algoritmo não precise usar muitos detectores para perceber a mudança no ambiente. Podem ser pontos específicos do espaço, que são detectados ao re-avaliar a função objetivo, ou até mesmo, as restrições.
+\item Visibilidade: Sempre que as mudanças do ambiente são visíveis pelo algoritmo otimizando o problema. O algoritmo não deve precisar utilizar muitos detectores para perceber a mudança no ambiente, podem ser pontos específicos do espaço, que são detectados ao re-avaliar a função objetivo, ou até mesmo, as restrições.
 
-\item Problemas com Restrições: As mudanças do problema podem ocorrer nas restrições, que podem mudar ao longo do tempo (a variável de tempo influencia na função de restrição) ou o podem ser ativadas e/ou desativadas durante a otimização.
+\item Problemas com Restrições: As mudanças do problema podem ocorrer nas restrições, que podem mudar ao longo do tempo (a variável de tempo influencia na função de restrição) ou podem ser ativadas e/ou desativadas durante a otimização.
 
-\item Número de Objetivos: São as problemas multi-objetivos, que neste caso podem alterar o número de objetivos durante a otimização, chegando até, ao ponto de tem somente um objetivo em vista.
+\item Número de Objetivos: São os problemas multi-objetivos, que neste caso podem alterar o número de objetivos durante a otimização, chegando até, ao ponto de ter somente um objetivo em vista.
 
-\item Intensidade das Mudanças: Qual a escala da mudança, ou qual o período de ciclo das mudanças, ou o limite das mudanças.
+\item Intensidade das Mudanças: Indica qual a escala da mudança, ou seja, quão expressiva é está alteração em relação ao \textit{fitness} do indivíduo, tendo como preocupação o limite das mudanças.
 
-\item Fator da Mudança: Onde o dinâmismo pode ocorrer, sendo: Função objetivo; Domínio das variáveis; Número de variáveis; Restrições; ou outros parâmetros.  
+\item Fator da Mudança: Onde o dinâmismo pode ocorrer, sendo na função objetivo, no domínio das variáveis no número de variáveis, nas restrições ou outros parâmetros.  
 \end{enumerate}
 
 \subsection{Avaliação de Desempenho}
 \label{sec:perfermance_measures}
 
-Para avaliar um \textit{benchmarks} são estipuladas métricas que serão utilizadas para medir a qualidade dos resultados obtidos pelo algoritmo de otimização. Os métodos de avaliação apresentados foram selecionados por serem amplamente utilizados em algoritmos bioinspirados aplicados em ambientes dinâmicos e possivelmente serão usados para avaliar o desempenho dos algoritmos selecionados neste trabalho.
-A forma de avaliação pode ser dividida em dois grandes grupos: Medida de desempenho baseados em otimalidade e os em comportamento.
+Para avaliar um \textit{benchmark} são estipuladas métricas que serão utilizadas para medir a qualidade dos resultados obtidos pelo algoritmo de otimização. Os métodos de avaliação apresentados foram selecionados por serem amplamente utilizados em algoritmos bioinspirados aplicados em ambientes dinâmicos e possivelmente serão usados para avaliar o desempenho dos algoritmos selecionados neste trabalho.
+A forma de avaliação pode ser dividida em dois grandes grupos: Medida de desempenho baseados em otimalidade e em comportamento.
 
 \subsubsection{Otimalidade}
 As medidas de desempenho baseadas na otimalidade avaliam a capacidade dos algoritmos em encontrar as soluções com o melhor valor de \textit{fitness} ou as que estão mais próximas do ótimo global (medidas baseadas na distância) e essa avaliação leva em conta o algoritmo como um todo. Entre elas tem-se:
@@ -66,7 +64,7 @@ As medidas de desempenho baseadas em comportamento avaliam a influência de cert
 
 \section{Instâncias de Problemas}
 \label{sec:revisao_dinamic_problems}
-Nesta etapa serão apresentados e detalhados os problemas que serão abordados no trabalho. Os problemas selecionados para esse trabalho serão usados para realizar uma análise comparativa com outras abordagens encontradas na literatura e também testar o desempenho de cada operador evolutivo que os algoritmos irão abordar.
+Nesta etapa são apresentados e detalhados os problemas que serão abordados no trabalho. Os problemas selecionados para esse trabalho serão usados para realizar uma análise comparativa com outras abordagens encontradas na literatura e também testar o desempenho de cada operador evolutivo que os algoritmos irão abordar.
 A maioria dos problemas selecionados não possuem um \textit{link} temporal com as soluções anteriores. São apresentados com e sem restrições na função objetivo ou no limite do domínio das variáveis, tendo em sua maioria dinamismos previsíveis, periódicos e constantes.
 
 \subsection{\textit{Moving Peaks} - MP}
@@ -83,7 +81,7 @@ A função objetivo é dada pela Equação \ref{eq:moving_peak_equacion}, na qua
 F(\vec{x},t) = \max_{i = 1 \to n} \frac {H_i(t)}{1 + W_i(t)\sum_{j=1}^{m} (x_j - X_j(t))^2}
 \end{equation}
 
-A cada $\Delta e$ (valor que representa o intervalo/frequência das mudanças do ambiente), a altura e o peso são alterador adicionando uma variável Guassiana aleatória. O local de cada um dos picos é movido por um vetor $\vec{v}$ a uma distância $ s $ fixa para uma direção aleatória. Essas alterações podem ser descritas pela Equação \ref{eq:moving_peak_alterations}.
+A cada $\Delta e$ (valor que representa o intervalo/frequência das mudanças do ambiente), a altura e o peso são alterador adicionando uma variável aleatória. O local de cada um dos picos é movido por um vetor $\vec{v}$ a uma distância $ s $ fixa para uma direção aleatória. Essas alterações podem ser descritas pela Equação \ref{eq:moving_peak_alterations}.
 
 \begin{equation}
 \label{eq:moving_peak_alterations}
@@ -107,7 +105,7 @@ Um exemplo de como as máximas se movem ao longo do tempo em um espaço bidimens
 \subsection{\textit{Ocillating Peaks} - OP}
 \label{sec:ocillating_peaks}
 
-O \textit{benchmark} de oscilação de picos (\textit{ocillating peaks}) é baseado no de movimentação de picos, porem foi desenvolvido para algoritmos evolutivos com utilização de memória.
+O \textit{benchmark} de oscilação de picos (\textit{ocillating peaks}) é baseado no de movimentação de picos, porém foi desenvolvido para algoritmos evolutivos com utilização de memória.
 
 É uma combinação linear entre duas funções em que o peso delas se alteram ao longo do tempo, portanto, a função $G$, começa em $g_1$, passa para $g_2$, depois volta para $g_1$ e assim sucessivamente. Em outras palavras, o máximo absoluto de $G$ oscila entre dois pontos $g_1$ e $g_2$. As funções que representam as alteração da função $G$ estão representadas na Equação \ref{eq:ocillating_peak_alterations}, em que, $\lambda (t)$ representa a oscilação da função, $n$ é a soma das picos das duas funções que compõem a combinação linear e $m$ é o número de dimensões.
 
@@ -143,6 +141,6 @@ O Gerador de Problemas testes para Ambientes não Estacionários (DF1) foi utili
 \end{split}
 \end{equation}
 
-\noindent Em que $N$ representa o número de pontos ótimos a serem gerados, $(X,Y)$ representa sua posição, $H_i$ representa sua altura e $R_i$ representa sua inclinação. o limite da altura e inclinação são apresentados na Equação \ref{eq:problem_generator}. Nesse sistema variam suas posições, formas e alturas. A alturas varia entre um valor máximo e mínimo, criando assim um perfil de dente de serra, enquanto a altura é representada graficamente. O \textit{fitness} de cada ponto da superfície é atribuído a altura máxima de todos os pontos ótimos.
+\noindent Em que $N$ representa o número de pontos ótimos a serem gerados, $(X,Y)$ representa sua posição, $H_i$ representa sua altura e $R_i$ representa sua inclinação. o limite da altura e inclinação são apresentados na Equação \ref{eq:problem_generator}. Nesse sistema variam suas posições, formas e altura. A alturas varia entre um valor máximo e mínimo, criando assim um perfil de dente de serra, enquanto a altura é representada graficamente. O \textit{fitness} de cada ponto da superfície é atribuído a altura máxima de todos os pontos ótimos.
 
-Embora o número de pontos ótimos presente não possa ser alterado uma vez que o ambiente tenha sido inicializado, a combinação de mudança alturas e posições faz com uma solução ótima fique temporariamente obscura em relação ao vizinhos. Esse fenômeno gera a impressão que alguns pontos desaparecem e ressurgem, porém a quantidade de picos não é alterada. O dinamismo do ambiente pode ser especificado por um parâmetro $A$ que varia de [0, 4]. A direção de cada etapa é escolhida aleatoriamente para coordenadas espaciais, com passos que podem colocar um pico fora dos limites das variáveis. A direção da mudança na variáveis de altura e inclinação são escolhidas aleatoriamente inicialmente e continuam nessa direção até exceder o intervalo.
+Embora o número de pontos ótimos presente não possa ser alterado uma vez que o ambiente tenha sido inicializado, a combinação da mudança altura e posições faz com uma solução ótima fique temporariamente obscura em relação ao vizinhos. Esse fenômeno gera a impressão que alguns pontos desaparecem e ressurgem, porém a quantidade de picos não é alterada. O dinamismo do ambiente pode ser especificado por um parâmetro $A$ que varia de [0, 4]. A direção de cada etapa é escolhida aleatoriamente para coordenadas espaciais, com passos que podem colocar um pico fora dos limites das variáveis. A direção da mudança na variáveis de altura e inclinação são escolhidas aleatoriamente inicialmente e continuam nessa direção até exceder o intervalo.

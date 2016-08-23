@@ -1,6 +1,6 @@
 \chapter{Trabalhos Relacionados}
 \label{ch:relacionados}
-A Computação Natural possuí vários operadores diferentes em algoritmos diferentes para serem aplicados em diversos tipos de problemas. Nesta Seção são apresentados os trabalhos do estado da arte encontrados na literatura que utilizam esses algoritmos bioinspirados em problemas dinâmicos de domínio contínuo.
+A Computação Natural possui vários operadores diferentes em algoritmos diferentes para serem aplicados em diversos tipos de problemas. Neste capítulo são apresentados os trabalhos do estado da arte encontrados na literatura que utilizam esses algoritmos bioinspirados em problemas dinâmicos de domínio contínuo.
 
 \section{Evolução Diferencial Local a Base de Aglomeração e com Memória Baseada em Espécies}
 \label{sec:crowding_base_de}
@@ -8,7 +8,7 @@ A Computação Natural possuí vários operadores diferentes em algoritmos difer
 No trabalho de \cite{kundu2013crowding}, é feito uma análise comparativa das versões do DE existentes, especificando suas necessidades ao serem aplicados em ambiente dinâmicos e ao final é apresentado a proposta de aplicação. As versões que são analisadas são as seguintes:
 
 \begin{itemize}
-\item Evolução Diferencial Baseada em Aglomeração (\textit{Crowding-based DE} - CDE) \cite{thomsen2004multimodal}: Basicamente, o CDE estende DE com o esquema \textit{Crowding}. Assim, a única modificação ao DE convencional é sobre o indivíduo (pai) ser substituído. Normalmente o pai produzir a descendência é substituído, ao passo que no CDE a descendência substitui o indivíduo mais similar entre um subconjunto da população.
+\item Evolução Diferencial Baseada em Aglomeração (\textit{Crowding-based DE} - CDE) \cite{thomsen2004multimodal}: Basicamente, o CDE estende DE com o esquema \textit{Crowding}. Assim, a única modificação ao DE convencional é sobre o indivíduo (pai) ser substituído. Normalmente o pai que produz a descendência é substituído, ao passo que no CDE a descendência substitui o indivíduo mais similar entre um subconjunto da população.
 
 \item Evolução Diferencial Baseada em Espécies (\textit{Species-based DE} - SDE) \cite{li2005efficient}: Seguindo os passos para determinar sementes de espécies (centros de populações menores dentro da população original), o SDE é capaz de identificar múltiplas espécies entre toda a população a cada iteração. Cada espécie identificada é otimizada por uma instância do DE.
 
@@ -20,7 +20,7 @@ Após a análise dos algoritmos é demonstrado a proposta do autor, em que pode-
 \begin{enumerate}
 \item Mutação por Vizinhança: durante a mutação feita pelo ClDES são escolhidos somente os indivíduos que estão próximos a vizinhança, de forma que, em relação a população total, somente uma pequena parte pode ser escolhida.
 
-\item Função de Teste: É estipulada uma função de teste para detectar mudanças no ambiente que não faz parte do processo evolutivo, porém a cada geração essa função é testada e se for identificado alguma alteração no resultado do \textit{fitness} fica comprovado a mudança no ambiente. Ao ser identificada essa mudança o algoritmo toma as ações necessárias para manter um determinado nível de \textit{fitness}.
+\item Função de Teste: É estipulada uma função de teste para detectar mudanças no ambiente que não faz parte do processo evolutivo, porém a cada geração essa função é testada e se for identificado alguma alteração no resultado do \textit{fitness} fica comprovada a mudança no ambiente. Ao ser identificada essa mudança, o algoritmo toma as ações necessárias para manter um determinado nível de \textit{fitness}.
 
 \item Arquivo de Memória Baseada em Especiação: ao detectar uma mudança no ambiente, o sistema procura os núcleos de espécies, chamados de sementes de espécies, e a partir dele são selecionados indivíduos que serão mantidos na nova população. A nova população feita utilizando metade dos indivíduos selecionados pelas sementes de espécies e a outra metade é gerada aleatoriamente.
 \end{enumerate}
@@ -30,7 +30,7 @@ O ClDES foi aplicado no MP \textit{benchmark} e foi comparado com outras versõe
 \section{Algoritmo de Vaga-Lumes baseado em multi-enxames - MSFA}
 \label{sec:fa_behaviour}
 
-O trabalho de \cite{farahani2011multiswarm} propões uma junção da ideia do FA com a ideia de multi-enxames (\textit{MultiSwarm} - MS). A ideia principal da técnica MS é dividir a população em um número de sub enxames, com o objetivo de posicionar cada um desses sub enxames sobre diferentes áreas, visando encontrar diferentes picos no espaço de busca. No entanto, simplesmente separar o enxame em um número de enxames independentes não são susceptíveis de serem eficazes, uma vez que não tenha interação entre os sub enxames. Existem algumas abordagens chamadas de Exclusão e Anti-convergência para resolver este problema.
+O trabalho de \cite{farahani2011multiswarm} propõe uma junção do FA com o método de multi-enxames (\textit{MultiSwarm} - MS). A ideia principal da técnica MS é dividir a população em um número de sub enxames, com o objetivo de posicionar cada um desses sub enxames sobre diferentes áreas, visando encontrar diferentes picos no espaço de busca. No entanto, simplesmente separar o enxame em um número de enxames independentes não são susceptíveis de serem eficazes, uma vez que não tenha interação entre os sub enxames. Existem algumas abordagens chamadas de Exclusão e Anti-convergência para resolver este problema.
 
 \begin{enumerate}
 \item Exclusão: A exclusão é uma interação local entre enxames próximos de colidir. Se um enxame é dividido em um certo número de sub enxames, pode acontecer que partículas de diferentes enxames girem em torno de um único pico. Isso é indesejável uma vez que a motivação por trás de uma abordagem MS é postular diferentes enxames em diferentes picos. A fim de evitar isso é feito uma competição entre os enxames, quem possuir o melhor \textit{fitness} continua na otimização, o outro sub enxame é extinto e é gerado novamente.
@@ -42,7 +42,7 @@ O algoritmo proposto usa a MS para localizar todos o picos do MP \textit{benchma
 
 Os resultados obtidos da aplicação do Algoritmo de Vaga-Lumes Baseado em Multi-Enxames (\textit{Multiswarm Based Firefly Algorithm} - MSFA) no MP \textit{benchmark} mostram que o MSFA mostra-se superior ao FA e a outras versões do PSO. A principal característica constatada é quando o número de picos é diferente do número de sub enxames, de forma que se o número de sub enxames for menor o desempenho do algoritmo cai drasticamente.
 
-\section{Algoritmo PSO em ambientes dinâmicos}
+\section{Algoritmo PSO em Ambientes Dinâmicos}
 \label{sec:pso_behaviour}
 
 O PSO é um dos algoritmos de SI mais estudados na área de otimização de problemas dinâmicos, de forma que são geradas várias versões dele com vários operadores interessantes \cite{carlisle2002applying}.
@@ -50,7 +50,7 @@ O PSO é um dos algoritmos de SI mais estudados na área de otimização de prob
 \subsection{\textit{Dynamic Species-Based Particle Swarm Optimizer} - DSPSO}
 \label{sec:dspso}
 
-O DSPSO \cite{parrott2006locating} é baseado na sua versão estacionária, o SPSO que é baseado no sistema de espécies. Um sistema baseado em espécies possui vários nichos de espécies e em cada um deles existe um centro geográfico chamado de semente da espécie (textit{specie seed}). Esse nichos de espécies são utilizados para que o sistema possa encontrar vários pontos ótimos durante o processo de otimização, fazendo com o que sistema não fique estagnado em um pico sub ótimo.
+O DSPSO \cite{parrott2006locating} é baseado na sua versão estacionária, o SPSO que por sua vez é baseado no sistema de espécies. Um sistema baseado em espécies possui vários nichos de espécies e em cada um deles existe um centro geográfico chamado de semente da espécie (\textit{specie seed}). Esse nichos de espécies são utilizados para que o sistema possa encontrar vários pontos ótimos durante o processo de otimização, fazendo com o que sistema não fique estagnado em um pico sub ótimo.
 
 Para encontrar os pontos ótimos após uma mudança no ambiente, para cada partícula da população é reavaliado o \textit{fitness} em função do melhor \textit{fitness} da população. Então cada partícula usa sua informação de aptidão para realizar o movimento, tendo sempre uma noção prévia do ambiente ao seu redor. Para incentivar o enxame a realizar uma busca no ambiente e evitar uma convergência prematura do sistema, foi introduzido o parâmetro de limite de partículas por espécies ($P_{max}$), de forma que se uma partícula fosse entrar para um espécie mas o limite de integrantes daquela espécie exceder, a partícula com o menor valor de \textit{fitness} é reiniciada. Uma desvantagem desse sistema é que gera uma lentidão no processo de convergência se o $P_{max}$ for muito baixo.
 
@@ -102,15 +102,15 @@ O BFA e o DBFA foram aplicados no \textit{benchmark} MP e foram avaliados seus d
 \section{Considerações}
 \label{sec:problems_considerations}
 
-Com a análise destes problemas foi possível extrair algumas informações relevantes, que estão esquematizadas na Tabela \ref{tab:problems_table}, entre elas tem-se os problemas abordados pelos algoritmos, seuas rotinas de manutenção da diversidade populacional e por final é apresentado alguma outras informações importântes de cada problema em particular.
+Com a análise destes problemas foi possível extrair algumas informações relevantes, que estão esquematizadas na Tabela \ref{tab:problems_table}, entre elas tem-se os problemas abordados pelos algoritmos, suas rotinas de manutenção da diversidade populacional e por final é apresentado algumas outras informações importantes de cada problema.
 
-O CIDES utilisa como conceito as suas versões anteriores, para que assim podesse diminuir a quantidade de erro da sua aplicação em problemas dinâmicos. A sua mutação por vizinhança ajudou a manter a busca global mais controlada, de forma que pudesse buscar por valores mais próximos de forma aleatória. Sua função de teste é uma das formas mais básicas estudades de perceber mudanças no ambiente, o que é uma ferramente muito importante na aplicação dos algoritmos em ambiente que sofrem essas mudanças constantemente.
+O CIDES utiliza como conceito as suas versões anteriores, para que assim pode-se diminuir a quantidade de erro da sua aplicação em problemas dinâmicos. A sua mutação por vizinhança ajudou a manter a busca global mais controlada, de forma que pudesse buscar por valores mais próximos de forma aleatória. Sua função de teste é uma das formas mais básicas estudadas de perceber mudanças no ambiente, o que é uma ferramenta muito importante na aplicação dos algoritmos em ambiente que sofrem essas mudanças constantemente.
 
-O MSFA mostra a importância da aplicação da abordagem de Multi Enxames, que tem como base a co-evolução. suas rotinas de exclusão e anti-convergência formam a comunicação entre as pequenas populações que existem na otimização, abstraindo a otimização um nível a cima de apenas uma população.
+O MSFA mostra a importância da aplicação da abordagem de Multi Enxames, que tem como base a co-evolução. Suas rotinas de exclusão e anti-convergência formam a comunicação entre as pequenas populações que existem na otimização, abstraindo a otimização um nível a cima de apenas uma população.
 
-O VPSO demostra uma aplicação do operador de movimentação coletiva volátil do FSS, que é o foco da pesquisa deste trabalho, e mostra que tem grandes possibilidade para ajudar a manter a população no caminha certo durante as mudanças do ambiente.
+O VPSO demostra uma aplicação do operador de movimentação coletiva volátil do FSS, que é o foco da pesquisa deste trabalho, e mostra que tem grandes possibilidade para ajudar a manter a população no caminho certo durante as mudanças do ambiente.
 
-No DBFA pode-se notar mais uma vesão conjunta de dois algoritmos, em que usa-se o Algoritmo BFA com a rotina de seleção do AG. Isso mostra que mesmo algortimos de classes diferentes (como os EA com o AG e os SI com o BFA) podem ser aplicados em conjunto e terem resultados melhores que separados.
+No DBFA pode-se notar mais uma versão conjunta de dois algoritmos, em que usa-se o Algoritmo BFA com a rotina de seleção do AG. Isso mostra que mesmo algoritmos de classes diferentes (como os EA com o AG e os SI com o BFA) podem ser aplicados em conjunto e terem resultados melhores que separados.
 
 \begin{table}[]
 	\label{tab:problems_table}
@@ -119,11 +119,11 @@ No DBFA pode-se notar mais uma vesão conjunta de dois algoritmos, em que usa-se
 	\label{my-label}
 	\begin{tabular}{|c|c|c|}
 		\hline
-		Algoritmos & Problemas Abordados & Rotinas de manutenção da diversisdade \\ \hline
+		Algoritmos & Problemas Abordados & Rotinas de manutenção da diversidade \\ \hline
 		CDE        & MP \textit{benchmark}   & \textit{Crowding} \\ \hline
 		SDE        & OP \textit{benchmark}   & Diferenciação por espécies \\ \hline
 		ShDE       & MP \textit{benchmark}   & \textit{Sharing} \\ \hline
-		CIDES      & MP \textit{benchmark}   & Mutação por Vizinhança \\ \hline
+		ClDES      & MP \textit{benchmark}   & Mutação por Vizinhança \\ \hline
 		MSFA       & MP \textit{benchmark}   & Partículas carregadas e Quânticas \\ \hline
 		DSPSO      & MP \textit{benchmark}   & Limitação de partículas por Espécies \\ \hline
 		CPSO       & MP \textit{benchmark}   & Clusterização Hierárquico de Ligação Única \\ \hline
@@ -132,4 +132,4 @@ No DBFA pode-se notar mais uma vesão conjunta de dois algoritmos, em que usa-se
 	\end{tabular}
 \end{table}
 
-Em geral a manutenção da diversidade da população sempre tem sido um dos focos no desenvolvimento de novas abordagens de algoritmos bioinspirados, com isso pode-se afirmar que nessa classe de problemas esse é um ponto crucial que deve ser levado em concideração e deve ser analisado várias técnicas diferentes para estipular a relevância de cada uma dela.
+Em geral a manutenção da diversidade da população sempre tem sido um dos focos no desenvolvimento de novas abordagens de algoritmos bioinspirados, com isso, pode-se afirmar que nessa classe de problemas esse é um ponto crucial que deve ser levado em consideração e analisado com técnicas diferentes para estipular a relevância de cada uma.
