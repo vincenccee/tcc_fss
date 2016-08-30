@@ -2,7 +2,7 @@
 
 using namespace std;
 
-FishSchoolSearch::FishSchoolSearch(Problem problem, int tamPopulation){
+FishSchoolSearch::FishSchoolSearch(Problem *problem, int tamPopulation){
   this->problem = problem;
   this->tamPopulation = tamPopulation;
   this->stepIndInit = 0.01;
@@ -26,7 +26,7 @@ void FishSchoolSearch::showPopulation(){
     for(unsigned int j=0; j<position.size() ; j++){
       cout << " * " << position[j];
     }
-    cout << " - fitness: " << problem.evaluateFitness(position) << " - weight: " << school->getFish(i)->getWeight() << endl;
+    cout << " - fitness: " << problem->evaluateFitness(position) << " - weight: " << school->getFish(i)->getWeight() << endl;
   }
 }
 
@@ -44,7 +44,7 @@ void FishSchoolSearch::evolutionaryCicle(int iterations, int runs){
   // cout << "test: " << bestPopulationFitness.size() << " " << bestPopulationFitness[49] << endl;
 
   for(unsigned int j=0; j<this->runs; j++){
-    this->school = new Population(tamPopulation, problem.dimension, problem.getLowerBound(), problem.getUpperBound());
+    this->school = new Population(tamPopulation, problem->getDimension(), problem->getLowerBound(), problem->getUpperBound());
     school->initializePopulation();
     this->stepIndPercentage = this->stepIndInit;
     this->stepVolPercentage = this->stepVolInit;
@@ -99,7 +99,7 @@ void FishSchoolSearch::localSearch(){
     tmpFish = school->getFish(i);
     nextPosition.clear();
     nextPosition = createNeighboorPosition(tmpFish->getCurrentPosition());
-    if(problem.evaluateFitness(nextPosition) > problem.evaluateFitness(tmpFish->getCurrentPosition())){
+    if(problem->evaluateFitness(nextPosition) > problem->evaluateFitness(tmpFish->getCurrentPosition())){
       tmpFish->setImproved(true);
       tmpFish->setCurrentPosition(nextPosition);
     } else {
@@ -112,19 +112,19 @@ void FishSchoolSearch::localSearch(){
 
 std::vector<double> FishSchoolSearch::createNeighboorPosition(std::vector<double> position){
   std::vector<double> neighboorPosition;
-  for (unsigned int i = 0; i < problem.dimension; i++) {
-    neighboorPosition.push_back(position[i] + stepIndPercentage*(problem.getUpperBound() - 
-                                problem.getLowerBound()) * fRand(-1.0, 1.0));
+  for (unsigned int i = 0; i < problem->getDimension(); i++) {
+    neighboorPosition.push_back(position[i] + stepIndPercentage*(problem->getUpperBound() - 
+                                problem->getLowerBound()) * fRand(-1.0, 1.0));
   }
   return validatePosition(neighboorPosition);
 }
 
 std::vector<double> FishSchoolSearch::validatePosition(std::vector<double> position){
   for (unsigned int i = 0; i < position.size(); i++) {
-    if(position[i] > problem.getUpperBound()){
-      position[i] = problem.getUpperBound();
-    }else if(position[i] < problem.getLowerBound()){
-      position[i] = problem.getLowerBound();
+    if(position[i] > problem->getUpperBound()){
+      position[i] = problem->getUpperBound();
+    }else if(position[i] < problem->getLowerBound()){
+      position[i] = problem->getLowerBound();
     }
   }
   return position;
@@ -206,8 +206,8 @@ double FishSchoolSearch::calculateGreaterFitnessGain(){
 
 double FishSchoolSearch::calculateFitnessGain(Fish *fish){
   double fitnessGain;
-  fitnessGain = problem.evaluateFitness(fish->getCurrentPosition()) - 
-                problem.evaluateFitness(fish->getPreviuosPosition());
+  fitnessGain = problem->evaluateFitness(fish->getCurrentPosition()) - 
+                problem->evaluateFitness(fish->getPreviuosPosition());
   return fitnessGain;
 }
 
@@ -224,7 +224,7 @@ void FishSchoolSearch::collectiveMovement(){
   for(unsigned int i=0; i < tamPopulation; i++) {
     tmpFish = school->getFish(i);
     position.clear();
-    for(unsigned int j=0; j < problem.dimension; j++) {
+    for(unsigned int j=0; j < problem->getDimension(); j++) {
       position.push_back(tmpFish->getCurrentPosition()[j] + coletiveSum[j]);
     }
     tmpFish->setCurrentPosition(validatePosition(position));
@@ -241,7 +241,7 @@ std::vector<double> FishSchoolSearch::calculateCollectiveMovementSum(){
   }
   double currentMoviment;
 
-  for(unsigned int i=0; i < problem.dimension; i++) {
+  for(unsigned int i=0; i < problem->getDimension(); i++) {
     currentMoviment = 0;
     if(fitnessGainSum == 0){
       colMovement.push_back(0.0);
@@ -275,7 +275,6 @@ void FishSchoolSearch::volitiveMovement(){
   std::vector<double> barycenter = calculateBarycenter();
   double sign = weightVariationSignal();
   double distanceToBarycenter;
-  double aux;
   Fish *tmpFish;
 
   // cout << "baricentro: ";
@@ -288,9 +287,9 @@ void FishSchoolSearch::volitiveMovement(){
     position.clear();
     tmpFish = school->getFish(i);
     distanceToBarycenter = euclidianDistance(tmpFish->getCurrentPosition(), barycenter);
-    for(unsigned int j=0; j<problem.dimension; j++){
+    for(unsigned int j=0; j<problem->getDimension(); j++){
       position.push_back(tmpFish->getCurrentPosition()[j] + sign*stepVolPercentage*
-                         (problem.getUpperBound() - problem.getLowerBound()) *
+                         (problem->getUpperBound() - problem->getLowerBound()) *
                          ((tmpFish->getCurrentPosition()[j] - barycenter[j]) / distanceToBarycenter));
     }
     tmpFish->setCurrentPosition(validatePosition(position));
@@ -320,7 +319,7 @@ std::vector<double> FishSchoolSearch::calculateBarycenter(){
   double weightSum = calculateWeightSum();
   double aux;
 
-  for(unsigned int i=0; i < problem.dimension; i++) {
+  for(unsigned int i=0; i < problem->getDimension(); i++) {
     aux = 0;
     for(unsigned int j=0; j < tamPopulation; j++) {
       aux += school->getFish(j)->getWeight() * school->getFish(j)->getCurrentPosition()[i];
@@ -345,12 +344,12 @@ void FishSchoolSearch::initializeBestPosition(){
 
 void FishSchoolSearch::updateBestPosition(int pos){
   for(unsigned int i=0; i < tamPopulation; i++) {
-    if(problem.evaluateFitness(school->getFish(i)->getCurrentPosition()) > problem.evaluateFitness(bestPosition)){
+    if(problem->evaluateFitness(school->getFish(i)->getCurrentPosition()) > problem->evaluateFitness(bestPosition)){
       bestPosition.clear();
       bestPosition = school->getFish(i)->getCurrentPosition();
     }
   }
-  bestIndividualFitness[pos] += problem.evaluateFitness(bestPosition);
+  bestIndividualFitness[pos] += problem->evaluateFitness(bestPosition);
 }
 
 void FishSchoolSearch::updateStepPercentage(){
@@ -359,7 +358,7 @@ void FishSchoolSearch::updateStepPercentage(){
 }
 
 double FishSchoolSearch::getBestFitness(){
-  return problem.evaluateFitness(bestPosition);  
+  return problem->evaluateFitness(bestPosition);  
 }
 
 double FishSchoolSearch::fRand(double fMin, double fMax){
@@ -374,7 +373,7 @@ void FishSchoolSearch::updatePlot(int pos){
 
   for(unsigned int i=0; i < tamPopulation; i++) {
     tmpFish = school->getFish(i);
-    totalFit += problem.evaluateFitness(tmpFish->getCurrentPosition());
+    totalFit += problem->evaluateFitness(tmpFish->getCurrentPosition());
   }
   mediaFit = totalFit/tamPopulation;
   bestPopulationFitness[pos] += mediaFit;
@@ -478,7 +477,6 @@ double FishSchoolSearch::defaultGenotypicDiversityMeasure(){
   double diversity = 0;
   double aux_1 = 0;
   double aux_2 = 0;
-  double buffer = 0;
   unsigned short int a = 0;
   unsigned short int b = 0;
   unsigned short int d = 0;
@@ -487,7 +485,7 @@ double FishSchoolSearch::defaultGenotypicDiversityMeasure(){
     for(b = (a+1); b < tamPopulation; b++)
     {
       aux_1 = 0;
-      for(d = 0; d < problem.dimension; d++)
+      for(d = 0; d < problem->getDimension(); d++)
       {       
         aux_1 += pow(school->getFish(a)->getCurrentPosition()[d] - school->getFish(b)->getCurrentPosition()[d], 2);
       }

@@ -8,12 +8,12 @@
 #include <iostream>
 #include <fstream>
 #include "population.hpp"
-#include "problem.hpp"
+#include "benchmarcks/problem.hpp"
 #include "fish.hpp"
 
 class FishSchoolSearch {
   private:
-    Problem problem;
+    Problem *problem;
     Population *school;
     std::vector<double> bestPosition;
     std::vector<double> bestPopulationFitness;
@@ -37,7 +37,7 @@ class FishSchoolSearch {
     int tamPopulation;
 
   public:
-    FishSchoolSearch(Problem problem, int tamPopulation);
+    FishSchoolSearch(Problem *problem, int tamPopulation);
     FishSchoolSearch();
     ~FishSchoolSearch();
 
