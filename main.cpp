@@ -4,11 +4,12 @@
 #include <algorithm>
 
 #define TAM_POP 30
-#define DIMENSION 30
+#define DIMENSION 10
 #define ITERATIONS 5000
-#define RUNS 10
+#define RUNS 1
 
 #include <string>
+#include <cmath>
 #include "fish_school_search.hpp"
 #include "benchmarcks/problem.hpp"
 #include "benchmarcks/problem_factory.hpp"
@@ -20,6 +21,8 @@ string getProblem();
 
 int main(int argc, char **argv) {
   string value;
+
+  cout << "test: " << fabs(-2) << endl;
 
   value = getProblem();
   cout << "opcao escolhida foi: " << value << endl;
@@ -40,7 +43,7 @@ string getProblem(){
   cout << "2. Rastring" << endl;
   cout << "3. Rosembrock" << endl;
   cout << "4. Griewank" << endl;
-  cout << "5. Schafel 1.2" << endl;
+  cout << "5. Schwefel 1.2" << endl;
   cin >> index;
   switch (index){
     case 1:
@@ -56,7 +59,7 @@ string getProblem(){
       answer = "GRIEWANK";
       break;
     case 5:
-      answer = "SCHAFEL12";
+      answer = "SCHWEFEL";
       break;
     default:
       cout << "Opcao Invalida" << endl;

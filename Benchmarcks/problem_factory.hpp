@@ -8,7 +8,7 @@
 #include "statics/rastring.hpp"
 #include "statics/griewank.hpp"
 #include "statics/rosembrock.hpp"
-#include "statics/schafel12.hpp"
+#include "statics/schwefel.hpp"
 
 class ProblemFactory{
 public:
@@ -17,7 +17,7 @@ public:
 
 Problem * ProblemFactory::get(std::string name, int dimension)
 {
-  if(name == "RASTRIGIN")
+  if(name == "RASTRING")
   {
     return new Rastring(dimension);
   }
@@ -25,9 +25,9 @@ Problem * ProblemFactory::get(std::string name, int dimension)
   {
     return new Rosembrock(dimension);
   }
-  else if(name == "SCHAFEL12")
+  else if(name == "SCHWEFEL")
   {
-    return new Schafel12(dimension);
+    return new Schwefel(dimension);
   }
   else if(name == "GRIEWANK")
   {

@@ -34,28 +34,23 @@ Griewank::Griewank() {}
 Griewank::~Griewank() {}
 
 double Griewank::getUpperBound(){
-  return 32.0;
+  return 600.0;
 }
 
 double Griewank::getLowerBound(){
-  return -32.0;
+  return -600.0;
 }
 
 double Griewank::evaluateFitness(std::vector<double> solution){
-  double aux = 0;
-  double aux1 = 0;
-  unsigned short int i;
-  for (i = 0; i < this->dimension; i++)
-  {
-    aux += solution[i]*solution[i];
+  double fitness = 0;
+  double auxSum = 0;
+  double auxMul = 1;
+  for(unsigned int i = 0 ; i < this->dimension; i++) {
+    auxSum += (pow(solution[i], 2) / 4000);
+    auxMul *= cos(solution[i] / sqrt(i + 1));
   }
-  for (i = 0; i < this->dimension; i++)
-  {
-    aux1 += cos(2.0*M_PI*solution[i]);
-  }
-
-  aux = -20.0*(exp(-0.2*sqrt(1.0/(float)this->dimension*aux)))-exp(1.0/(float)this->dimension*aux1)+20.0+exp(1);
-  return 35 - aux;
+  fitness = 1 + auxSum - auxMul;
+  return 930 - fitness;
 }
 
 double Griewank::getDimension(){

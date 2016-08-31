@@ -42,20 +42,11 @@ double Rastring::getLowerBound(){
 }
 
 double Rastring::evaluateFitness(std::vector<double> solution){
-  double aux = 0;
-  double aux1 = 0;
-  unsigned short int i;
-  for (i = 0; i < this->dimension; i++)
-  {
-    aux += solution[i]*solution[i];
+  double obj = 0;
+  for(unsigned int j = 0 ; j < this->dimension; j++) {
+    obj += (pow(solution[j], 2) - 10 * cos(2 * M_PI*solution[j]) + 10);
   }
-  for (i = 0; i < this->dimension; i++)
-  {
-    aux1 += cos(2.0*M_PI*solution[i]);
-  }
-
-  aux = -20.0*(exp(-0.2*sqrt(1.0/(float)this->dimension*aux)))-exp(1.0/(float)this->dimension*aux1)+20.0+exp(1);
-  return 35 - aux;
+  return obj;
 }
 
 double Rastring::getDimension(){

@@ -1,5 +1,5 @@
-#ifndef _ROSEMBROCK_H_
-#define _ROSEMBROCK_H_
+#ifndef _SCHWEFEL_H_
+#define _SCHWEFEL_H_
 #include <iostream>
 #include <vector>
 #include <cmath>
@@ -7,11 +7,11 @@
 
 using namespace std;
 
-class Rosembrock: public Problem {
+class Schwefel: public Problem {
   public:
-    Rosembrock(int dimension);
-    Rosembrock();
-    ~Rosembrock();
+    Schwefel(int dimension);
+    Schwefel();
+    ~Schwefel();
 
     double getUpperBound();
     double getLowerBound();
@@ -26,39 +26,35 @@ class Rosembrock: public Problem {
     double dimension;
 };
 
-Rosembrock::Rosembrock(int dimension){
+Schwefel::Schwefel(int dimension){
   this->dimension = dimension;
 }
 
-Rosembrock::Rosembrock() {}
-Rosembrock::~Rosembrock() {}
+Schwefel::Schwefel() {}
+Schwefel::~Schwefel() {}
 
-double Rosembrock::getUpperBound(){
-  return 30.0;
+double Schwefel::getUpperBound(){
+  return 500.0;
 }
 
-double Rosembrock::getLowerBound(){
-  return -30.0;
+double Schwefel::getLowerBound(){
+  return -500.0;
 }
 
-double Rosembrock::evaluateFitness(std::vector<double> solution){
+double Schwefel::evaluateFitness(std::vector<double> solution){
   double auxSum = 0;
-  double aux = 0;
-  unsigned short int i;
   for (unsigned i = 0; i < this->dimension; i++)
   {
-    aux = 100*(pow((solution[i+1] - pow(solution[1], 2)), 2));
-    aux += pow(1.0 - solution[i], 2);
-    auxSum += aux;
+    auxSum += solution[i] * sin(sqrt(fabs(solution[i])));
   }
-return auxSum;
+  return (418.9829 * this->dimension) - auxSum;
 }
 
-double Rosembrock::getDimension(){
+double Schwefel::getDimension(){
   return this->dimension;
 }
 
-std::vector<double> Rosembrock::validatePosition(std::vector<double> position){
+std::vector<double> Schwefel::validatePosition(std::vector<double> position){
   std::vector<double> newPosition(position);
   for (int i = 0; i < this->dimension; i++) {
     if (position[i] >= getUpperBound()) {
@@ -71,15 +67,15 @@ std::vector<double> Rosembrock::validatePosition(std::vector<double> position){
   return newPosition;
 }
 
-std::string Rosembrock::getName(){
-  return "Rosembrock";
+std::string Schwefel::getName(){
+  return "Schwefel";
 }
 
-bool Rosembrock::fitnesIsBetter(double newFit, double oldFit){
+bool Schwefel::fitnesIsBetter(double newFit, double oldFit){
   return newFit<oldFit;
 }
 
-bool Rosembrock::isMinimization(){
+bool Schwefel::isMinimization(){
   return true;
 } 
 
