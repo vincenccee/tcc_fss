@@ -48,14 +48,11 @@ double Ackley::evaluateFitness(std::vector<double> solution){
   for (i = 0; i < this->dimension; i++)
   {
     aux += solution[i]*solution[i];
-  }
-  for (i = 0; i < this->dimension; i++)
-  {
     aux1 += cos(2.0*M_PI*solution[i]);
   }
 
   aux = -20.0*(exp(-0.2*sqrt(1.0/(float)this->dimension*aux)))-exp(1.0/(float)this->dimension*aux1)+20.0+exp(1);
-  return 35 - aux;
+  return aux;
 }
 
 double Ackley::getDimension(){

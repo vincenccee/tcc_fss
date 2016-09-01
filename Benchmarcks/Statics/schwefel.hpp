@@ -34,20 +34,25 @@ Schwefel::Schwefel() {}
 Schwefel::~Schwefel() {}
 
 double Schwefel::getUpperBound(){
-  return 500.0;
+  return 100.0;
 }
 
 double Schwefel::getLowerBound(){
-  return -500.0;
+  return -100.0;
 }
 
 double Schwefel::evaluateFitness(std::vector<double> solution){
-  double auxSum = 0;
-  for (unsigned i = 0; i < this->dimension; i++)
-  {
-    auxSum += solution[i] * sin(sqrt(fabs(solution[i])));
+  double fitness = 0;
+  double auxFit = 0;
+
+  for (unsigned int i = 0; i < this->dimension; i++) {
+    for (unsigned int j = 0; j <= i; j++) {
+      auxFit += solution[j];
+    }
+    fitness += (auxFit * auxFit);
+    auxFit = 0;
   }
-  return (418.9829 * this->dimension) - auxSum;
+  return fitness;
 }
 
 double Schwefel::getDimension(){

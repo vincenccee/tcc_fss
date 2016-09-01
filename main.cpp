@@ -6,7 +6,7 @@
 #define TAM_POP 30
 #define DIMENSION 10
 #define ITERATIONS 5000
-#define RUNS 1
+#define RUNS 2
 
 #include <string>
 #include <cmath>

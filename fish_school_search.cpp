@@ -73,7 +73,7 @@ void FishSchoolSearch::evolutionaryCicle(int iterations, int runs){
     for(unsigned int i=0; i<bestPosition.size(); i++){
       cout << " * " << bestPosition[i];
     }
-    result = (getBestFitness() - 35)*-1.0;
+    result = getBestFitness();
     finalFitness.push_back(result);
 
     cout << "\nBest Finess = " << result << endl;
@@ -99,7 +99,7 @@ void FishSchoolSearch::localSearch(){
     tmpFish = school->getFish(i);
     nextPosition.clear();
     nextPosition = createNeighboorPosition(tmpFish->getCurrentPosition());
-    if(problem->evaluateFitness(nextPosition) > problem->evaluateFitness(tmpFish->getCurrentPosition())){
+    if(problem->fitnesIsBetter(problem->evaluateFitness(nextPosition), problem->evaluateFitness(tmpFish->getCurrentPosition()))){
       tmpFish->setImproved(true);
       tmpFish->setCurrentPosition(nextPosition);
     } else {
@@ -208,6 +208,8 @@ double FishSchoolSearch::calculateFitnessGain(Fish *fish){
   double fitnessGain;
   fitnessGain = problem->evaluateFitness(fish->getCurrentPosition()) - 
                 problem->evaluateFitness(fish->getPreviuosPosition());
+  if(problem->isMinimization())
+    fitnessGain *= -1;
   return fitnessGain;
 }
 
@@ -344,7 +346,8 @@ void FishSchoolSearch::initializeBestPosition(){
 
 void FishSchoolSearch::updateBestPosition(int pos){
   for(unsigned int i=0; i < tamPopulation; i++) {
-    if(problem->evaluateFitness(school->getFish(i)->getCurrentPosition()) > problem->evaluateFitness(bestPosition)){
+    if(problem->fitnesIsBetter(problem->evaluateFitness(school->getFish(i)->getCurrentPosition()),
+       problem->evaluateFitness(bestPosition))){
       bestPosition.clear();
       bestPosition = school->getFish(i)->getCurrentPosition();
     }

@@ -22,3 +22,6 @@ god:
 
 plot:
 	gnuplot -e "file='saida.csv'" plot.plg
+
+# to compile
+# g++ -o test main.cpp population.cpp fish.cpp fish_school_search.cpp
