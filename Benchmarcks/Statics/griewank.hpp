@@ -50,7 +50,7 @@ double Griewank::evaluateFitness(std::vector<double> solution){
     auxMul *= cos(solution[i] / sqrt(i + 1));
   }
   fitness = 1 + auxSum - auxMul;
-  return 930 - fitness;
+  return fitness;
 }
 
 double Griewank::getDimension(){

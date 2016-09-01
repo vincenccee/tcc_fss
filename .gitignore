@@ -28,8 +28,7 @@
 *.app
 
 # default
-test
-main.pdf
+app
 *.pdf
 *.log
 *.dvi

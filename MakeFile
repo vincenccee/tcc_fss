@@ -2,14 +2,17 @@ PARAMS=-g -c -Wall -std=c++11
 
 all: app
 
-app: fish.o population.o main.o
-	g++ main.o fish.o population.o -o app
+app: fish.o population.o main.o fish_school_search.o
+	g++ main.o fish.o population.o fish_school_search.o -o app
 
 main.o: main.cpp
 	g++ $(PARAMS) main.cpp
 
 fish.o: fish.cpp
 	g++ $(PARAMS) fish.cpp
+
+fish_school_search.o: fish_school_search.cpp
+	g++ $(PARAMS) fish_school_search.cpp
 
 population.o: population.cpp
 	g++ $(PARAMS) population.cpp
@@ -20,8 +23,8 @@ clean:
 god:
 	make clean; make; ./app 
 
-plot:
-	gnuplot -e "file='saida.csv'" plot.plg
+# plot:
+# 	gnuplot -e "file='saida.csv'" plot.plg
 
 # to compile
 # g++ -o test main.cpp population.cpp fish.cpp fish_school_search.cpp
