@@ -18,9 +18,9 @@ void Population::initializePopulation(){
   this->population.clear();
   std::vector<double> position;
   Fish *tmpFish;
-  for(unsigned int i=0; i< tamPopulation; i++){
+  for(int i=0; i< tamPopulation; i++){
     position.clear();
-    for(unsigned int j=0; j<dimension; j++){
+    for(int j=0; j<dimension; j++){
       position.push_back(fRand(lowerBound, upperBound));
     }
     tmpFish = new Fish(2500, position);
@@ -30,11 +30,11 @@ void Population::initializePopulation(){
 
 void Population::updatePopulationDisplacement(){
   std::vector<double> displacement;
-  for(unsigned int i=0; i< tamPopulation; i++){
+  for(int i=0; i< tamPopulation; i++){
     if(population[i].getImproved()){
       displacement.clear();
       // cout << "displacement: " << i << " - ";
-      for(unsigned int j=0; j<dimension; j++){
+      for(int j=0; j<dimension; j++){
         displacement.push_back(population[i].getCurrentPosition()[j] - population[i].getPreviuosPosition()[j]);
         // cout << " * " << displacement[j];
       }
