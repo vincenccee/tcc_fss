@@ -36,7 +36,7 @@ moving_peaks.o: benchmarcks/dynamics/moving_peaks.cpp
 	g++ $(PARAMS) benchmarcks/dynamics/moving_peaks.cpp
 
 clean:
-	rm *~ *.o app; clear;
+	rm *~ *.o *.eps *.dataset *.output app; clear;
 
 god:
 	make clean; make; ./app 
