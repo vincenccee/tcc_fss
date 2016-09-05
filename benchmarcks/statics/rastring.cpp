@@ -7,11 +7,11 @@ Rastring::Rastring(int dimension){
 Rastring::Rastring() {}
 Rastring::~Rastring() {}
 
-double Rastring::getUpperBound(){
+double Rastring::getUpperBound(int pos){
   return 5.12;
 }
 
-double Rastring::getLowerBound(){
+double Rastring::getLowerBound(int pos){
   return -5.12;
 }
 
@@ -30,11 +30,11 @@ double Rastring::getDimension(){
 std::vector<double> Rastring::validatePosition(std::vector<double> position){
   std::vector<double> newPosition(position);
   for (int i = 0; i < this->dimension; i++) {
-    if (position[i] >= getUpperBound()) {
-      newPosition[i] = getUpperBound();
+    if (position[i] >= getUpperBound(i)) {
+      newPosition[i] = getUpperBound(i);
     }
-    if (position[i] <= getLowerBound()) {
-      newPosition[i] = getLowerBound();
+    if (position[i] <= getLowerBound(i)) {
+      newPosition[i] = getLowerBound(i);
     }
   }
   return newPosition;

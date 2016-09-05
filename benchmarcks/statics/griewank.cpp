@@ -7,11 +7,11 @@ Griewank::Griewank(int dimension){
 Griewank::Griewank() {}
 Griewank::~Griewank() {}
 
-double Griewank::getUpperBound(){
+double Griewank::getUpperBound(int pos){
   return 600.0;
 }
 
-double Griewank::getLowerBound(){
+double Griewank::getLowerBound(int pos){
   return -600.0;
 }
 
@@ -34,11 +34,11 @@ double Griewank::getDimension(){
 std::vector<double> Griewank::validatePosition(std::vector<double> position){
   std::vector<double> newPosition(position);
   for (int i = 0; i < this->dimension; i++) {
-    if (position[i] >= getUpperBound()) {
-      newPosition[i] = getUpperBound();
+    if (position[i] >= getUpperBound(i)) {
+      newPosition[i] = getUpperBound(i);
     }
-    if (position[i] <= getLowerBound()) {
-      newPosition[i] = getLowerBound();
+    if (position[i] <= getLowerBound(i)) {
+      newPosition[i] = getLowerBound(i);
     }
   }
   return newPosition;

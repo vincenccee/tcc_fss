@@ -7,11 +7,11 @@ Ackley::Ackley(int dimension){
 Ackley::Ackley() {}
 Ackley::~Ackley() {}
 
-double Ackley::getUpperBound(){
+double Ackley::getUpperBound(int pos){
   return 32.0;
 }
 
-double Ackley::getLowerBound(){
+double Ackley::getLowerBound(int pos){
   return -32.0;
 }
 
@@ -36,11 +36,11 @@ double Ackley::getDimension(){
 std::vector<double> Ackley::validatePosition(std::vector<double> position){
   std::vector<double> newPosition(position);
   for (int i = 0; i < this->dimension; i++) {
-    if (position[i] >= getUpperBound()) {
-      newPosition[i] = getUpperBound();
+    if (position[i] >= getUpperBound(i)) {
+      newPosition[i] = getUpperBound(i);
     }
-    if (position[i] <= getLowerBound()) {
-      newPosition[i] = getLowerBound();
+    if (position[i] <= getLowerBound(i)) {
+      newPosition[i] = getLowerBound(i);
     }
   }
   return newPosition;

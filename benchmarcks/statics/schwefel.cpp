@@ -7,11 +7,11 @@ Schwefel::Schwefel(int dimension){
 Schwefel::Schwefel() {}
 Schwefel::~Schwefel() {}
 
-double Schwefel::getUpperBound(){
+double Schwefel::getUpperBound(int pos){
   return 100.0;
 }
 
-double Schwefel::getLowerBound(){
+double Schwefel::getLowerBound(int pos){
   return -100.0;
 }
 
@@ -36,11 +36,11 @@ double Schwefel::getDimension(){
 std::vector<double> Schwefel::validatePosition(std::vector<double> position){
   std::vector<double> newPosition(position);
   for (int i = 0; i < this->dimension; i++) {
-    if (position[i] >= getUpperBound()) {
-      newPosition[i] = getUpperBound();
+    if (position[i] >= getUpperBound(i)) {
+      newPosition[i] = getUpperBound(i);
     }
-    if (position[i] <= getLowerBound()) {
-      newPosition[i] = getLowerBound();
+    if (position[i] <= getLowerBound(i)) {
+      newPosition[i] = getLowerBound(i);
     }
   }
   return newPosition;

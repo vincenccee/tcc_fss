@@ -44,7 +44,7 @@ void FishSchoolSearch::evolutionaryCicle(int iterations, int runs){
   // cout << "test: " << bestPopulationFitness.size() << " " << bestPopulationFitness[49] << endl;
 
   for(int j=0; j<this->runs; j++){
-    this->school = new Population(tamPopulation, problem->getDimension(), problem->getLowerBound(), problem->getUpperBound());
+    this->school = new Population(tamPopulation, problem->getDimension(), problem->getLowerBound(j), problem->getUpperBound(j));
     school->initializePopulation();
     this->stepIndPercentage = this->stepIndInit;
     this->stepVolPercentage = this->stepVolInit;
@@ -113,18 +113,18 @@ void FishSchoolSearch::localSearch(){
 std::vector<double> FishSchoolSearch::createNeighboorPosition(std::vector<double> position){
   std::vector<double> neighboorPosition;
   for (unsigned int i = 0; i < problem->getDimension(); i++) {
-    neighboorPosition.push_back(position[i] + stepIndPercentage*(problem->getUpperBound() - 
-                                problem->getLowerBound()) * fRand(-1.0, 1.0));
+    neighboorPosition.push_back(position[i] + stepIndPercentage*(problem->getUpperBound(i) - 
+                                problem->getLowerBound(i)) * fRand(-1.0, 1.0));
   }
   return validatePosition(neighboorPosition);
 }
 
 std::vector<double> FishSchoolSearch::validatePosition(std::vector<double> position){
   for (unsigned int i = 0; i < position.size(); i++) {
-    if(position[i] > problem->getUpperBound()){
-      position[i] = problem->getUpperBound();
-    }else if(position[i] < problem->getLowerBound()){
-      position[i] = problem->getLowerBound();
+    if(position[i] > problem->getUpperBound(i)){
+      position[i] = problem->getUpperBound(i);
+    }else if(position[i] < problem->getLowerBound(i)){
+      position[i] = problem->getLowerBound(i);
     }
   }
   return position;
@@ -291,7 +291,7 @@ void FishSchoolSearch::volitiveMovement(){
     distanceToBarycenter = euclidianDistance(tmpFish->getCurrentPosition(), barycenter);
     for(unsigned int j=0; j<problem->getDimension(); j++){
       position.push_back(tmpFish->getCurrentPosition()[j] + sign*stepVolPercentage*
-                         (problem->getUpperBound() - problem->getLowerBound()) *
+                         (problem->getUpperBound(j) - problem->getLowerBound(j)) *
                          ((tmpFish->getCurrentPosition()[j] - barycenter[j]) / distanceToBarycenter));
     }
     tmpFish->setCurrentPosition(validatePosition(position));

@@ -7,11 +7,11 @@ Rosembrock::Rosembrock(int dimension){
 Rosembrock::Rosembrock() {}
 Rosembrock::~Rosembrock() {}
 
-double Rosembrock::getUpperBound(){
+double Rosembrock::getUpperBound(int pos){
   return 30.0;
 }
 
-double Rosembrock::getLowerBound(){
+double Rosembrock::getLowerBound(int pos){
   return -30.0;
 }
 
@@ -34,11 +34,11 @@ double Rosembrock::getDimension(){
 std::vector<double> Rosembrock::validatePosition(std::vector<double> position){
   std::vector<double> newPosition(position);
   for (int i = 0; i < this->dimension; i++) {
-    if (position[i] >= getUpperBound()) {
-      newPosition[i] = getUpperBound();
+    if (position[i] >= getUpperBound(i)) {
+      newPosition[i] = getUpperBound(i);
     }
-    if (position[i] <= getLowerBound()) {
-      newPosition[i] = getLowerBound();
+    if (position[i] <= getLowerBound(i)) {
+      newPosition[i] = getLowerBound(i);
     }
   }
   return newPosition;

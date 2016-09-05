@@ -15,8 +15,8 @@ class Griewank: public Problem {
     Griewank();
     ~Griewank();
 
-    double getUpperBound();
-    double getLowerBound();
+    double getUpperBound(int pos);
+    double getLowerBound(int pos);
     double evaluateFitness(std::vector<double> solution);
     double getDimension();
     std::vector<double> validatePosition(std::vector<double> position);

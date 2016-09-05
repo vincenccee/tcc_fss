@@ -7,8 +7,8 @@
 
 class Problem {
   public:
-    virtual double getUpperBound() = 0;
-    virtual double getLowerBound() = 0;
+    virtual double getUpperBound(int pos) = 0;
+    virtual double getLowerBound(int pos) = 0;
     virtual double evaluateFitness(std::vector<double> solution) = 0;
     virtual double getDimension() = 0;
     virtual std::vector<double> validatePosition(std::vector<double> position) = 0;
