@@ -45,3 +45,4 @@ app
 *.dataset
 *.eps
 *.output
+*.dSYM
