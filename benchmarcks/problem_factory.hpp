@@ -9,6 +9,7 @@
 #include "statics/griewank.hpp"
 #include "statics/rosembrock.hpp"
 #include "statics/schwefel.hpp"
+#include "dynamics/moving_peaks.hpp"
 
 class ProblemFactory{
 public:
@@ -17,25 +18,23 @@ public:
 
 Problem * ProblemFactory::get(std::string name, int dimension)
 {
-  if(name == "RASTRING")
-  {
+  if(name == "RASTRING"){
     return new Rastring(dimension);
   }
-  else if(name == "ROSEMBROCK")
-  {
+  else if(name == "ROSEMBROCK"){
     return new Rosembrock(dimension);
   }
-  else if(name == "SCHWEFEL")
-  {
+  else if(name == "SCHWEFEL"){
     return new Schwefel(dimension);
   }
-  else if(name == "GRIEWANK")
-  {
+  else if(name == "GRIEWANK"){
     return new Griewank(dimension);
   }
-  else if(name == "ACKLEY")
-  {
+  else if(name == "ACKLEY"){
     return new Ackley(dimension);
+  }
+  else if(name == "MOVING_PEAKS"){
+    return new MovingPeaks(dimension);
   }
   throw std::invalid_argument( "received invalid Objective Function name" );
 }

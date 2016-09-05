@@ -44,6 +44,7 @@ string getProblem(){
   cout << "3. Rosembrock" << endl;
   cout << "4. Griewank" << endl;
   cout << "5. Schwefel 1.2" << endl;
+  cout << "6. Moving Peaks" << endl;
   cin >> index;
   switch (index){
     case 1:
@@ -60,6 +61,9 @@ string getProblem(){
       break;
     case 5:
       answer = "SCHWEFEL";
+      break;
+    case 6:
+      answer = "MOVING_PEAKS";
       break;
     default:
       cout << "Opcao Invalida" << endl;
