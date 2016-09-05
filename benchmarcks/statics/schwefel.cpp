@@ -19,31 +19,14 @@ double Schwefel::evaluateFitness(std::vector<double> solution){
   double fitness = 0;
   double auxFit = 0;
 
-  for (unsigned int i = 0; i < this->dimension; i++) {
-    for (unsigned int j = 0; j <= i; j++) {
+  for (int i = 0; i < this->dimension; i++) {
+    for (int j = 0; j <= i; j++) {
       auxFit += solution[j];
     }
     fitness += (auxFit * auxFit);
     auxFit = 0;
   }
   return fitness;
-}
-
-double Schwefel::getDimension(){
-  return this->dimension;
-}
-
-std::vector<double> Schwefel::validatePosition(std::vector<double> position){
-  std::vector<double> newPosition(position);
-  for (int i = 0; i < this->dimension; i++) {
-    if (position[i] >= getUpperBound(i)) {
-      newPosition[i] = getUpperBound(i);
-    }
-    if (position[i] <= getLowerBound(i)) {
-      newPosition[i] = getLowerBound(i);
-    }
-  }
-  return newPosition;
 }
 
 std::string Schwefel::getName(){

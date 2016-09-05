@@ -18,14 +18,9 @@ class Griewank: public Problem {
     double getUpperBound(int pos);
     double getLowerBound(int pos);
     double evaluateFitness(std::vector<double> solution);
-    double getDimension();
-    std::vector<double> validatePosition(std::vector<double> position);
     std::string getName();
     bool fitnesIsBetter(double newFit, double oldFit);
     bool isMinimization();
-
-  private:
-    double dimension;
 }; 
 
 #endif

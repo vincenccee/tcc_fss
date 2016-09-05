@@ -2,8 +2,8 @@ PARAMS=-g -c -Wall -std=c++11
 
 all: app
 
-app: fish.o population.o main.o fish_school_search.o ackley.o griewank.o rastring.o rosembrock.o schwefel.o moving_peaks.o
-	g++ main.o fish.o population.o fish_school_search.o ackley.o griewank.o rastring.o rosembrock.o schwefel.o moving_peaks.o -o app
+app: fish.o population.o main.o fish_school_search.o problem.o ackley.o griewank.o rastring.o rosembrock.o schwefel.o moving_peaks.o
+	g++ main.o fish.o population.o fish_school_search.o problem.o ackley.o griewank.o rastring.o rosembrock.o schwefel.o moving_peaks.o -o app
 
 main.o: main.cpp
 	g++ $(PARAMS) main.cpp
@@ -16,6 +16,9 @@ fish_school_search.o: fish_school_search.cpp
 
 population.o: population.cpp
 	g++ $(PARAMS) population.cpp
+
+problem.o: benchmarcks/problem.cpp
+	g++ $(PARAMS) benchmarcks/problem.cpp
 
 ackley.o: benchmarcks/statics/ackley.cpp
 	g++ $(PARAMS) benchmarcks/statics/ackley.cpp
