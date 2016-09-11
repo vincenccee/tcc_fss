@@ -26,13 +26,18 @@ class MovingPeaks: public Problem {
     bool fitnesIsBetter(double newFit, double oldFit);
     bool isMinimization();
 
+  private:
     double cone(std::vector<double> individual, std::vector<double> position, double height, double width);
     double sphere(std::vector<double> individual, std::vector<double> position, double height, double width);
     double function1(std::vector<double> individual, std::vector<double> position, double height, double width);
+    double callFunction(std::vector<double> individual, std::vector<double> position, double height, double width);
+    double maxValue(std::vector<double> values);
+    void changePeaks();
 
     double fRand(double fMin, double fMax);
-  private:
+
     double dimension;
+    int count;
     Scenario * scen;
     std::vector<double> peaks_height;
     std::vector<double> peaks_width;

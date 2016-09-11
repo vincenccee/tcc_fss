@@ -2,7 +2,7 @@
 
 MovingPeaks::MovingPeaks(int dimension, int scenario){
   this->scen = new Scenario(scenario);
-
+  this->count = 0;
   // set initial height for all peaks 
   if(scen->start_height != 0){
     for(int i=0; i<scen->npeaks; i++)
@@ -44,7 +44,16 @@ double MovingPeaks::getLowerBound(int pos){
 }
 
 double MovingPeaks::evaluateFitness(std::vector<double> solution){
-	return 0.0;
+  std::vector<double> possible_values;
+  this->count++;
+  for(int i=0; i<scen->npeaks; i++)
+    possible_values.push_back(callFunction(solution, peaks_position[i], peaks_height[i], peaks_width[i]));
+
+  if(this->count % scen->period == 0){
+    changePeaks();
+  }
+
+  return maxValue(possible_values);
 }
 
 double MovingPeaks::getDimension(){
@@ -95,6 +104,35 @@ double MovingPeaks::function1(std::vector<double> individual, std::vector<double
   for(int i=0; i<this->dimension; i++)
     value += pow(individual[i] - position[i], 2);
   return height / (1 + width * value);
+}
+
+double MovingPeaks::callFunction(std::vector<double> individual, std::vector<double> position, double height, double width){
+  double result;
+  switch(scen->pfunc){
+    case 1:
+      result = cone(individual, position, height, width);
+      break;
+    case 2:
+      result = sphere(individual, position, height, width);
+      break;
+    case 3:
+      result = function1(individual, position, height, width);
+      break;
+  }
+  return result;
+}
+
+void MovingPeaks::changePeaks(){
+
+}
+
+double MovingPeaks::maxValue(std::vector<double> values){
+  double result = 0.0;
+  for(int i=0; i<scen->npeaks; i++){
+    if(values[i]>result)
+      result = values[i];
+  }
+  return result;
 }
 
 double MovingPeaks::fRand(double fMin, double fMax){
