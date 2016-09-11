@@ -13,10 +13,10 @@
 
 class ProblemFactory{
 public:
-  Problem * get(std::string name, int dimension);
+  Problem * get(std::string name, int dimension, int scenario = 1);
 };
 
-Problem * ProblemFactory::get(std::string name, int dimension)
+Problem * ProblemFactory::get(std::string name, int dimension, int scenario)
 {
   if(name == "RASTRING"){
     return new Rastring(dimension);
@@ -34,7 +34,7 @@ Problem * ProblemFactory::get(std::string name, int dimension)
     return new Ackley(dimension);
   }
   else if(name == "MOVING_PEAKS"){
-    return new MovingPeaks(dimension);
+    return new MovingPeaks(dimension, scenario);
   }
   throw std::invalid_argument( "received invalid Objective Function name" );
 }
