@@ -30,7 +30,7 @@ class MovingPeaks: public Problem {
     double cone(std::vector<double> individual, std::vector<double> position, double height, double width);
     double sphere(std::vector<double> individual, std::vector<double> position, double height, double width);
     double function1(std::vector<double> individual, std::vector<double> position, double height, double width);
-    double callFunction(std::vector<double> individual, std::vector<double> position, double height, double width);
+    double callFunction(std::vector<double> individual, int pos);
     double maxValue(std::vector<double> values);
     void changePeaks();
 
@@ -41,6 +41,7 @@ class MovingPeaks: public Problem {
     Scenario * scen;
     std::vector<double> peaks_height;
     std::vector<double> peaks_width;
+    std::vector<std::vector<double>> last_change_vector;
     std::vector<std::vector<double>> peaks_position;
 };
 
