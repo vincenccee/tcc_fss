@@ -1,6 +1,7 @@
 #include "moving_peaks.hpp"
 
 MovingPeaks::MovingPeaks(int dimension, int scenario){
+  this->dimension = dimension;
   this->scen = new Scenario(scenario);
   this->count = 0;
   // set initial height for all peaks 
@@ -29,9 +30,9 @@ MovingPeaks::MovingPeaks(int dimension, int scenario){
     for(int j=0; j<this->dimension; j++){
       tmp_pos.push_back(fRand(scen->min_coord, scen->max_coord));
       last_pos.push_back(fRand(0,1) - 0.5);
-      peaks_position.push_back(tmp_pos);
-      last_change_vector.push_back(last_pos);
     }
+    peaks_position.push_back(tmp_pos);
+    last_change_vector.push_back(last_pos);
   }
 }
 
@@ -57,23 +58,6 @@ double MovingPeaks::evaluateFitness(std::vector<double> solution){
   }
 
   return maxValue(possible_values);
-}
-
-double MovingPeaks::getDimension(){
-	return this->dimension;
-}
-
-std::vector<double> MovingPeaks::validatePosition(std::vector<double> position){
-	std::vector<double> newPosition(position);
-  for (int i = 0; i < this->dimension; i++) {
-    if (position[i] >= getUpperBound(i)) {
-      newPosition[i] = getUpperBound(i);
-    }
-    if (position[i] <= getLowerBound(i)) {
-      newPosition[i] = getLowerBound(i);
-    }
-  }
-  return newPosition;
 }
 
 std::string MovingPeaks::getName(){

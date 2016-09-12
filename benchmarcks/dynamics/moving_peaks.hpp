@@ -20,8 +20,6 @@ class MovingPeaks: public Problem {
     double getUpperBound(int pos);
     double getLowerBound(int pos);
     double evaluateFitness(std::vector<double> solution);
-    double getDimension();
-    std::vector<double> validatePosition(std::vector<double> position);
     std::string getName();
     bool fitnesIsBetter(double newFit, double oldFit);
     bool isMinimization();
@@ -36,7 +34,6 @@ class MovingPeaks: public Problem {
 
     double fRand(double fMin, double fMax);
 
-    double dimension;
     int count;
     Scenario * scen;
     std::vector<double> peaks_height;

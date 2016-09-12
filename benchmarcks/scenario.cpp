@@ -27,7 +27,7 @@ void Scenario::setScenario1(){
   this->max_height = 70.0;
   this->min_width = 0.00001;
   this->max_width = 0.2;
-  this->start_height = 0.0;
+  this->start_height = 50.0;
   this->start_width = 0.1;
   this->move_severity = 1.0;
   this->height_severity = 7.0;
