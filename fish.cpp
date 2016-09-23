@@ -6,6 +6,8 @@ Fish::Fish(double weight, std::vector<double> position){
   this->setWeight(weight);
   this->setCurrentPosition(position);
   this->setImproved(false);
+  this->fitness = 0.0;
+  this->prevFitness = 0.0;
 }
 
 Fish::~Fish() {}
@@ -32,6 +34,14 @@ std::vector<double> Fish::getIndividualDisplacement(){
 
 double Fish::getFitnessVariation(){
   return this->fitnessVariation;
+}
+
+double Fish::getFitness(){
+  return this->fitness;
+}
+
+double Fish::getPrevFitness(){
+  return this->prevFitness;
 }
 
 bool Fish::getImproved(){
@@ -72,4 +82,13 @@ void Fish::setFitnessVariation(double fitnessVariation){
 
 void Fish::setImproved(bool improved){
   this->improved = improved;
+}
+
+void Fish::setFitness(double fitness){
+  this->prevFitness = this->fitness;
+  this->fitness = fitness;
+}
+
+void Fish::setPrevFitness(double prevFitness){
+  this->prevFitness = prevFitness;
 }

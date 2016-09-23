@@ -3,10 +3,10 @@
 #include <vector>
 #include <algorithm>
 
-#define TAM_POP 10
+#define TAM_POP 30
 #define DIMENSION 10
 #define ITERATIONS 5000
-#define RUNS 1
+#define RUNS 5
 
 #include <string>
 #include <cmath>

@@ -12,6 +12,8 @@ class Fish {
     std::vector<double> currentPosition;
     std::vector<double> previuosPosition;
     std::vector<double> individualDisplacement;
+    double fitness;
+    double prevFitness;
     double fitnessVariation;
     bool improved;
 
@@ -25,6 +27,8 @@ class Fish {
     std::vector<double> getPreviuosPosition();
     std::vector<double> getIndividualDisplacement();
     double getFitnessVariation();
+    double getFitness();
+    double getPrevFitness();
     bool getImproved();
     double getPosition(int pos);
 
@@ -34,6 +38,8 @@ class Fish {
     void setPreviuosPosition(std::vector<double> previuosPosition);
     void setIndividualDisplacement(std::vector<double> individualDisplacement);
     void setFitnessVariation(double fitnessVariation);
+    void setFitness(double fitness);
+    void setPrevFitness(double prevFitness);
     void setImproved(bool improved);
 };
 
