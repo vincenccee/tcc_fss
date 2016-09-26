@@ -1,4 +1,5 @@
 PARAMS=-g -c -Wall -std=c++11
+# -fopenmp
 
 all: app
 
