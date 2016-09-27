@@ -8,9 +8,9 @@
 #include <iostream>
 #include <fstream>
 // #include <omp.h>
-#include "population.hpp"
-#include "fish.hpp"
-#include "benchmarcks/problem.hpp"
+#include "../population.hpp"
+#include "../fish.hpp"
+#include "../benchmarcks/problem.hpp"
 
 class FishSchoolSearch {
   private:

@@ -10,7 +10,7 @@
 
 #include <string>
 #include <cmath>
-#include "fish_school_search.hpp"
+#include "algorithms/fish_school_search.hpp"
 #include "benchmarcks/problem.hpp"
 #include "benchmarcks/problem_factory.hpp"
 // #include "parameters.cpp" 
@@ -21,8 +21,6 @@ string getProblem();
 
 int main(int argc, char **argv) {
   string value;
-
-  cout << "test: " << fabs(-2) << endl;
 
   value = getProblem();
   cout << "opcao escolhida foi: " << value << endl;

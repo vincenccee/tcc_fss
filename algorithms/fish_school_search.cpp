@@ -41,7 +41,6 @@ void FishSchoolSearch::evolutionaryCicle(int iterations, int runs){
     bestIndividualFitness.push_back(0.0);
     populationDiversity.push_back(0.0);
   }
-  // cout << "test: " << bestPopulationFitness.size() << " " << bestPopulationFitness[49] << endl;
 
   for(int j=0; j<this->runs; j++){
     this->school = new Population(tamPopulation, problem->getDimension(), problem->getLowerBound(j), problem->getUpperBound(j));
