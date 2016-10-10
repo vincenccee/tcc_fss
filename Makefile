@@ -3,8 +3,8 @@ PARAMS=-g -c -Wall -std=c++11
 
 all: app
 
-app: fish.o population.o main.o fish_school_search.o problem.o scenario.o ackley.o griewank.o rastring.o rosembrock.o schwefel.o moving_peaks.o
-	g++ fish.o population.o main.o fish_school_search.o problem.o scenario.o ackley.o griewank.o rastring.o rosembrock.o schwefel.o moving_peaks.o -o app
+app: fish.o population.o main.o fish_school_search.o fish_school_search_2.o problem.o scenario.o ackley.o griewank.o rastring.o rosembrock.o schwefel.o moving_peaks.o
+	g++ fish.o population.o main.o fish_school_search.o fish_school_search_2.o problem.o scenario.o ackley.o griewank.o rastring.o rosembrock.o schwefel.o moving_peaks.o -o app
 
 main.o: main.cpp
 	g++ $(PARAMS) main.cpp
@@ -14,6 +14,9 @@ fish.o: fish.cpp
 
 fish_school_search.o: algorithms/fish_school_search.cpp
 	g++ $(PARAMS) algorithms/fish_school_search.cpp
+
+fish_school_search_2.o: algorithms/fish_school_search_2.cpp
+	g++ $(PARAMS) algorithms/fish_school_search_2.cpp
 
 population.o: population.cpp
 	g++ $(PARAMS) population.cpp

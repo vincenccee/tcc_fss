@@ -4,13 +4,14 @@
 #include <algorithm>
 
 #define TAM_POP 30
-#define DIMENSION 10
+#define DIMENSION 30
 #define ITERATIONS 5000
 #define RUNS 5
 
 #include <string>
 #include <cmath>
 #include "algorithms/fish_school_search.hpp"
+#include "algorithms/fish_school_search_2.hpp"
 #include "benchmarcks/problem.hpp"
 #include "benchmarcks/problem_factory.hpp"
 // #include "parameters.cpp" 
@@ -18,17 +19,34 @@
 using namespace std;
 
 string getProblem();
+int getAlgorithm();
 
 int main(int argc, char **argv) {
   string value;
+  int algorithm;
+  FishSchoolSearch *fss;
+  FishSchoolSearch2 *fss2;
 
   value = getProblem();
   cout << "opcao escolhida foi: " << value << endl;
+  algorithm = getAlgorithm();
   ProblemFactory *factory = new ProblemFactory();
   Problem *problem = factory->get(value, DIMENSION);
 
-  FishSchoolSearch *fss = new FishSchoolSearch(problem, TAM_POP);
-  fss->evolutionaryCicle(ITERATIONS, RUNS);
+  switch (algorithm){
+    case 1:
+      fss = new FishSchoolSearch(problem, TAM_POP);
+      fss->evolutionaryCicle(ITERATIONS, RUNS);
+      break;
+    case 2:
+      fss2 = new FishSchoolSearch2(problem, TAM_POP);
+      cout << "chegou 1" << endl;
+      fss2->evolutionaryCicle(ITERATIONS, RUNS);
+      break;
+    default:
+      cout << "Opcao Invalida" << endl;
+      getAlgorithm();
+  }
 
 	return 0;
 }
@@ -68,4 +86,13 @@ string getProblem(){
       getProblem();
   }
   return answer;
+}
+
+int getAlgorithm(){
+  int index;
+  cout << "Select the algorithm:" << endl;
+  cout << "1. FSS" << endl;
+  cout << "2. FSS2" << endl;
+  cin >> index;
+  return index;
 }
