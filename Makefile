@@ -3,8 +3,8 @@ PARAMS=-g -c -Wall -std=c++11
 
 all: app
 
-app: fish.o population.o main.o fish_school_search.o fish_school_search_2.o problem.o scenario.o ackley.o griewank.o rastring.o rosembrock.o schwefel.o moving_peaks.o
-	g++ fish.o population.o main.o fish_school_search.o fish_school_search_2.o problem.o scenario.o ackley.o griewank.o rastring.o rosembrock.o schwefel.o moving_peaks.o -o app
+app: fish.o population.o main.o fish_school_search.o fish_school_search_2.o problem.o scenario.o ackley.o griewank.o rastring.o rosembrock.o schwefel.o sphere.o moving_peaks.o
+	g++ fish.o population.o main.o fish_school_search.o fish_school_search_2.o problem.o scenario.o ackley.o griewank.o rastring.o rosembrock.o schwefel.o sphere.o moving_peaks.o -o app
 
 main.o: main.cpp
 	g++ $(PARAMS) main.cpp
@@ -38,6 +38,9 @@ rosembrock.o: benchmarcks/statics/rosembrock.cpp
 
 schwefel.o: benchmarcks/statics/schwefel.cpp
 	g++ $(PARAMS) benchmarcks/statics/schwefel.cpp
+
+sphere.o: benchmarcks/statics/sphere.cpp
+	g++ $(PARAMS) benchmarcks/statics/sphere.cpp
 
 moving_peaks.o: benchmarcks/dynamics/moving_peaks.cpp
 	g++ $(PARAMS) benchmarcks/dynamics/moving_peaks.cpp

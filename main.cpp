@@ -60,7 +60,8 @@ string getProblem(){
   cout << "3. Rosembrock" << endl;
   cout << "4. Griewank" << endl;
   cout << "5. Schwefel 1.2" << endl;
-  cout << "6. Moving Peaks" << endl;
+  cout << "6. Sphere" << endl;
+  cout << "7. Moving Peaks" << endl;
   cin >> index;
   switch (index){
     case 1:
@@ -79,6 +80,9 @@ string getProblem(){
       answer = "SCHWEFEL";
       break;
     case 6:
+      answer = "SPHERE";
+      break;
+    case 7:
       answer = "MOVING_PEAKS";
       break;
     default:

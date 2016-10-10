@@ -9,6 +9,7 @@
 #include "statics/griewank.hpp"
 #include "statics/rosembrock.hpp"
 #include "statics/schwefel.hpp"
+#include "statics/sphere.hpp"
 #include "dynamics/moving_peaks.hpp"
 
 class ProblemFactory{
@@ -32,6 +33,9 @@ Problem * ProblemFactory::get(std::string name, int dimension, int scenario)
   }
   else if(name == "ACKLEY"){
     return new Ackley(dimension);
+  }
+  else if(name == "SPHERE"){
+    return new Sphere(dimension);
   }
   else if(name == "MOVING_PEAKS"){
     return new MovingPeaks(dimension, scenario);
