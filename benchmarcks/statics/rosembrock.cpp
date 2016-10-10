@@ -38,3 +38,5 @@ bool Rosembrock::fitnesIsBetter(double newFit, double oldFit){
 bool Rosembrock::isMinimization(){
   return true;
 }
+
+void Rosembrock::resetProblem() {}

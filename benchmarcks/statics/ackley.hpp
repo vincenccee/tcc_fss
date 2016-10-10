@@ -21,6 +21,7 @@ class Ackley: public Problem {
     std::string getName();
     bool fitnesIsBetter(double newFit, double oldFit);
     bool isMinimization();
+    void resetProblem();
 }; 
 
 #endif

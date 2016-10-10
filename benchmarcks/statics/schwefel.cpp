@@ -40,3 +40,5 @@ bool Schwefel::fitnesIsBetter(double newFit, double oldFit){
 bool Schwefel::isMinimization(){
   return true;
 }
+
+void Schwefel::resetProblem() {}

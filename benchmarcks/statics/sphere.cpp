@@ -37,3 +37,5 @@ bool Sphere::fitnesIsBetter(double newFit, double oldFit){
 bool Sphere::isMinimization(){
   return true;
 }
+
+void Sphere::resetProblem() {}

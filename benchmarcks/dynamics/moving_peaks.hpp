@@ -23,8 +23,11 @@ class MovingPeaks: public Problem {
     std::string getName();
     bool fitnesIsBetter(double newFit, double oldFit);
     bool isMinimization();
+    void resetProblem();
 
   private:
+    void showPeakes();
+    void initializePeaks();
     double cone(std::vector<double> individual, std::vector<double> position, double height, double width);
     double sphere(std::vector<double> individual, std::vector<double> position, double height, double width);
     double function1(std::vector<double> individual, std::vector<double> position, double height, double width);

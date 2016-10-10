@@ -3,8 +3,13 @@
 MovingPeaks::MovingPeaks(int dimension, int scenario){
   this->dimension = dimension;
   this->scen = new Scenario(scenario);
+  initializePeaks();
+}
+
+void MovingPeaks::initializePeaks(){
   this->count = 0;
-  // set initial height for all peaks 
+  
+  // set initial height for all peaks
   if(scen->start_height != 0){
     for(int i=0; i<scen->npeaks; i++)
       peaks_height.push_back(scen->start_height);
@@ -34,10 +39,26 @@ MovingPeaks::MovingPeaks(int dimension, int scenario){
     peaks_position.push_back(tmp_pos);
     last_change_vector.push_back(last_pos);
   }
+  showPeakes();
 }
 
 MovingPeaks::MovingPeaks(){}
 MovingPeaks::~MovingPeaks(){}
+
+void MovingPeaks::showPeakes() {
+  cout << "************" << endl;
+  for (int i = 0; i < scen->npeaks; ++i){
+    cout << "Peak " << i+1 << ": " << endl;
+    cout << "Height: " << peaks_height[i] << endl;
+    cout << "Width: " << peaks_width[i] << endl;
+    cout << "Position: ";
+    for (int j = 0; j < this->dimension; ++j){
+      cout << " - " << peaks_position[i][j];
+    }
+    cout << endl;
+  }
+  cout << "************" << endl;
+}
 
 double MovingPeaks::getUpperBound(int pos){
 	return scen->max_coord;
@@ -54,6 +75,7 @@ double MovingPeaks::evaluateFitness(std::vector<double> solution){
     possible_values.push_back(callFunction(solution, i));
 
   if(this->count % scen->period == 0){
+    cout << "evaluations: " << this->count << endl;
     changePeaks();
   }
 
@@ -110,6 +132,7 @@ double MovingPeaks::callFunction(std::vector<double> individual, int pos){
 }
 
 void MovingPeaks::changePeaks(){
+  cout << "Mudei!" << endl;
   double shift_length, new_coord, change, new_value;
   std::vector<double> shift;
   std::vector<double> new_position;
@@ -193,4 +216,12 @@ double MovingPeaks::maxValue(std::vector<double> values){
 double MovingPeaks::fRand(double fMin, double fMax){
   double f = (double)rand() / RAND_MAX;
   return fMin + f * (fMax - fMin);
+}
+
+void MovingPeaks::resetProblem() {
+  // showPeakes();
+  peaks_height.clear();
+  peaks_width.clear();
+  peaks_position.clear();
+  initializePeaks();
 }

@@ -76,6 +76,7 @@ void FishSchoolSearch::evolutionaryCicle(int iterations, int runs){
     finalFitness.push_back(result);
 
     cout << "\nBest Finess = " << result << endl;
+    problem->resetProblem();
   }
   for(int j=0; j<this->iterations; j++){
     bestPopulationFitness[j] = bestPopulationFitness[j]/this->runs;

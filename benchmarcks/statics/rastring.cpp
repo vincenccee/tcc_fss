@@ -34,3 +34,5 @@ bool Rastring::fitnesIsBetter(double newFit, double oldFit){
 bool Rastring::isMinimization(){
   return true;
 }
+
+void Rastring::resetProblem() {}

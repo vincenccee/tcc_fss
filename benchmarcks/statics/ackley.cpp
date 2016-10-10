@@ -40,3 +40,5 @@ bool Ackley::fitnesIsBetter(double newFit, double oldFit){
 bool Ackley::isMinimization(){
   return true;
 }
+
+void Ackley::resetProblem() {}

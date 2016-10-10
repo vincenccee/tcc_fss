@@ -38,3 +38,5 @@ bool Griewank::fitnesIsBetter(double newFit, double oldFit){
 bool Griewank::isMinimization(){
   return true;
 }
+
+void Griewank::resetProblem() {}
