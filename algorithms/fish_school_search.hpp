@@ -7,7 +7,7 @@
 #include <algorithm>
 #include <iostream>
 #include <fstream>
-// #include <omp.h>
+// #include "omp.h"
 #include "../population.hpp"
 #include "../fish.hpp"
 #include "../benchmarcks/problem.hpp"
@@ -16,6 +16,7 @@ class FishSchoolSearch {
   private:
     Problem *problem;
     Population *school;
+    Fish *testParticle;
     std::vector<double> bestPosition;
     std::vector<double> bestPopulationFitness;
     std::vector<double> bestIndividualFitness;
@@ -34,6 +35,7 @@ class FishSchoolSearch {
     double minWeight;
     double maxWeight;
     double m_nmdf;
+    double lastChangeIteration;
     int runs;
     int iterations;
     int tamPopulation;
@@ -62,8 +64,10 @@ class FishSchoolSearch {
     std::vector<double> calculateBarycenter();
     double calculateWeightSum();
     void initializeBest();
+    void initializeParticle();
     void updateBest(int pos);
     void updateStepPercentage();
+    void testForChanges(int currentIteration);
     double getBestFitness();
 
     double fRand(double fMin, double fMax);

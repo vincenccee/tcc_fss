@@ -47,9 +47,11 @@ void FishSchoolSearch::evolutionaryCicle(int iterations, int runs){
     school->initializePopulation();
     this->stepIndPercentage = this->stepIndInit;
     this->stepVolPercentage = this->stepVolInit;
+    this->lastChangeIteration = this->iterations;
     this->m_nmdf = 0;
     evaluatePopulationFitness(true);
     initializeBest();
+    initializeParticle();
     // showPopulation();
     for(int i=0; i<this->iterations; i++){
       localSearch();
@@ -65,6 +67,7 @@ void FishSchoolSearch::evolutionaryCicle(int iterations, int runs){
       evaluatePopulationFitness();
       updateBest(i);
       updatePlot(i);
+      testForChanges(i);
       updateStepPercentage();
     }
     // showPopulation();
@@ -326,6 +329,11 @@ void FishSchoolSearch::initializeBest(){
   this->bestPosition = school->getFish(0)->getCurrentPosition();
 }
 
+void FishSchoolSearch::initializeParticle(){
+  this->testParticle = new Fish(2500, this->school->getFish(0)->getCurrentPosition());
+  this->testParticle->setFitness(school->getFish(0)->getFitness());
+}
+
 void FishSchoolSearch::updateBest(int pos){
   Fish *tmpFish;
   for(int i=0; i < tamPopulation; i++) {
@@ -340,8 +348,20 @@ void FishSchoolSearch::updateBest(int pos){
 }
 
 void FishSchoolSearch::updateStepPercentage(){
-  stepIndPercentage -= (double)(stepIndInit - stepIndFinal)/(double)iterations;
-  stepVolPercentage -= (double)(stepVolInit - stepVolFinal)/(double)iterations;
+  stepIndPercentage -= (double)(stepIndInit - stepIndFinal)/lastChangeIteration;
+  stepVolPercentage -= (double)(stepVolInit - stepVolFinal)/lastChangeIteration;
+}
+
+void FishSchoolSearch::testForChanges(int currentIteration){
+  double newFitness = problem->evaluateFitness(testParticle->getCurrentPosition());
+  if(newFitness != testParticle->getFitness()){
+    cout << "Mudança Percebida! - " << currentIteration << endl;
+    cout << "Best Fitness: " << bestFitness << endl;
+    lastChangeIteration = this->iterations - currentIteration;
+    testParticle->setFitness(newFitness);
+    stepIndPercentage = stepIndInit;
+    stepVolPercentage = stepVolInit;
+  }
 }
 
 double FishSchoolSearch::fRand(double fMin, double fMax){
@@ -458,29 +478,19 @@ double FishSchoolSearch::defaultGenotypicDiversityMeasure(){
   double diversity = 0;
   double aux_1 = 0;
   double aux_2 = 0;
-  unsigned short int a = 0;
-  unsigned short int b = 0;
-  unsigned short int d = 0;
-  for(a = 0; a < tamPopulation; a++)
-  {
-    for(b = (a+1); b < tamPopulation; b++)
-    {
+  for(int a = 0; a < tamPopulation; a++){
+    for(int b = (a+1); b < tamPopulation; b++){
       aux_1 = 0;
-      for(d = 0; d < problem->getDimension(); d++)
-      {       
+      for(int d = 0; d < problem->getDimension(); d++){       
         aux_1 += pow(school->getFish(a)->getCurrentPosition()[d] - school->getFish(b)->getCurrentPosition()[d], 2);
       }
       if(b == (a+1) || aux_2 > aux_1)
-      {
         aux_2 = aux_1;
-      }
     }
     diversity += log((double)1.0 + aux_2);  
   } 
   if(m_nmdf < diversity)
-  {
     m_nmdf = diversity;
-  }
   return diversity / m_nmdf;
 }
 
