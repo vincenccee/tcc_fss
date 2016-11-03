@@ -1,5 +1,7 @@
 #include "fish_school_search.hpp"
 
+#define INITIAL_WEIGHT 2500
+
 using namespace std;
 
 FishSchoolSearch::FishSchoolSearch(Problem *problem, int tamPopulation){
@@ -43,7 +45,7 @@ void FishSchoolSearch::evolutionaryCicle(int iterations, int runs){
   }
 
   for(int j=0; j<this->runs; j++){
-    this->school = new Population(tamPopulation, problem->getDimension(), problem->getLowerBound(j), problem->getUpperBound(j));
+    this->school = new Population(tamPopulation, problem->getDimension(), problem->getLowerBound(j), problem->getUpperBound(j), INITIAL_WEIGHT);
     school->initializePopulation();
     this->stepIndPercentage = this->stepIndInit;
     this->stepVolPercentage = this->stepVolInit;

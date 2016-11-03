@@ -13,11 +13,12 @@ class Population {
     double maxWeight;
     double upperBound;
     double lowerBound;
+    double initialWeight
     int dimension;
     int tamPopulation;
 
   public:
-  	Population(int tamPopulation, int dimension, double lowerBound, double upperBound);
+  	Population(int tamPopulation, int dimension, double lowerBound, double upperBound, double initialWeight);
   	Population();
     ~Population();
 

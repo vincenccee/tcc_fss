@@ -2,11 +2,12 @@
 
 using namespace std;
 
-Population::Population(int tamPopulation, int dimension, double lowerBound, double upperBound){
+Population::Population(int tamPopulation, int dimension, double lowerBound, double upperBound, double initial_weight){
   this->tamPopulation = tamPopulation;
   this->dimension = dimension;
   this->lowerBound = lowerBound;
   this->upperBound = upperBound;
+  this->initialWeight = initialWeight;
   srand(time(NULL));
 }
 
@@ -23,7 +24,7 @@ void Population::initializePopulation(){
     for(int j=0; j<dimension; j++){
       position.push_back(fRand(lowerBound, upperBound));
     }
-    tmpFish = new Fish(2500, position);
+    tmpFish = new Fish(this->initialWeight, position);
     this->population.push_back(*tmpFish);
   }
 }
