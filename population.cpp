@@ -23,7 +23,7 @@ void Population::initializePopulation(){
   for(int i=0; i< tamPopulation; i++){
     position.clear();
     for(int j=0; j<dimension; j++){
-      position.push_back(tools->fRand(lowerBound, upperBound));
+      position.push_back(tools->generateRealRandomNumber(lowerBound, upperBound));
     }
     tmpFish = new Fish(this->initialWeight, position);
     this->population.push_back(*tmpFish);

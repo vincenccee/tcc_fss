@@ -48,7 +48,7 @@ void FishSchoolSearch2::evolutionaryCicle(int iterations, int runs){
   }
 
   for(int j=0; j<this->runs; j++){
-    this->school = new Population(tamPopulation, problem->getDimension(), problem->getLowerBound(j), problem->getUpperBound(j), INITIAL_WEIGHT);
+    this->school = new Population(tamPopulation, problem->getDimension(), problem->getLowerBound(j), problem->getUpperBound(j), tools->generateRealRandomNumber(300, 600));
     school->initializePopulation();
     this->m_nmdf = 0;
     prevCountFish = currCountFish = 0;
@@ -128,7 +128,7 @@ std::vector<double> FishSchoolSearch2::createNeighboorPosition(std::vector<doubl
   std::vector<double> neighboorPosition;
   for (unsigned int i = 0; i < problem->getDimension(); i++) {
     neighboorPosition.push_back(position[i] + 0.01*(problem->getUpperBound(i) - 
-                                problem->getLowerBound(i)) * tools->fRand(-1.0, 1.0));
+                                problem->getLowerBound(i)) * tools->generateRealRandomNumber(-1.0, 1.0));
   }
   return validatePosition(neighboorPosition);
 }
@@ -227,7 +227,7 @@ std::vector<double> FishSchoolSearch2::colletiveMoviment(){
   std::vector<double> colMovement;
   double weightSum = calculateWeightSum();
   double aux;
-  double factor = this->gamma * tools->fRand(0, 1);
+  double factor = this->gamma * tools->generateRealRandomNumber(0, 1);
 
   for(unsigned int i=0; i < problem->getDimension(); i++) {
     aux = 0;
@@ -243,7 +243,7 @@ std::vector<double> FishSchoolSearch2::volitiveMoviment(Fish *fish, std::vector<
   std::vector<double> volitiveMoviment;
   std::vector<double> position = fish->getCurrentPosition();
   bool sign = weightVariationSignal();
-  double factor = (this->gamma * tools->fRand(0, 1)) * sign;
+  double factor = (this->gamma * tools->generateRealRandomNumber(0, 1)) * sign;
 
   for (int i = 0; i < problem->getDimension(); ++i){
     volitiveMoviment.push_back(factor * (position[i] - barycenter[i]));

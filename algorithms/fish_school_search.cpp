@@ -97,7 +97,7 @@ void FishSchoolSearch::evolutionaryCicle(int iterations, int runs){
 
 void FishSchoolSearch::evaluatePopulationFitness(bool first){
   // For para ser paralizado (OPEN-MP)
-  // #pragma omp parallel for
+// #pragma omp parallel for
   for(int i=0; i<tamPopulation; i++)
     school->getFish(i)->setFitness(problem->evaluateFitness(school->getFish(i)->getCurrentPosition()));
   if(first){
@@ -112,7 +112,7 @@ void FishSchoolSearch::localSearch(){
   std::vector<double> nextPosition;
   Fish *tmpFish;
   // For para ser paralizado (OPEN-MP)
-  // #pragma omp parallel for
+// #pragma omp parallel for
   for(int i=0; i<tamPopulation; i++){
     tmpFish = school->getFish(i);
     nextPosition.clear();
@@ -134,7 +134,7 @@ std::vector<double> FishSchoolSearch::createNeighboorPosition(std::vector<double
   std::vector<double> neighboorPosition;
   for (unsigned int i = 0; i < problem->getDimension(); i++) {
     neighboorPosition.push_back(position[i] + stepIndPercentage*(problem->getUpperBound(i) - 
-                                problem->getLowerBound(i)) * tools->fRand(-1.0, 1.0));
+                                problem->getLowerBound(i)) * tools->generateRealRandomNumber(-1.0, 1.0));
   }
   return validatePosition(neighboorPosition);
 }
