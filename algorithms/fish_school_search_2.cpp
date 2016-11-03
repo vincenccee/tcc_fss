@@ -1,19 +1,20 @@
 #include "fish_school_search_2.hpp"
 
+#define INITIAL_WEIGHT 500
+
 using namespace std;
 
 FishSchoolSearch2::FishSchoolSearch2(Problem *problem, int tamPopulation){
   this->problem = problem;
   this->tamPopulation = tamPopulation;
   this->minWeight = 1;
-  this->maxWeight = 5000;
+  this->maxWeight = 1000;
   this->alpha = -0.01;
   this->beta = 0.4;
   this->gamma = 0.1;
-  this->min_gamma = 0.0;
-  this->max_gamma = 1.0;
+  this->minGamma = 0.001;
+  this->maxGamma = 0.999;
   this->betterNumber = 0;
-  cout << "chegou 2" << endl;
 }
 
 FishSchoolSearch2::FishSchoolSearch2(){}
@@ -44,23 +45,25 @@ void FishSchoolSearch2::evolutionaryCicle(int iterations, int runs){
     bestIndividualFitness.push_back(0.0);
     populationDiversity.push_back(0.0);
   }
-  cout << "chegou 3" << endl;
 
   for(int j=0; j<this->runs; j++){
-    this->school = new Population(tamPopulation, problem->getDimension(), problem->getLowerBound(j), problem->getUpperBound(j));
+    this->school = new Population(tamPopulation, problem->getDimension(), problem->getLowerBound(j), problem->getUpperBound(j), INITIAL_WEIGHT);
     school->initializePopulation();
     this->m_nmdf = 0;
-    cout << "chegou 4" << endl;
+    prevCountFish = currCountFish = 0;
     evaluatePopulationFitness(true);
     localSearch();
     initializeBest();
+    setSchoolNewWeight();
+    prevCountFish = currCountFish;
     for(int i=1; i<this->iterations; i++){
-
+      updateGamma();
+      currCountFish = 0;
       school->updatePopulationDisplacement();
       setSchoolNewWeight();
+      
       // main function of update position (union of the three previus moviments)
       updateFishPosition();
-      updateGamma();
       evaluatePopulationFitness();
 
       updateBest(i);
@@ -112,9 +115,9 @@ void FishSchoolSearch2::localSearch(){
     nextPosition.clear();
     nextPosition = createNeighboorPosition(tmpFish->getCurrentPosition());
     nextPosFitness = problem->evaluateFitness(nextPosition);
-    tmpFish->setImproved(true);
     tmpFish->setCurrentPosition(nextPosition);
     tmpFish->setFitness(nextPosFitness);
+    tmpFish->setImproved(true);
     school->updateFish(*tmpFish, i);
   }
 }
@@ -142,23 +145,24 @@ std::vector<double> FishSchoolSearch2::validatePosition(std::vector<double> posi
 void FishSchoolSearch2::setSchoolNewWeight(){
   double newWeight;
   Fish *tmpFish;
-  double fitnessGain;
+  double greaterFitnessGain = calculateGreaterFitnessGain();
+  if(greaterFitnessGain == 0)
+    greaterFitnessGain = 1;
 
   for(int i=0; i < tamPopulation; i++) {
     tmpFish = school->getFish(i);
-    if(tmpFish->getImproved()){
-      fitnessGain = calculateFitnessGain(tmpFish);
-      newWeight = tmpFish->getWeight() + fitnessGain;
+    newWeight = tmpFish->getWeight() + (calculateFitnessGain(tmpFish)/greaterFitnessGain);
 
-      if(newWeight < minWeight){
-        newWeight = minWeight;
-      }else if(newWeight > maxWeight){
-        newWeight = maxWeight;
-      }
-      tmpFish->setWeightVariation(newWeight - tmpFish->getWeight());
-      tmpFish->setWeight(newWeight);
-      school->updateFish(*tmpFish, i);
+    if(newWeight < minWeight){
+      newWeight = minWeight;
+    }else if(newWeight > maxWeight){
+      newWeight = maxWeight;
     }
+    tmpFish->setWeightVariation(newWeight - tmpFish->getWeight());
+    if(tmpFish->getWeightVariation() > 0)
+      currCountFish++;
+    tmpFish->setWeight(newWeight);
+    school->updateFish(*tmpFish, i);
   }
 }
 
@@ -170,21 +174,38 @@ double FishSchoolSearch2::calculateFitnessGain(Fish *fish){
   return fitnessGain;
 }
 
+double FishSchoolSearch2::calculateGreaterFitnessGain(){
+  double greaterFitnessGain = 0;
+  double fitnessGain;
+
+  for(int i=1; i < tamPopulation; i++) {
+    if(school->getFish(i)->getImproved()){
+      fitnessGain = calculateFitnessGain(school->getFish(i));
+      if(fitnessGain > greaterFitnessGain){
+        greaterFitnessGain = fitnessGain;
+      }
+    }
+  }
+  return greaterFitnessGain;
+}
+
 void FishSchoolSearch2::updateFishPosition(){
   Fish *tmpFish;
   std::vector<double> position;
   std::vector<double> newPosition;
   std::vector<double> individualVet;
   std::vector<double> colletiveVet = colletiveMoviment();
+  std::vector<double> barycenter = calculateBarycenter();
   std::vector<double> volitiveVet;
+
   for (int i = 0; i < tamPopulation; ++i){
     tmpFish = school->getFish(i);
     newPosition.clear();
     position = tmpFish->getCurrentPosition();
     individualVet = individualMoviment(tmpFish);
-    volitiveVet = volitiveMoviment(tmpFish);
+    volitiveVet = volitiveMoviment(tmpFish, barycenter);
     for(unsigned int j=0; j < problem->getDimension(); j++){
-      newPosition.push_back(position[j] + individualVet[j] + colletiveVet[j] + volitiveVet[j]);
+      newPosition.push_back((-1.0) * position[j] + individualVet[j] + colletiveVet[j] + volitiveVet[j]);
     }
     tmpFish->setCurrentPosition(validatePosition(newPosition));
     school->updateFish(*tmpFish, i);
@@ -208,7 +229,7 @@ std::vector<double> FishSchoolSearch2::colletiveMoviment(){
 
   for(unsigned int i=0; i < problem->getDimension(); i++) {
     aux = 0;
-    for(int j=0; j < tamPopulation; j++) {
+    for(unsigned int j=0; j < tamPopulation; j++) {
       aux += school->getFish(j)->getWeight() * school->getFish(j)->getIndividualDisplacement()[i];
     }
     colMovement.push_back(factor * aux/weightSum);
@@ -216,15 +237,14 @@ std::vector<double> FishSchoolSearch2::colletiveMoviment(){
   return colMovement;
 }
 
-std::vector<double> FishSchoolSearch2::volitiveMoviment(Fish *fish){
+std::vector<double> FishSchoolSearch2::volitiveMoviment(Fish *fish, std::vector<double> barycenter){
   std::vector<double> volitiveMoviment;
   std::vector<double> position = fish->getCurrentPosition();
-  std::vector<double> barycenter = calculateBarycenter();
   bool sign = weightVariationSignal();
-  double factor = this->gamma * fRand(0, 1);
+  double factor = (this->gamma * fRand(0, 1)) * sign;
 
   for (int i = 0; i < problem->getDimension(); ++i){
-    volitiveMoviment.push_back(factor * sign * (position[i] - barycenter[i]));
+    volitiveMoviment.push_back(factor * (position[i] - barycenter[i]));
   }
   return volitiveMoviment;
 }
@@ -235,7 +255,7 @@ double FishSchoolSearch2::weightVariationSignal(){
     weightVariation += school->getFish(i)->getWeightVariation();
   }
   // if(weightVariation < 0) cout << "Dilatação!!!!" << endl;
-  return (weightVariation >= 0 ? -1.0 : 1.0);
+  return (weightVariation >= 0 ? 1.0 : -1.0);
 }
 
 std::vector<double> FishSchoolSearch2::calculateBarycenter(){
@@ -281,24 +301,15 @@ void FishSchoolSearch2::updateBest(int pos){
 }
 
 void FishSchoolSearch2::updateGamma(){
-  if(increasedSignal())
-    this->alpha *= -1.0;
-  this->gamma *= 1 + this->alpha;
-}
-
-bool FishSchoolSearch2::increasedSignal(){
-  Fish *tmpFish;
-  int count = 0;
-  bool flag = false;
-  for (int i = 0; i < tamPopulation; ++i){
-    tmpFish = school->getFish(i);
-    if(tmpFish->getFitness() > tmpFish->getPrevFitness())
-      count++;
-  }
-  if(count < this->betterNumber)
-    flag = true;
-  this->betterNumber = count;
-  return flag;
+  this->gamma *= this->alpha;
+  if(this->gamma < minGamma)
+    this->gamma = minGamma;
+  else if(this->gamma > maxGamma)
+    this->gamma = maxGamma;
+  // update alpha
+  if(currCountFish < prevCountFish)
+    alpha *= -1.0;
+  prevCountFish = currCountFish;
 }
 
 double FishSchoolSearch2::fRand(double fMin, double fMax){

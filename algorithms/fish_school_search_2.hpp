@@ -27,12 +27,14 @@ class FishSchoolSearch2 {
     double alpha;
     double beta;
     double gamma;
-    double min_gamma;
-    double max_gamma;
+    double minGamma;
+    double maxGamma;
     double bestFitness;
     double minWeight;
     double maxWeight;
     double m_nmdf;
+    int prevCountFish;
+    int currCountFish;
     int betterNumber;
     int runs;
     int iterations;
@@ -51,10 +53,11 @@ class FishSchoolSearch2 {
     std::vector<double> validatePosition(std::vector<double> position);
     void setSchoolNewWeight();
     double calculateFitnessGain(Fish *fish);
+    double calculateGreaterFitnessGain();
     void updateFishPosition();
     std::vector<double> individualMoviment(Fish *fish);
     std::vector<double> colletiveMoviment();
-    std::vector<double> volitiveMoviment(Fish *fish);
+    std::vector<double> volitiveMoviment(Fish *fish, std::vector<double> barycenter);
     double weightVariationSignal();
     std::vector<double> calculateBarycenter();
     double calculateWeightSum();
@@ -62,7 +65,6 @@ class FishSchoolSearch2 {
     void updateBest(int pos);
     double getBestFitness();
     void updateGamma();
-    bool increasedSignal();
 
     double fRand(double fMin, double fMax);
 

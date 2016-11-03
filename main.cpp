@@ -40,7 +40,6 @@ int main(int argc, char **argv) {
       break;
     case 2:
       fss2 = new FishSchoolSearch2(problem, TAM_POP);
-      cout << "chegou 1" << endl;
       fss2->evolutionaryCicle(ITERATIONS, RUNS);
       break;
     default:

@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Population::Population(int tamPopulation, int dimension, double lowerBound, double upperBound, double initial_weight){
+Population::Population(int tamPopulation, int dimension, double lowerBound, double upperBound, double initialWeight){
   this->tamPopulation = tamPopulation;
   this->dimension = dimension;
   this->lowerBound = lowerBound;

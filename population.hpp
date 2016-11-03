@@ -13,7 +13,7 @@ class Population {
     double maxWeight;
     double upperBound;
     double lowerBound;
-    double initialWeight
+    double initialWeight;
     int dimension;
     int tamPopulation;
 
