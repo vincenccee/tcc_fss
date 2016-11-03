@@ -78,6 +78,7 @@ double MovingPeaks::evaluateFitness(std::vector<double> solution){
   if(this->count % scen->period == 0){
     cout << "evaluations: " << this->count << endl;
     changePeaks();
+    cout << "mudei!!!!" << endl;
   }
 
   return maxValue(possible_values);
@@ -215,7 +216,6 @@ double MovingPeaks::maxValue(std::vector<double> values){
 }
 
 void MovingPeaks::resetProblem() {
-  // showPeakes();
   peaks_height.clear();
   peaks_width.clear();
   peaks_position.clear();
