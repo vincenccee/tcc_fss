@@ -5,9 +5,11 @@
 #include <string>
 #include <algorithm>
 #include "fish.hpp"
+#include "general_tools.hpp"
 
 class Population {
   private:
+    GeneralTools *tools;
   	std::vector<Fish> population;
     double minWeight;
     double maxWeight;
@@ -35,8 +37,6 @@ class Population {
     double getMaxWeight();
     void setMinWeight(double minWeight);
     void setMaxWeight(double maxWeight);
-
-    double fRand(double fMin, double fMax);
 };
 
 #endif

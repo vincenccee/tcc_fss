@@ -11,11 +11,13 @@
 #include "../population.hpp"
 #include "../fish.hpp"
 #include "../benchmarcks/problem.hpp"
+#include "../general_tools.hpp"
 
 class FishSchoolSearch {
   private:
     Problem *problem;
     Population *school;
+    GeneralTools *tools;
     std::vector<double> bestPosition;
     std::vector<double> bestPopulationFitness;
     std::vector<double> bestIndividualFitness;
@@ -65,16 +67,8 @@ class FishSchoolSearch {
     void updateBest(int pos);
     void updateStepPercentage();
     double getBestFitness();
-
-    double fRand(double fMin, double fMax);
-
     void updatePlot(int pos);
-    void gnu_plot_convergence(std::vector<double> mean_gen, int m_gen, std::string name, std::string title, std::string y_axis, double max_range);
-    void gnu_plot_convergence_best_mean(std::vector<double> d_data1, std::vector<double> d_data2, int n_lines, std::string title, std::string filename);
-    std::string space2underscore(std::string text);
     double defaultGenotypicDiversityMeasure();
-    double standardDeviation(std::vector<double> data);
-    double arithmeticAverage(std::vector<double> data);
 };
 
 #endif

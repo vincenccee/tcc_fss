@@ -8,6 +8,7 @@ Population::Population(int tamPopulation, int dimension, double lowerBound, doub
   this->lowerBound = lowerBound;
   this->upperBound = upperBound;
   this->initialWeight = initialWeight;
+  this->tools = new GeneralTools;
   srand(time(NULL));
 }
 
@@ -22,7 +23,7 @@ void Population::initializePopulation(){
   for(int i=0; i< tamPopulation; i++){
     position.clear();
     for(int j=0; j<dimension; j++){
-      position.push_back(fRand(lowerBound, upperBound));
+      position.push_back(tools->fRand(lowerBound, upperBound));
     }
     tmpFish = new Fish(this->initialWeight, position);
     this->population.push_back(*tmpFish);
@@ -75,9 +76,4 @@ void Population::setMinWeight(double minWeight){
 
 void Population::setMaxWeight(double maxWeight){
   this->maxWeight = maxWeight;
-}
-
-double Population::fRand(double fMin, double fMax){
-    double f = (double)rand() / RAND_MAX;
-    return fMin + f * (fMax - fMin);
 }

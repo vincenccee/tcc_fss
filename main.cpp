@@ -3,10 +3,10 @@
 #include <vector>
 #include <algorithm>
 
-#define TAM_POP 30
-#define DIMENSION 30
+#define TAM_POP 10
+#define DIMENSION 10
 #define ITERATIONS 5000
-#define RUNS 5
+#define RUNS 2
 
 #include <string>
 #include <cmath>
@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
       break;
     case 2:
       fss2 = new FishSchoolSearch2(problem, TAM_POP);
-      fss2->evolutionaryCicle(ITERATIONS, RUNS);
+      fss2->evolutionaryCicle(ITERATIONS*2, RUNS);
       break;
     default:
       cout << "Opcao Invalida" << endl;

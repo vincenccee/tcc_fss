@@ -15,6 +15,7 @@ FishSchoolSearch2::FishSchoolSearch2(Problem *problem, int tamPopulation){
   this->minGamma = 0.001;
   this->maxGamma = 0.999;
   this->betterNumber = 0;
+  this->tools = new GeneralTools();
 }
 
 FishSchoolSearch2::FishSchoolSearch2(){}
@@ -85,11 +86,11 @@ void FishSchoolSearch2::evolutionaryCicle(int iterations, int runs){
     populationDiversity[j] = populationDiversity[j]/this->runs;
   }
   cout << "************** Final ****************" << endl;
-  cout << "Media do Fitness: " << arithmeticAverage(finalFitness) << endl;
-  cout << "Desvio Padrao: " << standardDeviation(finalFitness) << endl;
+  cout << "Media do Fitness: " << tools->arithmeticAverage(finalFitness) << endl;
+  cout << "Desvio Padrao: " << tools->standardDeviation(finalFitness) << endl;
 
-  gnu_plot_convergence_best_mean(bestIndividualFitness, bestPopulationFitness, iterations, "MelhoraFitness", "melhora_fit");
-  gnu_plot_convergence(populationDiversity, iterations, "pop_diversity", "fitnessdaPopulacao", "Divesidade Genotipica", 1);
+  tools->gnu_plot_convergence_best_mean(bestIndividualFitness, bestPopulationFitness, iterations, "MelhoraFitness", "melhora_fit");
+  tools->gnu_plot_convergence(populationDiversity, iterations, "pop_diversity", "fitnessdaPopulacao", "Divesidade Genotipica", 1);
   popdata.close();
 }
 
@@ -126,7 +127,7 @@ std::vector<double> FishSchoolSearch2::createNeighboorPosition(std::vector<doubl
   std::vector<double> neighboorPosition;
   for (unsigned int i = 0; i < problem->getDimension(); i++) {
     neighboorPosition.push_back(position[i] + 0.01*(problem->getUpperBound(i) - 
-                                problem->getLowerBound(i)) * fRand(-1.0, 1.0));
+                                problem->getLowerBound(i)) * tools->fRand(-1.0, 1.0));
   }
   return validatePosition(neighboorPosition);
 }
@@ -225,11 +226,11 @@ std::vector<double> FishSchoolSearch2::colletiveMoviment(){
   std::vector<double> colMovement;
   double weightSum = calculateWeightSum();
   double aux;
-  double factor = this->gamma * fRand(0, 1);
+  double factor = this->gamma * tools->fRand(0, 1);
 
   for(unsigned int i=0; i < problem->getDimension(); i++) {
     aux = 0;
-    for(unsigned int j=0; j < tamPopulation; j++) {
+    for(int j=0; j < tamPopulation; j++) {
       aux += school->getFish(j)->getWeight() * school->getFish(j)->getIndividualDisplacement()[i];
     }
     colMovement.push_back(factor * aux/weightSum);
@@ -241,7 +242,7 @@ std::vector<double> FishSchoolSearch2::volitiveMoviment(Fish *fish, std::vector<
   std::vector<double> volitiveMoviment;
   std::vector<double> position = fish->getCurrentPosition();
   bool sign = weightVariationSignal();
-  double factor = (this->gamma * fRand(0, 1)) * sign;
+  double factor = (this->gamma * tools->fRand(0, 1)) * sign;
 
   for (int i = 0; i < problem->getDimension(); ++i){
     volitiveMoviment.push_back(factor * (position[i] - barycenter[i]));
@@ -312,11 +313,6 @@ void FishSchoolSearch2::updateGamma(){
   prevCountFish = currCountFish;
 }
 
-double FishSchoolSearch2::fRand(double fMin, double fMax){
-  double f = (double)rand() / RAND_MAX;
-  return fMin + f * (fMax - fMin);
-}
-
 void FishSchoolSearch2::updatePlot(int pos){
   double totalFit = 0;
   double mediaFit = 0;
@@ -329,143 +325,31 @@ void FishSchoolSearch2::updatePlot(int pos){
   populationDiversity[pos] += defaultGenotypicDiversityMeasure();
 }
 
-void FishSchoolSearch2::gnu_plot_convergence(std::vector<double> mean_gen, int m_gen, std::string name, std::string title, std::string y_axis, double max_range){
-
-  FILE *pipe = popen("gnuplot", "w");
-
-  name = space2underscore(name);
-  title = space2underscore(title);
-
-  if (pipe != NULL) {
-    fprintf(pipe,"set terminal postscript eps enhanced color colortext font 'Arial,22'\n");
-    fprintf(pipe,"set key font 'Arial,18'\n");
-    fprintf(pipe,"set encoding iso_8859_1\n");
-    fprintf(pipe,"set xlabel 'Gera{/E \347}{/E \365}es'\n");
-    string output_y_label("set ylabel '" + y_axis + "'\n");
-    fprintf(pipe, "%s", output_y_label.c_str());
-    string output("set output '" + OUTPUT_DIR + name + std::string(".eps") + "'\n");
-    fprintf(pipe, "%s", output.c_str());
-
-    if(max_range){
-      //fprintf(pipe, "set xrange [-1:42]\n");
-      string output_range("set yrange [0:" + to_string(max_range) + "]\n");
-      fprintf(pipe, "%s", output_range.c_str());
-    }
-    fprintf(pipe, "set style line 1 lc rgb 'black' \n");
-    
-    ofstream color1(OUTPUT_DIR + name + ".dataset");
-    for(int k=0; k<m_gen; k++) {
-      color1 << k << " " << mean_gen[k] << endl; 
-    }                  
-
-    color1.close();
-    std::string str_plot = "plot '" + OUTPUT_DIR + name + ".dataset' with lines ls 1 title '" + title + "'\n";
-    fprintf(pipe, "%s", str_plot.c_str());
-
-    fflush(pipe);
-    pclose(pipe);
-  } else{
-    std::cout << "Could not open pipe" << std::endl;
-  }
-}
-
-void FishSchoolSearch2::gnu_plot_convergence_best_mean(std::vector<double> d_data1, std::vector<double> d_data2, int n_lines, std::string title, std::string filename){
-
-  FILE *pipe = popen("gnuplot", "w");
-
-  title = space2underscore(title);
-  filename = space2underscore(filename);
-
-  ofstream melhor_output(OUTPUT_DIR + filename + "_melhor.output");
-  ofstream media_output(OUTPUT_DIR + filename + "_media.output");
-  for(int k=0; k<n_lines; k++) {
-    melhor_output << k << " " << d_data1[k] << endl; 
-    media_output << k << " " << d_data2[k] << endl; 
-  }
-  melhor_output.close();
-  media_output.close();
-
-  if (pipe != NULL) {
-    fprintf(pipe, "set bmargin 7\n");
-    fprintf(pipe, "unset colorbox\n");
-    fprintf(pipe, "set terminal postscript eps enhanced color colortext font 'Arial,22'\n");
-    fprintf(pipe, "set key font 'Arial,18'\n");
-    fprintf(pipe, "set encoding iso_8859_1\n");
-    fprintf(pipe, "set xlabel 'Gera{/E \347}{/E \365}es'\n");
-    fprintf(pipe, "set ylabel 'M{/E \351}dia Fitness'\n");
-    string output("set output '" + OUTPUT_DIR + filename + std::string(".eps") + "'\n");
-    fprintf(pipe, "%s", output.c_str());
-    //fprintf(pipe, "set xrange [-1:42]\n"); // set the terminal
-    //fprintf(pipe, "set yrange [-1:42]\n"); // set the terminal
-    fprintf(pipe, "set style line 1  lc rgb '#B22C2C' dashtype 2 \n");
-    fprintf(pipe, "set style line 2  lc rgb '#0404E9' lt 2 \n");
-    std::string str_title = "set title '" + title + "'\n";
-    fprintf(pipe, "%s", str_title.c_str());
-    std::string str_plot1 = "plot '" + OUTPUT_DIR + filename + "_melhor.output' using 1:2 title 'Melhor' ls 1 lw 5 with lines, ";
-    std::string str_plot2 = "'" + OUTPUT_DIR + filename + "_media.output' using 1:2 title 'M{/E \351}dia' ls 2  lw 3 with lines\n ";
-    fprintf(pipe, "%s", str_plot1.c_str());
-    fprintf(pipe, "%s", str_plot2.c_str());
-
-    fflush(pipe);
-    pclose(pipe);
-  } else{
-    std::cout << "Could not open pipe" << std::endl;
-  }
-}
-
-std::string FishSchoolSearch2::space2underscore(std::string text) {
-  for(std::string::iterator it = text.begin(); it != text.end(); ++it) {
-      if(*it == ' ') {
-          *it = '_';
-      }
-  }
-  return text;
-}
-
 double FishSchoolSearch2::defaultGenotypicDiversityMeasure(){
+  //VARIÁVEIS LOCAIS
   double diversity = 0;
   double aux_1 = 0;
   double aux_2 = 0;
   unsigned short int a = 0;
   unsigned short int b = 0;
   unsigned short int d = 0;
-  for(a = 0; a < tamPopulation; a++)
-  {
-    for(b = (a+1); b < tamPopulation; b++)
-    {
+  for(a = 0; a < tamPopulation; a++){
+    for(b = (a+1); b < tamPopulation; b++){
       aux_1 = 0;
-      for(d = 0; d < problem->getDimension(); d++)
-      {       
+      for(d = 0; d < problem->getDimension(); d++){ //SOMATÓRIO VARIANDO OS GENES ATÉ O NUMERO DE DIMENSÕES
         aux_1 += pow(school->getFish(a)->getCurrentPosition()[d] - school->getFish(b)->getCurrentPosition()[d], 2);
       }
-      if(b == (a+1) || aux_2 > aux_1)
-      {
-        aux_2 = aux_1;
+      aux_1 = sqrt(aux_1); //RAIZ QUADRADA DO RESULTADO DO SOMATÓRIO
+      aux_1 = aux_1 / problem->getDimension(); //DIVIDE RESULTADO PELO NUMERO DE DIMENSÕES
+      if(b == (a+1) || aux_2 > aux_1){
+        aux_2 = aux_1; //ATRIBUI O MENOR RESULTADO A AUX_2
       }
     }
-    diversity += log((double)1.0 + aux_2);  
-  } 
-  if(m_nmdf < diversity)
-  {
+    diversity += log((double)1.0 + aux_2); //CALCULA O LOGARITMO NATURAL DO RESULTADO SOMADO DE UM
+  }
+  //ATRIBUI O RESULTADO A N_NMDF
+  if(m_nmdf < diversity){
     m_nmdf = diversity;
   }
   return diversity / m_nmdf;
-}
-
-double FishSchoolSearch2::standardDeviation(std::vector<double> data){
-  double media = arithmeticAverage(data);
-  double sum1 = 0;
-
-  for (unsigned int i=0; i<data.size(); i++) {
-      sum1 += pow((data[i] - media), 2);
-  }
-  return sqrt(sum1 / (double)(data.size() - 1));
-}
-
-double FishSchoolSearch2::arithmeticAverage(std::vector<double> data){
-  double sum = 0;
-  for (unsigned int i=0; i<data.size(); i++) {
-      sum += data[i];
-  }
-  return (sum / data.size());
 }

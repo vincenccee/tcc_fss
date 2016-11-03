@@ -8,11 +8,14 @@
 // Source: https://github.com/DEAP/deap/blob/master/deap/benchmarks/movingpeaks.py
 #include "../problem.hpp"
 #include "../scenario.hpp"
+#include "../../general_tools.hpp"
 
 using namespace std;
 
 class MovingPeaks: public Problem {
   public:
+    GeneralTools *tools;
+
     MovingPeaks(int dimension, int scenario = 1);
     MovingPeaks();
     ~MovingPeaks();
@@ -34,8 +37,6 @@ class MovingPeaks: public Problem {
     double callFunction(std::vector<double> individual, int pos);
     double maxValue(std::vector<double> values);
     void changePeaks();
-
-    double fRand(double fMin, double fMax);
 
     int count;
     Scenario * scen;

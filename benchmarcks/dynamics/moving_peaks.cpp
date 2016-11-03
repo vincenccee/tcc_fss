@@ -3,6 +3,7 @@
 MovingPeaks::MovingPeaks(int dimension, int scenario){
   this->dimension = dimension;
   this->scen = new Scenario(scenario);
+  this->tools = new GeneralTools();
   initializePeaks();
 }
 
@@ -15,7 +16,7 @@ void MovingPeaks::initializePeaks(){
       peaks_height.push_back(scen->start_height);
   }else{
     for(int i=0; i<scen->npeaks; i++)
-      peaks_height.push_back(fRand(scen->min_height, scen->max_height));
+      peaks_height.push_back(tools->fRand(scen->min_height, scen->max_height));
   }
 
   // set initial width for all peaks 
@@ -24,7 +25,7 @@ void MovingPeaks::initializePeaks(){
       peaks_width.push_back(scen->start_width);
   }else{
     for(int i=0; i<scen->npeaks; i++)
-      peaks_width.push_back(fRand(scen->min_width, scen->max_width));
+      peaks_width.push_back(tools->fRand(scen->min_width, scen->max_width));
   }
 
   // set initial position and last_change_vector for all peaks
@@ -33,8 +34,8 @@ void MovingPeaks::initializePeaks(){
     tmp_pos.clear();
     last_pos.clear();
     for(int j=0; j<this->dimension; j++){
-      tmp_pos.push_back(fRand(scen->min_coord, scen->max_coord));
-      last_pos.push_back(fRand(0,1) - 0.5);
+      tmp_pos.push_back(tools->fRand(scen->min_coord, scen->max_coord));
+      last_pos.push_back(tools->fRand(0,1) - 0.5);
     }
     peaks_position.push_back(tmp_pos);
     last_change_vector.push_back(last_pos);
@@ -146,7 +147,7 @@ void MovingPeaks::changePeaks(){
     final_shift.clear();
 
     for(int i=0; i<this->dimension; i++){
-      shift.push_back(fRand(0,1) - 0.5);
+      shift.push_back(tools->fRand(0,1) - 0.5);
       shift_length += pow(shift[i],2);
     }
     if(shift_length > 0)
@@ -183,7 +184,7 @@ void MovingPeaks::changePeaks(){
     last_change_vector[j] = final_shift;
 
     // changing peaks height
-    change = fRand(0,1) * scen->height_severity;
+    change = tools->fRand(0,1) * scen->height_severity;
     new_value = change + peaks_height[j];
     if(new_value < scen->min_height)
       peaks_height[j] = 2.0 * scen->min_height - peaks_height[j] - change;
@@ -193,7 +194,7 @@ void MovingPeaks::changePeaks(){
       peaks_height[j] = new_value;
 
     // changing peaks width
-    change = fRand(0,1) * scen->width_severity;
+    change = tools->fRand(0,1) * scen->width_severity;
     new_value = change + peaks_width[j];
     if(new_value < scen->min_width)
       peaks_width[j] = 2.0 * scen->min_width - peaks_width[j] - change;
@@ -211,11 +212,6 @@ double MovingPeaks::maxValue(std::vector<double> values){
       result = values[i];
   }
   return result;
-}
-
-double MovingPeaks::fRand(double fMin, double fMax){
-  double f = (double)rand() / RAND_MAX;
-  return fMin + f * (fMax - fMin);
 }
 
 void MovingPeaks::resetProblem() {
